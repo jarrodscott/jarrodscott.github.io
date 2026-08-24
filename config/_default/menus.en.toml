@@ -22,7 +22,7 @@ weight = 40
 [[main]]
 identifier = "github"
 pre = "github"
-url = "https://github.com/jarrodscott/web"
+url = "https://github.com/jarrodscott/jarrodscott.github.io"
 weight = 50
 
 #[[main]]

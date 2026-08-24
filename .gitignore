@@ -5,3 +5,8 @@ public/
 .Ruserdata
 .Rapp.history
 .DS_Store
+/resources/_gen/
+.hugo_cache/
+/public/
+support/
+scripts/
