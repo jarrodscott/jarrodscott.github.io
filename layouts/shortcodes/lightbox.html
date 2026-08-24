@@ -1,0 +1,73 @@
+{{- $src := .Get "src" -}}
+{{- $caption := .Get "caption" -}}
+{{- $gallery := .Get "gallery" -}}
+{{- $ratio := .Get "ratio" -}}
+{{- $showCaptionBelow := .Get "showCaptionBelow" -}}
+{{- $size := .Get "size" | default "130" -}}
+
+<!-- 1. Try to find the resource on the current page context -->
+{{- $matchedResource := .Page.Resources.GetMatch $src -}}
+
+<!-- 2. Fallback: If not found, and we are on a subpage, look up to the parent section bundle -->
+{{- if and (not $matchedResource) .Page.Parent -}}
+  {{- $matchedResource = .Page.Parent.Resources.GetMatch $src -}}
+{{- end -}}
+
+<!-- 3. Verify that we actually found a valid image file -->
+{{- $image := "" -}}
+{{- if and $matchedResource (eq $matchedResource.ResourceType "image") -}}
+  {{- $image = $matchedResource -}}
+{{- end -}}
+
+<!-- 4. Handle paths dynamically depending on whether an internal resource was discovered -->
+{{- $link := "" -}}
+{{- if $image -}}
+  {{- $link = $image.RelPermalink -}}
+{{- else -}}
+  {{- $link = $src | relURL -}}
+{{- end -}}
+
+{{- $thumbSrc := $link -}}
+{{- $thumbHeight := int $size -}}
+
+<!-- If it's a true image resource and a crop ratio is requested, resize it -->
+{{- if and $image $ratio -}}
+  {{- $parts := split $ratio "/" -}}
+  {{- if eq (len $parts) 2 -}}
+    {{- $w := float (index $parts 0) -}}
+    {{- $h := float (index $parts 1) -}}
+    {{- $thumbWidth := int (math.Round (mul (div $w $h) $thumbHeight)) -}}
+    {{- $cropSpec := printf "%dx%d Fill" $thumbWidth $thumbHeight -}}
+    {{- $thumbSrc = ($image.Resize $cropSpec).RelPermalink -}}
+  {{- end -}}
+{{- end -}}
+
+<!-- Process markdown safely without JSON escaping bugs -->
+{{- $captionAttr := "" -}}
+{{- $cleanHTML := "" -}}
+{{- if $caption -}}
+  {{- $cleanHTML = $caption | markdownify -}}
+  {{- $cleanHTML = replace $cleanHTML "'" "'" -}}
+  {{- $captionAttr = printf "data-caption='%s'" $cleanHTML | safeHTMLAttr -}}
+{{- end -}}
+
+<!-- Container to keep the thumbnail and text caption stacked together -->
+<div class="inline-block text-center" style="margin: 3px !important; vertical-align: top;">
+  <a href="{{ $link }}" 
+     data-lightbox="{{ $gallery | default "page-gallery" }}" 
+     {{ $captionAttr }}
+     {{ if strings.HasPrefix $src "http" }}target="_blank" rel="noopener"{{ end }}
+     class="block">
+    <img src="{{ $thumbSrc }}" 
+         {{ if $caption }}alt="{{ $caption | plainify }}"{{ end }} 
+         class="rounded shadow-md cursor-pointer transition transform hover:scale-[1.02]"
+         style="height: {{ $thumbHeight }}px !important; {{ if $ratio }}aspect-ratio: {{ $ratio }} !important; object-fit: cover !important;{{ else }}width: auto !important; max-width: 100% !important; object-fit: contain !important;{{ end }} margin-bottom: 0px !important; margin-top: 0px !important;">
+  </a>
+  
+  <!-- Conditional Text Caption Below -->
+  {{- if and $caption (eq $showCaptionBelow "true") -}}
+    <div class="text-sm text-gray-600 mt-1 max-w-[300px] mx-auto leading-tight break-words">
+      {{ $cleanHTML | safeHTML }}
+    </div>
+  {{- end -}}
+</div>

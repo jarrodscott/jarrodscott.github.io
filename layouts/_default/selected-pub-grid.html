@@ -1,0 +1,221 @@
+{{ define "main" }}
+<article class="max-w-6xl mx-auto py-12 px-4">
+  <!-- Back Link -->
+  <div class="mb-8">
+    <a href="{{ "/about/" | relURL }}" class="text-md text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors inline-flex items-center no-underline">
+      ← Back to Biography
+    </a>
+  </div>
+
+  <header class="mb-12">
+    <h1 class="text-4xl font-light text-neutral-800 dark:text-neutral-200 mb-2">{{ .Title }}</h1>
+    {{ with .Params.description }}<p class="text-neutral-500 dark:text-neutral-400 text-lg">{{ . }}</p>{{ end }}
+  </header>
+
+  <div class="prose dark:prose-invert mb-8">
+    {{ .Content }}
+  </div>
+
+  {{ $myName := .Site.Params.academic_name | default "My Name" }}
+
+  <!-- FETCH ALL CHOSEN PAGES AND GROUP BY YOUR NEW CUSTOM "THEME" FRONT MATTER -->
+  {{ $allPubsSection := .Site.GetPage "section" "publications" }}
+  {{ $selectedPages := where $allPubsSection.Pages ".Params.selected" true }}
+
+  {{ range ($selectedPages.GroupByParam "theme").Reverse }}
+  
+    {{ $themeTitle := .Key | default "General Research" }}
+    
+    <div class="mt-16 theme-group">
+      <!-- THEME SECTION HEADER -->
+      <h2 class="text-2xl font-semibold text-neutral-800 dark:text-neutral-200 border-b border-neutral-300 dark:border-neutral-600 pb-2 mb-8">
+        {{ $themeTitle }}
+      </h2>
+
+      <!-- 3-Column Grid Container -->
+      <div style="display: grid !important; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important; gap: 24px !important;">
+        {{ range .Pages.ByDate.Reverse }}
+        
+        <!-- Card Panel Wrapper -->
+        <div class="flex flex-col dark:bg-neutral-800/40 rounded-xl border border-neutral-200/80 dark:border-neutral-700/70 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+             style="display: flex !important; flex-direction: column !important; justify-content: space-between !important; height: 100% !important;">
+          
+          <!-- BANNER TOP: High-Quality Featured Image Box with Asset Link Overlay -->
+          {{ $img := .Resources.GetMatch "featured*" }}
+          <div class="bg-neutral-100 dark:bg-neutral-800 border-b border-neutral-200/60 dark:border-neutral-700/40"
+               style="position: relative !important; width: 100% !important; padding-top: 60% !important; overflow: hidden !important; flex-shrink: 0 !important;">
+            {{ if $img }}
+              {{ $scaled := $img.Resize "800x" }}
+              <a href="{{ .RelPermalink }}" class="group block no-underline cursor-pointer" 
+                 style="position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; margin: 0 !important; padding: 0 !important;" 
+                 aria-label="Read full article: {{ .Title }}">
+                
+                <!-- Main Background Card Image -->
+                <img src="{{ $scaled.RelPermalink }}" alt="{{ .Title }}" class="m-0 p-0 transition-opacity duration-200" 
+                     style="position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; object-fit: cover !important;" loading="lazy">
+                
+                <!-- Translucent Backdrop and Asset Chain Link Icon -->
+                <div class="absolute inset-0 bg-neutral-900/40 dark:bg-neutral-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                  {{- with resources.Get "icons/link.svg" -}}
+                    <span class="w-16 h-16 text-neutral-200/90 transform -rotate-45 block">
+                      {{ .Content | safeHTML }}
+                    </span>
+                  {{- else -}}
+                    <span class="text-xs text-white uppercase tracking-widest font-semibold">View Link</span>
+                  {{- end -}}
+                </div>
+              </a>
+            {{ else }}
+              <!-- Minimalist Linkable Placeholder Layout if image is missing -->
+              <a href="{{ .RelPermalink }}" class="text-neutral-400 dark:text-neutral-500 hover:text-primary-500 no-underline transition-colors"
+                 style="position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; padding: 16px !important; text-align: center !important;">
+                {{- with resources.Get "icons/document.svg" -}}
+                  <span class="w-8 h-8 opacity-40 mb-1 inline-block align-middle" style="width: 32px; height: 32px;">{{ .Content | safeHTML }}</span>
+                {{- end -}}
+                <span class="text-xs uppercase tracking-wider font-semibold opacity-50 block w-full text-center">Publication</span>
+              </a>
+            {{ end }}
+          </div>
+
+
+          <!-- CONTENT LOWER: Text Details Container -->
+          <div class="p-5 flex-grow" style="display: flex !important; flex-direction: column !important; justify-content: space-between !important; height: 100% !important;">
+            <div>
+              <!-- Publication Type Badge Row -->
+              {{ with .Params.publication_type }}
+                <div class="mb-2">
+                  <span class="text-xs font-bold uppercase tracking-wider bg-primary-100 text-primary-800 dark:bg-primary-900/60 dark:text-primary-300 px-2 py-0.5 rounded-md">
+                    {{ . }}
+                  </span>
+                </div>
+              {{ end }}
+
+              <!-- Title Linked to Single Template View -->
+              <h3 class="text-lg font-normal text-neutral-800 dark:text-neutral-100 mb-2 leading-snug mt-0 line-clamp-3">
+                <a href="{{ .RelPermalink }}" class="hover:text-primary-500 dark:hover:text-primary-400 no-underline transition-colors duration-200">
+                  {{ .Title }}
+                </a>
+              </h3>
+
+              <!-- Authors & Venue Layout (Fixed precise string spacing rules) -->
+              <div class="text-sm text-neutral-600 dark:text-neutral-300 mb-3 leading-relaxed">
+                <span class="font-medium">
+                  {{- if reflect.IsSlice .Params.authors -}}
+                    {{- $totalAuthors := len .Params.authors -}}
+                    {{- range $index, $author := .Params.authors -}}
+                      {{- if gt $index 0 -}}
+                        {{- if eq (add $index 1) $totalAuthors -}}, and {{ else }}, {{ end -}}
+                      {{- end -}}
+                      {{- $isMe := eq $author $myName -}}
+                      <span class="{{ if $isMe }}font-bold underline decoration-primary-500 decoration-2 text-neutral-950 dark:text-primary-400{{ end }}">{{ $author }}</span>
+                    {{- end -}}.
+                  {{- else -}}
+                    {{- .Params.authors -}}
+                  {{- end -}}
+                </span>
+
+                {{ if reflect.IsMap .Params.publication }}
+                  {{ with .Params.publication.name }} <span class="italic text-neutral-700 dark:text-neutral-300">{{ . }}</span>{{ end }}
+                {{ else }}
+                  {{ with .Params.publication }} <span class="italic text-neutral-700 dark:text-neutral-300">{{ . }}</span>{{ end }}
+                {{ end }}
+                
+                {{ if .Date }}<span> ({{ .Date.Format "2006" }}).</span>{{ end }}
+              </div>
+
+              <!-- Abstract Short Summary Excerpt Panel -->
+              {{ with .Params.abstract }}
+                <div class="text-sm text-neutral-500 dark:text-neutral-400 line-clamp-3 font-serif leading-relaxed mb-4">
+                  {{ . | plainify | truncate 110 }}
+                </div>
+              {{ end }}
+            </div>
+
+            <!-- Bottom Action Buttons Layout Row (Fixed missing icon layouts) -->
+            <div class="text-sm flex flex-wrap items-center pt-3 border-t border-neutral-100 dark:border-neutral-700/60 mt-auto text-[11px] font-semibold uppercase tracking-wider" style="gap: 12px;">
+              <!-- PDF Button -->
+              {{ $pdf := .Resources.GetMatch "*.pdf" }}
+              {{ if or $pdf .Params.url_pdf }}
+                {{ $pdf_url := "" }}{{ if $pdf }}{{ $pdf_url = $pdf.RelPermalink }}{{ else }}{{ $pdf_url = .Params.url_pdf }}{{ end }}
+                <a href="{{ $pdf_url }}" target="_blank" class="inline-flex items-center no-underline text-neutral-500 hover:text-primary-500 dark:text-neutral-400 dark:hover:text-primary-400 gap-1.5">
+                  {{- with resources.Get "icons/pdf.svg" -}}
+                    <span class="inline-block align-middle opacity-70" style="width: 14px; height: 14px; display: inline-flex; align-items: center;">{{ .Content | safeHTML }}</span>
+                  {{- end -}}
+                  PDF
+                </a>
+              {{ end }}
+
+              <!-- CITE Button -->
+              {{ $bib := .Resources.GetMatch "cite.bib" }}
+              {{ if $bib }}
+                <button onclick="copyBibTeX(this)" data-bibtex="{{ $bib.Content | htmlEscape }}" class="inline-flex items-center text-neutral-500 hover:text-primary-500 dark:text-neutral-400 dark:hover:text-primary-400 gap-1.5 font-semibold">
+                  {{- with resources.Get "icons/cite.bib.svg" -}}
+                    <span class="inline-block align-middle opacity-70" style="width: 14px; height: 14px; display: inline-flex; align-items: center;">{{ .Content | safeHTML }}</span>
+                  {{- end -}}
+                  <span class="cite-text">Cite</span>
+                </button>
+              {{ end }}
+
+              <!-- DOI Button -->
+              {{ $doi_url := "" }}
+              {{ with .Params.doi }}{{ $doi_url = print "https://doi.org/" . }}{{ else }}{{ with .Params.url_doi }}{{ $doi_url = . }}{{ end }}{{ end }}
+              {{ if $doi_url }}
+                <a href="{{ $doi_url }}" target="_blank" class="inline-flex items-center no-underline text-neutral-500 hover:text-primary-500 dark:text-neutral-400 dark:hover:text-primary-400 gap-1.5">
+                  {{- with resources.Get "icons/doi.svg" -}}
+                    <span class="inline-block align-middle opacity-70" style="width: 14px; height: 14px; display: inline-flex; align-items: center;">{{ .Content | safeHTML }}</span>
+                  {{- end -}}
+                  DOI
+                </a>
+              {{ end }}
+
+              <!-- CODE Button -->
+              {{ with .Params.url_code }}
+                <a href="{{ . }}" target="_blank" class="inline-flex items-center no-underline text-neutral-500 hover:text-primary-500 dark:text-neutral-400 dark:hover:text-primary-400 gap-1.5">
+                  {{- with resources.Get "icons/code.svg" -}}
+                    <span class="inline-block align-middle opacity-70" style="width: 14px; height: 14px; display: inline-flex; align-items: center;">{{ .Content | safeHTML }}</span>
+                  {{- end -}}
+                  Code
+                </a>
+              {{ end }}
+
+              <!-- DATASET Button -->
+              {{ with .Params.url_dataset }}
+                <a href="{{ . }}" target="_blank" class="inline-flex items-center no-underline text-neutral-500 hover:text-primary-500 dark:text-neutral-400 dark:hover:text-primary-400 gap-1.5">
+                  {{- with resources.Get "icons/database.svg" -}}
+                    <span class="inline-block align-middle opacity-70" style="width: 14px; height: 14px; display: inline-flex; align-items: center;">{{ .Content | safeHTML }}</span>
+                  {{- end -}}
+                  Data
+                </a>
+              {{ end }}
+
+            </div>
+
+          </div>
+        </div>
+        
+        {{ end }}
+      </div>
+    </div>
+  {{ end }}
+</article>
+
+<script>
+function copyBibTeX(button) {
+  const encodedBib = button.getAttribute('data-bibtex');
+  if (!encodedBib) return;
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(encodedBib, 'text/html');
+  const bibtex = doc.documentElement.textContent;
+  const textLabel = button.querySelector('.cite-text');    
+    navigator.clipboard.writeText(bibtex).then(() => {
+      const originalText = textLabel.textContent;
+      textLabel.textContent = 'COPIED!';
+      button.classList.add('text-emerald-600', 'dark:text-emerald-400');
+      setTimeout(() => { 
+        textLabel.textContent = originalText; 
+        button.classList.remove('text-emerald-600', 'dark:text-emerald-400');
+      }, 2000);
+    }).catch(err => { console.error('Clipboard copy failed: ', err); });
+  }
+  </script>
+  {{ end }}

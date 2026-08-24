@@ -1,0 +1,10 @@
+{{- $title := .Get "title" -}}
+
+<div class="my-4">
+  {{- if $title -}}
+    <h3 class="text-xl font-bold text-gray-800 mb-2 mt-0">{{ $title }}</h3>
+  {{- end -}}
+  <div class="flex flex-wrap justify-start items-center" style="gap: 6px !important;">
+    {{ .Inner }}
+  </div>
+</div>

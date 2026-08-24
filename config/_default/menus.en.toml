@@ -1,0 +1,37 @@
+[[main]]
+name = "About"
+pageRef = "about"
+weight = 5
+
+[[main]]
+name = "Posts"
+pageRef = "posts"
+weight = 10
+
+#[[main]]
+#name = "Tags"
+#pageRef = "tags"
+#weight = 20
+
+[[main]]
+identifier = "web"
+pre = "link"
+url = "https://jarrodscott.github.io/"
+weight = 40
+
+[[main]]
+identifier = "github"
+pre = "github"
+url = "https://github.com/jarrodscott/web"
+weight = 50
+
+#[[main]]
+#identifier = "twitter"
+#pre = "twitter"
+#url = "https://twitter.com/burufugu"
+#weight = 60
+
+#[[footer]]
+#name = "Tags"
+#pageRef = "tags"
+#weight = 1

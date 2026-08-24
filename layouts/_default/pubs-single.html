@@ -1,0 +1,339 @@
+{{ define "main" }}
+<!-- Changed max-w-4xl to max-w-5xl for a slightly wider layout -->
+<article class="max-w-5xl mx-auto py-12 px-4"> 
+  
+  <!-- Back to Publications Link -->
+  <div class="mb-8">
+    <a href="{{ "/publications/" | relURL }}" class="text-md text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors inline-flex items-center no-underline">
+      ← Back to Publications
+    </a>
+  </div>
+
+  <header class="mb-8">
+    <!-- Title -->
+    <h1 class="text-3xl sm:text-4xl font-light text-neutral-800 dark:text-neutral-200 mb-4 leading-snug">
+      {{ .Title }}
+    </h1>
+
+    <!-- Citation Header Block -->
+    <div class="text-neutral-600 dark:text-neutral-400 text-base leading-relaxed">
+      <!-- Authors List -->
+      <span class="font-medium">
+        {{- if reflect.IsSlice .Params.authors -}}
+          {{- range $index, $author := .Params.authors -}}
+            {{- if gt $index 0 -}}, {{ end -}}
+            {{- $myName := $.Site.Params.academic_name | default "My Name" -}}
+            <span class="{{ if eq $author $myName }}font-bold underline decoration-primary-500 decoration-2 text-neutral-950 dark:text-primary-400{{ end }}">{{ $author }}</span>
+            
+          {{- end -}}
+        {{- else -}}
+          {{- .Params.authors -}}
+        {{- end -}}
+      </span>
+
+      <!-- Date -->
+      {{ if .Date }}<span>({{ .Date.Format "2006" }}).</span>{{ end }}
+
+      <!-- Publication Venue Details -->
+      {{ if reflect.IsMap .Params.publication }}
+        {{ with .Params.publication.name }}<span class="italic">{{ . }}</span>{{ end -}}
+        {{- with .Params.publication.volume }}, <span class="font-medium">{{ . }}</span>{{ end -}}
+        {{- with .Params.publication.issue }}({{ . }}){{ end -}}
+        {{- with .Params.publication.pages }}, {{ . }}{{ end }}.
+      {{ else }}
+        {{ with .Params.publication }}<span class="italic">{{ . }}.</span>{{ end }}
+      {{ end }}
+    </div>
+  </header>
+
+  <!-- DOI / External Identifiers Quick Metrics Bar -->
+  {{ $doi_url := "" }}
+  {{ with .Params.doi }}{{ $doi_url = print "https://doi.org/" . }}{{ else }}{{ with .Params.url_doi }}{{ $doi_url = . }}{{ end }}{{ end }}
+  {{ $bib := .Resources.GetMatch "cite.bib" }}
+
+  {{ if or $doi_url .Params.open_access $bib .Params.url_code }}
+  <!-- Standardized, Uniform Flat Minimalist Toolbar Container -->
+  <div class="flex flex-wrap items-center pb-6 mb-8 border-b border-neutral-200 dark:border-neutral-700" style="gap: 12px 24px !important;">
+    
+    <!-- CENTRALIZED TOOLBAR STYLE ARCHITECTURE: THEME RESPONSIVE & PERFECT ALIGNMENT -->
+    <style>
+      .pub-toolbar-item {
+        display: inline-flex !important;
+        align-items: center !important;
+        vertical-align: middle !important;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+        font-weight: 500 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.05em !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border: none !important;
+        cursor: pointer !important;
+        outline: none !important;
+        box-shadow: none !important;
+        text-decoration: none !important;
+        transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+        
+        /* Dynamic Theme Colors (Inherits from your text-neutral utilities) */
+        font-size: 0.875rem !important; 
+        color: inherit !important; 
+        opacity: 0.75; /* Blends nicely with existing theme text */
+      }
+
+      /* Global Hover Transitions linking directly to your theme primary variables */
+      .pub-toolbar-item:hover, 
+      .pub-toolbar-item:hover * {
+        opacity: 1;
+        color: rgb(var(--color-primary-500, 59, 130, 246)) !important;
+      }
+      .dark .pub-toolbar-item:hover, 
+      .dark .pub-toolbar-item:hover * {
+        opacity: 1;
+        color: rgb(var(--color-primary-400, 96, 165, 250)) !important;
+      }
+
+      /* Fixes Icon Baseline issues by forcing inline-flex block mechanics */
+      .pub-toolbar-icon {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 14px !important;
+        height: 14px !important;
+        min-width: 14px !important;
+        min-height: 14px !important;
+        margin-right: 6px !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+      }
+      .pub-toolbar-icon svg { 
+        width: 14px !important; 
+        height: 14px !important; 
+        display: block !important; 
+      }
+      .pub-toolbar-icon svg path, .pub-toolbar-icon svg circle { 
+        fill: currentColor !important; 
+      }
+    </style>
+    
+    <!-- DOI -->
+    {{ if $doi_url }}
+      <div class="pub-toolbar-item text-neutral-500 dark:text-neutral-400">
+        <span class="text-neutral-400 dark:text-neutral-500" style="margin-right: 6px; user-select: none;">DOI:</span>
+        <a href="{{ $doi_url }}" target="_blank" style="color: inherit !important; text-decoration: underline !important;">
+          {{ if .Params.doi }}{{ .Params.doi }}{{ else }}Link{{ end }}
+        </a>
+      </div>
+    {{ end }}
+    
+    <!-- Open Access -->
+    {{ if eq .Params.open_access true }}
+      <div class="pub-toolbar-item text-neutral-500 dark:text-neutral-400">
+        {{- with resources.Get "icons/open-access.svg" -}}
+          <span class="pub-toolbar-icon">{{ .Content | safeHTML }}</span>
+        {{- end -}}
+        <span>Open Access</span>
+        {{ with .Params.license }}
+          <span class="text-neutral-400 dark:text-neutral-500" style="font-weight: 400 !important; text-transform: none !important; letter-spacing: normal !important; margin-left: 4px;">
+            ({{ . }})
+          </span>
+        {{ end }}
+      </div>
+    {{ end }}
+
+    <!-- CODE -->
+    {{ with .Params.url_code }}
+      <a href="{{ . }}" target="_blank" class="pub-toolbar-item text-neutral-500 dark:text-neutral-400">
+        {{- with resources.Get "icons/code.svg" -}}
+          <span class="pub-toolbar-icon">{{ .Content | safeHTML }}</span>
+        {{- end -}}
+        <span>Code</span>
+      </a>
+    {{ end }}
+
+    <!-- DATASET -->
+    {{ with .Params.url_dataset }}
+      <a href="{{ . }}" target="_blank" class="pub-toolbar-item text-neutral-500 dark:text-neutral-400">
+        {{- with resources.Get "icons/database.svg" -}}
+          <span class="pub-toolbar-icon">{{ .Content | safeHTML }}</span>
+        {{- end -}}
+        <span>Dataset</span>
+      </a>
+    {{ end }}
+
+    <!-- CITE -->
+    {{ if $bib }}
+      <button onclick="copyBibTeX(this)" data-bibtex="{{ $bib.Content | htmlEscape }}" class="pub-toolbar-item text-neutral-500 dark:text-neutral-400">
+        {{- with resources.Get "icons/cite.bib.svg" -}}
+          <span class="pub-toolbar-icon">{{ .Content | safeHTML }}</span>
+        {{- end -}}
+        <span class="cite-text">Get Citation</span>
+      </button>
+    {{ end }}
+
+  </div>
+  {{ end }}
+
+  <!-- Abstract Section: Two-Column Layout with Working Script Placeholder Badges -->
+  <section class="mb-12 border-b border-neutral-200 dark:border-neutral-700 pb-12" 
+           style="display: flex !important; flex-direction: row !important; align-items: flex-start !important; gap: 32px !important; text-align: left !important;">
+    
+    <!-- Left Column: Title & Vertical Badges -->
+    <div style="width: 20% !important; min-width: 130px !important; flex-shrink: 0 !important; margin: 0 !important; display: flex !important; flex-direction: column !important; gap: 16px !important;">
+      
+      <!-- Section Title -->
+      <h2 class="c font-bold text-neutral-800 dark:text-neutral-200 uppercase tracking-widest" style="margin: 0 !important;">
+        Abstract
+      </h2>
+
+      <!-- Dynamic Identifier Parsing -->
+      {{ $doi := .Params.doi | default .Params.url_doi }}
+      {{ if $doi }}
+        {{ $clean_doi := replace $doi "https://doi.org/" "" }}
+        
+        <!-- Badge 1: Your Original Working Dimensions Placeholder -->
+        <div style="display: block !important; margin: 0 !important; padding: 0 !important; min-height: 40px;">
+          <span class="__dimensions_badge_embed__" 
+                data-doi="{{ $clean_doi }}" 
+                data-style="medium_circle" 
+                data-legend="hover-right">
+          </span>
+        </div>
+
+        <!-- Badge 2: Official Altmetric Script Placeholder -->
+        <div style="display: block !important; margin: 0 !important; padding: 0 !important; min-height: 54px;">
+          <div class="altmetric-embed" 
+               data-badge-type="medium-donut" 
+               data-badge-popover="right" 
+               data-hide-no-mentions="true" 
+               data-doi="{{ $clean_doi }}">
+          </div>
+        </div>
+      {{ end }}
+
+    </div>
+
+    <!-- Right Column: Main Abstract Text Box -->
+    <div class="text-md prose dark:prose-invert max-w-none text-neutral-700 dark:text-neutral-300 leading-relaxed font-serif" 
+         style="width: 80% !important; flex-grow: 1 !important; margin: 0 !important; text-align: left !important;">
+      {{ .Params.abstract | markdownify }}
+    </div>
+
+  </section>
+
+  <!-- Full Manuscript Large Layout Breakout Frame -->
+  {{ $pdf := .Resources.GetMatch "*.pdf" }}
+  {{ if not $pdf }}
+    {{ with .Resources.ByType "pdf" }}
+      {{ $pdf = index . 0 }}
+    {{ end }}
+  {{ end }}
+
+  {{ if or $pdf .Params.url_pdf }}
+    {{ $pdf_url := "" }}
+    {{ if $pdf }}
+      {{ $pdf_url = $pdf.RelPermalink }}
+    {{ else }}
+      {{ $pdf_url = .Params.url_pdf | relURL }}
+    {{ end }}
+    
+    <section class="mt-12 border-t border-neutral-200 dark:border-neutral-700 pt-8 w-full">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-md font-semibold text-neutral-800 dark:text-neutral-200 uppercase tracking-wider">Full Manuscript</h2>
+        <a href="{{ $pdf_url }}" target="_blank" download class="text-md bg-neutral-100 hover:bg-primary-500 hover:text-white dark:bg-neutral-800 dark:hover:bg-primary-600 text-neutral-700 dark:text-neutral-300 font-medium py-1.5 px-3 rounded transition-colors no-underline">
+          Download PDF
+        </a>
+      </div>
+      
+      <!-- Big Breakout Viewer using direct height overrides -->
+      <div class="block w-full max-w-5xl mx-auto border border-neutral-200 dark:border-neutral-700 rounded shadow-inner overflow-hidden bg-neutral-100 dark:bg-neutral-900" 
+           style="height: 80vh !important; min-height: 700px !important;">
+        <object data="{{ $pdf_url }}" type="application/pdf" class="w-full h-full">
+          <embed src="{{ $pdf_url }}" type="application/pdf" class="w-full h-full" />
+          <p class="p-6 text-center text-sm text-neutral-500">
+            Your browser does not natively support embedded PDFs. 
+            <a href="{{ $pdf_url }}" class="text-primary-500 underline">Click here to download and view the file directly</a>.
+          </p>
+        </object>
+      </div>
+    </section>
+  {{ end }}
+
+  <!-- Chronological Next/Previous Footer Navigation Panel -->
+  <nav class="mt-16 pt-8 border-t border-neutral-200 dark:border-neutral-700 max-w-5xl mx-auto">
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-medium">
+      
+      <!-- Older Publication Link -->
+      <div class="flex flex-col items-start">
+        {{ with .PrevInSection }}
+          <span class="text-xs uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-1 select-none">
+            ← Older Publication
+          </span>
+          <a href="{{ .RelPermalink }}" class="text-neutral-700 dark:text-neutral-300 hover:text-primary-500 transition-colors line-clamp-2 no-underline text-left leading-snug">
+            {{ .Title }}
+          </a>
+        {{ end }}
+      </div>
+
+      <!-- Newer Publication Link -->
+      <!-- <div class="flex flex-col items-end sm:text-right mt-4 sm:mt-0"> -->
+      <div class="flex flex-col items-end sm:text-right sm:mt-0">
+        {{ with .NextInSection }}
+          <span class="text-xs uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-1 select-none">
+            Newer Publication →
+          </span>
+          <a href="{{ .RelPermalink }}" class="text-neutral-700 dark:text-neutral-300 hover:text-primary-500 transition-colors line-clamp-2 no-underline text-right leading-snug">
+            {{ .Title }}
+          </a>
+        {{ end }}
+      </div>
+
+    </div>
+  </nav>
+
+</article>
+
+<!-- Clipboard CITE Management Script -->
+<script>
+function copyBibTeX(button) {
+  const encodedBib = button.getAttribute('data-bibtex');
+  if (!encodedBib) return;
+  
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(encodedBib, 'text/html');
+  const bibtex = doc.documentElement.textContent;
+  
+  const textLabel = button.querySelector('.cite-text');
+  const originalText = textLabel.textContent;
+  
+  navigator.clipboard.writeText(bibtex).then(() => {
+    textLabel.textContent = 'COPIED!';
+    button.classList.add('text-emerald-600', 'dark:text-emerald-400');
+    
+    setTimeout(() => {
+      textLabel.textContent = originalText;
+      button.classList.remove('text-emerald-600', 'dark:text-emerald-400');
+    }, 2000);
+  }).catch(err => {
+    console.error('Clipboard copy failed: ', err);
+  });
+}
+</script>
+<!-- Load and Initialize Dimensions Citation Badge Engine -->
+<script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script>
+<script>
+  // Forces a manual parsing re-check after the page elements have settled
+  document.addEventListener("DOMContentLoaded", function() {
+    if (window.__dimensions_embed && typeof window.__dimensions_embed.init === 'function') {
+      window.__dimensions_embed.init();
+    }
+  });
+</script>
+<!-- Load Altmetric Embed Engine -->
+
+<!-- <script type='text/javascript' src='https://embed.altmetric.com/assets/embed.js'></script> -->
+
+<script type='text/javascript' src='https://embed.altmetric.com/assets/altmetric_badges-3dcf1358caca595ec0bfccb98c6a4e0246f1d27cd56715e5150c508aa827efbd.js'></script>
+
+{{ end }}

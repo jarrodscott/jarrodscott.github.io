@@ -1,0 +1,147 @@
+{{ define "main" }}
+  <!-- Outer utility class allows the content container to slide out to 1280px on desktop -->
+  <article class="max-w-full">
+    <!-- Back to Biography Link -->
+  <div class="mb-8">
+    <a href="{{ "/about/" | relURL }}" class="text-md text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors inline-flex items-center no-underline">
+      ← Back to Biography
+    </a>
+  </div>
+
+<!-- BEGIN banner -->
+{{ $image := resources.Get "images/feature.png" }}
+{{ if $image }}
+
+  <!-- 1. Pull settings from Markdown, or use safe fallbacks -->
+  {{ $height := .Params.bannerHeight | default "400" }}
+  {{ $focus := .Params.bannerFocus | default "Center" }}
+
+  <!-- 2. Combine them into a Hugo Fill string (e.g., "1600x350 Top") -->
+  {{ $cropCommand := printf "1600x%s %s" $height $focus }}
+  {{ $croppedImage := $image.Fill $cropCommand }}
+  
+  <!-- 3. Render the banner -->
+  <div class="w-full overflow-hidden my-6 py-8">
+    <img 
+      src="{{ $croppedImage.RelPermalink }}" 
+      width="{{ $croppedImage.Width }}" 
+      height="{{ $croppedImage.Height }}"
+      alt="Page Banner" 
+      class="w-full h-auto rounded-xl shadow-md object-cover"
+    >
+  </div>
+
+{{ end }}
+
+<!-- END banner -->    
+    <!-- Header wrapper mirroring standard spacing -->
+    <header class="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"
+            style="max-width: 1280px !important;">
+      {{ if .Params.showBreadcrumbs | default (.Site.Params.article.showBreadcrumbs | default false) }}
+        {{ partial "breadcrumbs.html" . }}
+      {{ end }}
+      <h1 class="mt-0 text-2xl font-bold text-neutral-900 dark:text-neutral">
+        {{ .Title | emojify }}
+      </h1>
+    </header>
+
+    <!-- Side-by-Side Flex Layout with styling overrides to force horizontal display -->
+    <!-- Responsive Content Wrapper -->
+    <section class="mt-6 px-4 sm:px-6 lg:px-8 mx-auto custom-responsive-layout">
+      
+      <!-- Localized CSS managing mobile stacking vs desktop columns -->
+      <style type="text/css">
+        /* Mobile Default (Stacked Layout) */
+        .custom-responsive-layout {
+          width: 100% !important;
+          max-width: 850px !important;
+          display: flex !important;
+          flex-direction: column-reverse !important; /* Content first, TOC on top */
+          gap: 24px !important;
+        }
+        .custom-toc-aside {
+          width: 100% !important;
+          display: block !important;
+          margin-bottom: 12px;
+        }
+        .custom-content-area {
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+
+        /* Desktop Mode Override (Side-by-Side Floating Columns) */
+        @media (min-width: 1024px) {
+          .custom-responsive-layout {
+            max-width: 1280px !important;
+            flex-direction: row !important; /* Side by side */
+            gap: 24px !important;
+            align-items: start !important;
+          }
+          .custom-content-area {
+            flex: 1 1 600px !important;
+            max-width: 850px !important;
+          }
+          .custom-toc-aside {
+            flex: 0 0 200px !important;
+            width: 200px !important;
+            position: sticky !important;
+            top: 120px !important;
+            margin-bottom: 0 !important;
+          }
+        }
+
+        /* 🟢 FIX: TOC Link Hover Styles using Blowfish Core CSS Variables */
+        .custom-toc-box a {
+          color: inherit !important;
+          transition: color 0.15s ease-in-out !important;
+          text-decoration: none !important;
+        }
+        
+        /* Light mode hover state */
+        .custom-toc-box a:hover {
+          color: rgb(var(--color-primary-500)) !important;
+        }
+        
+        /* Dark mode hover state */
+        .dark .custom-toc-box a:hover {
+          color: rgb(var(--color-primary-400)) !important;
+        }
+
+        /* Center Article Body Headings */
+        .custom-content-area h1,
+        .custom-content-area h2 {
+          text-align: center !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+      </style>
+
+      
+      <!-- Main Text Content Area -->
+      <div class="prose dark:prose-invert custom-content-area ">
+        {{ .Content }}
+      </div>
+
+      <!-- Table of Contents Area -->
+      <aside class="non-prose custom-toc-aside">
+        <div class="p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 custom-toc-box">
+          <h2 class="text-sm font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 mb-3">
+            On this page
+          </h2>
+          <div class="text-sm text-neutral-900 dark:text-neutral-100 [&>nav>ul]:list-none [&>nav>ul]:p-0 [&_li]:my-1.5">
+            {{ .TableOfContents }}
+          </div>
+        </div>
+      </aside>
+
+    </section>
+
+
+    <!-- Footer wrapper mirroring standard theme structure -->
+    <footer class="pt-8 w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"
+            style="max-width: 1280px !important;">
+      {{ partial "sharing-links.html" . }}
+    </footer>
+
+  </article>
+{{ end }}

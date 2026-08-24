@@ -1,0 +1,7 @@
+{{- $src := .Destination -}}
+{{- $alt := .Text -}}
+{{- $title := .Title -}}
+
+<a href="{{ $src | safeURL }}" data-lightbox="post-gallery" data-title="{{ $title | default $alt }}">
+  <img src="{{ $src | safeURL }}" alt="{{ $alt }}" {{ with $title }}title="{{ . }}"{{ end }} class="mx-auto my-2 rounded-lg" loading="lazy" />
+</a>

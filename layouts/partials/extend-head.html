@@ -1,0 +1,30 @@
+<!-- layouts/partials/extend-head.html -->
+{{ $lightboxCss := resources.Get "css/lightbox3.css" }}
+{{ if $lightboxCss }}
+  <link rel="stylesheet" href="{{ $lightboxCss.RelPermalink }}">
+{{ end }}
+
+{{ $customCss := resources.Get "css/custom.css" }}
+{{ if $customCss }}
+  <link rel="stylesheet" href="{{ $customCss.RelPermalink }}">
+{{ end }}
+
+<!-- Embedded raw un-edited text data containers -->
+{{ with resources.Get "css/schemes/autumn.css" }}<div class="raw-scheme-data" data-scheme="autumn" data-css="{{ .Content }}"></div>{{ end }}
+{{ with resources.Get "css/schemes/avocado.css" }}<div class="raw-scheme-data" data-scheme="avocado" data-css="{{ .Content }}"></div>{{ end }}
+{{ with resources.Get "css/schemes/bloody.css" }}<div class="raw-scheme-data" data-scheme="bloody" data-css="{{ .Content }}"></div>{{ end }}
+{{ with resources.Get "css/schemes/blowfish.css" }}<div class="raw-scheme-data" data-scheme="blowfish" data-css="{{ .Content }}"></div>{{ end }}
+{{ with resources.Get "css/schemes/congo.css" }}<div class="raw-scheme-data" data-scheme="congo" data-css="{{ .Content }}"></div>{{ end }}
+{{ with resources.Get "css/schemes/fire.css" }}<div class="raw-scheme-data" data-scheme="fire" data-css="{{ .Content }}"></div>{{ end }}
+{{ with resources.Get "css/schemes/forest.css" }}<div class="raw-scheme-data" data-scheme="forest" data-css="{{ .Content }}"></div>{{ end }}
+{{ with resources.Get "css/schemes/github.css" }}<div class="raw-scheme-data" data-scheme="github" data-css="{{ .Content }}"></div>{{ end }}
+{{ with resources.Get "css/schemes/marvel.css" }}<div class="raw-scheme-data" data-scheme="marvel" data-css="{{ .Content }}"></div>{{ end }}
+{{ with resources.Get "css/schemes/neon.css" }}<div class="raw-scheme-data" data-scheme="neon" data-css="{{ .Content }}"></div>{{ end }}
+{{ with resources.Get "css/schemes/noir.css" }}<div class="raw-scheme-data" data-scheme="noir" data-css="{{ .Content }}"></div>{{ end }}
+{{ with resources.Get "css/schemes/ocean.css" }}<div class="raw-scheme-data" data-scheme="ocean" data-css="{{ .Content }}"></div>{{ end }}
+{{ with resources.Get "css/schemes/one-light.css" }}<div class="raw-scheme-data" data-scheme="one-light" data-css="{{ .Content }}"></div>{{ end }}
+{{ with resources.Get "css/schemes/princess.css" }}<div class="raw-scheme-data" data-scheme="princess" data-css="{{ .Content }}"></div>{{ end }}
+{{ with resources.Get "css/schemes/slate.css" }}<div class="raw-scheme-data" data-scheme="slate" data-css="{{ .Content }}"></div>{{ end }}
+{{ with resources.Get "css/schemes/terminal.css" }}<div class="raw-scheme-data" data-scheme="terminal" data-css="{{ .Content }}"></div>{{ end }}
+
+

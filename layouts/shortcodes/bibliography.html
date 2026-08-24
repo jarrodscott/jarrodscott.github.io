@@ -1,0 +1,39 @@
+<div class="bibliography-section text-sm" style="margin-top: 2rem; border-top: 1px solid var(--neutral-300); padding-top: 1rem;">
+  <h3 class="text-2xl font-bold mb-2">References</h3>
+  <ol class="bibliography-list list-decimal pl-5">
+    {{- $citedKeys := .Page.Scratch.Get "cited_keys" -}}
+    {{- range .Site.Data.references -}}
+      {{- if index $citedKeys .id -}}
+        <li id="bib-{{ .id }}" class="mb-2 leading-relaxed text-neutral-600 dark:text-neutral-300">
+          <strong>
+            {{- range $index, $auth := .author -}}
+              {{- if $index -}}, {{ end -}}{{ $auth.family }}, {{ substr $auth.given 0 1 }}.
+            {{- end -}}
+          </strong> 
+          ({{ index (index (index . "issued" "date-parts") 0) 0 }}). 
+          <em>{{ .title }}</em>. 
+          
+          {{- /* Journal/Container Title */ -}}
+          {{ if isset . "container-title" }} {{ index . "container-title" }}{{ if or (isset . "volume") (isset . "page") }},{{ else }}.{{ end }}{{ end }}
+          
+          {{- /* Volume and Issue: Volume (Issue) */ -}}
+          {{ if isset . "volume" }} <strong>{{ .volume }}</strong>{{ if isset . "issue" }}({{ .issue }}){{ end }}{{ if isset . "page" }}:{{ else }}.{{ end }}{{ end }}
+          
+          {{- /* Page Numbers */ -}}
+          {{ if isset . "page" }} {{ .page }}.{{ end }}
+          
+          {{- /* Fixed DOI URL structure (Removes duplicated prefix string matching error) */ -}}
+          {{ if isset . "DOI" }}
+            {{- $doiClean := .DOI -}}
+            {{- if hasPrefix $doiClean "https://doi.org/" -}}
+              {{- $doiClean = strings.TrimPrefix "https://doi.org/" $doiClean -}}
+            {{- end -}}
+            <a href="https://doi.org/{{ $doiClean }}" target="_blank" rel="noopener noreferrer" class="text-primary-600 dark:text-primary-400 hover:underline ml-1">
+              https://doi.org/{{ $doiClean }}
+            </a>
+          {{ end }}
+        </li>
+      {{- end -}}
+    {{- end -}}
+  </ol>
+</div>

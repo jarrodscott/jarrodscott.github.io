@@ -1,0 +1,20 @@
+{{ $orig := . }}
+{{ $c := . }}
+{{ range findRE `(?s)<li id="fn:[^"]+">.*?</li>` $c }}
+  {{ $id := index (findRE `fn:[^"]+` .) 0 }}
+  {{ $num := strings.TrimPrefix "fn:" $id }}
+  {{/* Inner HTML of the footnote, minus the ↩︎ backref links */}}
+  {{ $html := replaceRE `(?s)^<li[^>]*>(.*)</li>$` "$1" . }}
+  {{ $html = replaceRE `(?s)<a href="#fnref[^>]*>.*?</a>` "" $html }}
+  {{/* Unwrap <p> — block elements can't live inside the article's paragraph */}}
+  {{ $html = replaceRE `(?s)</p>\s*<p>` "<br><br>" $html }}
+  {{ $html = replaceRE `</?p>` "" $html }}
+  {{ $html = strings.TrimSpace $html }}
+  {{ $needle := printf `<a href="#%s" class="footnote-ref" role="doc-noteref">%s</a>` $id $num }}
+  {{ $repl := printf `%s<span class="fn-tooltip" aria-hidden="true">%s</span>` $needle $html }}
+  {{ $c = replace $c $needle $repl }}
+{{ end }}
+{{ if and (in $c `class="footnote-ref"`) (eq $c $orig) }}
+  {{ warnf "footnote-tooltips.html: page has footnote refs but no tooltips were injected — Goldmark's footnote markup may have changed" }}
+{{ end }}
+{{ $c | safeHTML }}

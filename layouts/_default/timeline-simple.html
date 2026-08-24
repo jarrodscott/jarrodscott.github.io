@@ -1,0 +1,147 @@
+{{ define "main" }}
+  <!-- Outer utility class allows the content container to slide out fully -->
+  <article class="w-full max-w-full overflow-x-hidden">
+      {{/* Hero */}}
+    {{ if .Params.showHero | default (site.Params.article.showHero | default false) }}
+      {{ $heroStyle := .Params.heroStyle }}
+      {{ if not $heroStyle }}{{ $heroStyle = site.Params.article.heroStyle }}{{ end }}
+      {{ $heroStyle := print "hero/" $heroStyle ".html" }}
+      {{ if templates.Exists ( printf "partials/%s" $heroStyle ) }}
+        {{ partial $heroStyle . }}
+      {{ else }}
+        {{ partial "hero/basic.html" . }}
+      {{ end }}
+    {{ end }}
+
+    <!-- Back to Biography Link -->
+    <div class="mb-8 px-4 sm:px-6 lg:px-8">
+      <a href="{{ "/about/" | relURL }}" class="text-md text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors inline-flex items-center no-underline">
+        ← Back to Biography
+      </a>
+    </div>
+
+    <!-- BEGIN banner -->
+<!--    {{ $image := resources.Get "images/feature.png" }}
+    {{ if $image }}
+      {{ $height := .Params.bannerHeight | default "400" }}
+      {{ $focus := .Params.bannerFocus | default "Center" }}
+      {{ $cropCommand := printf "1600x%s %s" $height $focus }}
+      {{ $croppedImage := $image.Fill $cropCommand }}
+      
+      <div class="w-full overflow-hidden my-6 px-4 sm:px-6 lg:px-8">
+        <img 
+          src="{{ $croppedImage.RelPermalink }}" 
+          width="{{ $croppedImage.Width }}" 
+          height="{{ $croppedImage.Height }}"
+          alt="Page Banner" 
+          class="w-full h-auto rounded-xl shadow-md object-cover"
+        >
+      </div>
+    {{ end }}-->
+    
+    <!-- END banner -->  
+    <!-- Header wrapper mirroring standard spacing -->
+    <header class="w-full mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      {{ if .Params.showBreadcrumbs | default (.Site.Params.article.showBreadcrumbs | default false) }}
+        {{ partial "breadcrumbs.html" . }}
+      {{ end }}
+      <h1 class="mt-0 text-4xl font-bold text-neutral-900 dark:text-neutral">
+        {{ .Title | emojify }}
+      </h1>
+    </header>
+
+    <!-- Side-by-Side Flex Layout -->
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 custom-page-split-grid">
+      
+      <!-- Main Content Area -->
+      <main class="prose dark:prose-invert custom-timeline-headings custom-body-column">
+        {{ .Content }}
+      </main>
+
+      <!-- Sidebar Area -->
+      <aside class="custom-timeline-sidebar">
+        {{ partial "toc.html" . }}
+      </aside>
+
+    </div>
+
+    <!-- CSS Grid Sizing & Visibility Rules -->
+    <style type="text/css">
+      /* Center Article Body Headings */
+      .custom-timeline-headings h1,
+      .custom-timeline-headings h2 {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+
+      /* Native Grid Structure Overriding Theme Filters */
+      .custom-page-split-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+      }
+
+      .custom-body-column {
+        width: 100% !important;
+        order: 2 !important; /* Move content under mobile TOC */
+      }
+
+      .custom-timeline-sidebar {
+        width: 100% !important;
+        order: 1 !important; /* Push mobile TOC to the very top */
+        display: block !important;
+        visibility: visible !important;
+        margin-bottom: 1.5rem;
+      }
+
+      /* Force mobile visibility for our custom component */
+      .custom-timeline-sidebar details.toc-inside {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+
+      /* Desktop Layout Sizing and Positions */
+      @media (min-width: 1024px) {
+        .custom-page-split-grid {
+          flex-direction: row !important;
+          justify-content: space-between !important;
+          align-items: start !important;
+        }
+
+        .custom-body-column {
+          width: 75% !important;
+          max-width: 75% !important;
+          order: 1 !important; /* Restore normal order on desktop */
+        }
+
+        .custom-timeline-sidebar {
+          width: 22% !important;
+          max-width: 22% !important;
+          order: 2 !important; /* Restore normal sidebar layout order */
+          position: sticky !important;
+          top: 6rem !important;
+          max-height: calc(100vh - 8rem) !important;
+          margin-bottom: 0 !important;
+        }
+
+        /* 
+          FIXED DESKTOP DUPLICATE BUG:
+          Forcibly hides the interactive mobile dropdown element 
+          the instant the screen stretches out to desktop break widths.
+        */
+        .custom-timeline-sidebar details.toc-inside {
+          display: none !important;
+          visibility: hidden !important;
+        }
+      }
+    </style>
+
+    <!-- Footer wrapper mirroring standard theme structure -->
+    <footer class="pt-8 w-full mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      {{ partial "sharing-links.html" . }}
+    </footer>
+
+  </article>
+{{ end }}

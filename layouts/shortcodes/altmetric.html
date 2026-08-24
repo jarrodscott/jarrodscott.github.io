@@ -1,0 +1,20 @@
+{{- $doi := .Get "doi" -}}
+{{- $size := .Get "size" | default "medium" -}}
+{{- $align := .Get "align" | default "left" -}}
+
+{{- $badgeType := "donut" -}}
+{{- if eq $size "large" }}{{ $badgeType = "large-donut" }}{{ end -}}
+{{- if eq $size "medium" }}{{ $badgeType = "medium-donut" }}{{ end -}}
+{{- if eq $size "small" }}{{ $badgeType = "small-donut" }}{{ end -}}
+
+{{- $alignClass := "text-left" -}}
+{{- if eq $align "center" }}{{ $alignClass = "text-center mx-auto" }}{{ end -}}
+{{- if eq $align "right" }}{{ $alignClass = "text-right ml-auto" }}{{ end -}}
+
+<div class="inline-block align-middle my-4 mr-4 {{ $alignClass }}">
+    <div class="altmetric-embed" 
+         data-badge-type="{{ $badgeType }}" 
+         data-doi="{{ $doi }}"
+         data-badge-popover="right">
+    </div>
+</div>

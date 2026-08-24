@@ -1,0 +1,94 @@
+{{ $myName := .Site.Params.academic_name | default "My Name" }}
+{{ $allPubsSection := .Site.GetPage "section" "publications" }}
+
+{{ if $allPubsSection }}
+  {{ $selectedPages := where $allPubsSection.Pages ".Params.selected" true }}
+  
+  {{ if gt (len $selectedPages) 0 }}
+  <section class="mt-16 max-w-5xl mx-auto px-4">
+    <!-- Section Title Heading -->
+    <h2 class="text-3xl font-semibold text-neutral-800 dark:text-neutral-200 border-b border-neutral-300 dark:border-neutral-600 pb-2 mb-10">
+      Featured Work
+    </h2>
+
+    <!-- Using the 3-Column Grid Layout for a compact dashboard fit -->
+    <div style="display: grid !important; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important; gap: 24px !important;">
+      {{ range first 3 ($selectedPages.ByDate.Reverse) }}
+      
+      <div class="flex flex-col dark:bg-neutral-800/40 rounded-xl border border-neutral-200/80 dark:border-neutral-700/70 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+           style="display: flex !important; flex-direction: column !important; justify-content: space-between !important; height: 100% !important;">
+        
+        <!-- BANNER IMAGE -->
+        {{ $img := .Resources.GetMatch "featured*" }}
+        <div class="bg-neutral-100 dark:bg-neutral-800 border-b border-neutral-200/60 dark:border-neutral-700/40"
+             style="position: relative !important; width: 100% !important; padding-top: 55% !important; overflow: hidden !important; flex-shrink: 0 !important;">
+          {{ if $img }}
+            {{ $scaled := $img.Resize "600x" }}
+            <img src="{{ $scaled.RelPermalink }}" alt="{{ .Title }}" class="m-0 p-0" style="position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; object-fit: cover !important;" loading="lazy">
+          {{ else }}
+            <div style="position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; padding: 16px !important; text-align: center !important;" class="text-neutral-400 dark:text-neutral-500">
+              {{- with resources.Get "icons/document.svg" -}}
+                <span class="w-6 h-6 opacity-40 mb-1 inline-block align-middle" style="width: 24px; height: 24px;">{{ .Content | safeHTML }}</span>
+              {{- end -}}
+              <span class="text-xs uppercase tracking-wider font-semibold opacity-50 block w-full text-center">Publication</span>
+            </div>
+          {{ end }}
+        </div>
+
+        <!-- CONTENT -->
+        <div class="p-4 flex-grow" style="display: flex !important; flex-direction: column !important; justify-content: space-between !important; height: 100% !important;">
+          <div>
+            <h3 class="text-base font-normal text-neutral-800 dark:text-neutral-100 mb-1.5 leading-snug mt-0 line-clamp-2">
+              <a href="{{ .RelPermalink }}" class="hover:text-primary-500 dark:hover:text-primary-400 no-underline transition-colors duration-200">
+                {{ .Title }}
+              </a>
+            </h3>
+
+            <div class="text-[11px] text-neutral-600 dark:text-neutral-300 mb-2 leading-relaxed">
+              {{- if reflect.IsSlice .Params.authors -}}
+                {{- $totalAuthors := len .Params.authors -}}
+                {{- range $index, $author := .Params.authors -}}
+                  {{- if gt $index 0 -}}{{- if eq (add $index 1) $totalAuthors -}}, and {{ else }}, {{ end -}}{{- end -}}
+                  <span class="{{ if eq $author $myName }}font-bold underline decoration-primary-500 text-neutral-950 dark:text-primary-400{{ end }}">{{ $author }}</span>
+                {{- end -}}.
+              {{- else -}}
+                {{- .Params.authors -}}
+              {{- end -}}
+              {{ if .Date }}<span> ({{ .Date.Format "2006" }}).</span>{{ end }}
+            </div>
+          </div>
+
+          <!-- COMPACT BUTTON ROW -->
+          <div class="flex flex-wrap items-center pt-2 border-t border-neutral-100 dark:border-neutral-700/60 mt-auto text-[10px] font-semibold uppercase tracking-wider" style="gap: 10px;">
+            {{ $pdf := .Resources.GetMatch "*.pdf" }}
+            {{ if or $pdf .Params.url_pdf }}
+              {{ $pdf_url := "" }}{{ if $pdf }}{{ $pdf_url = $pdf.RelPermalink }}{{ else }}{{ $pdf_url = .Params.url_pdf }}{{ end }}
+              <a href="{{ $pdf_url }}" target="_blank" class="no-underline text-neutral-500 hover:text-primary-500 dark:text-neutral-400 dark:hover:text-primary-400">PDF</a>
+            {{ end }}
+
+            {{ $bib := .Resources.GetMatch "cite.bib" }}
+            {{ if $bib }}
+              <button onclick="copyBibTeX(this)" data-bibtex="{{ $bib.Content | htmlEscape }}" class="text-neutral-500 hover:text-primary-500 dark:text-neutral-400 dark:hover:text-primary-400 font-semibold flex items-center">
+                <span class="cite-text">Cite</span>
+              </button>
+            {{ end }}
+            
+            {{ with .Params.url_code }}
+              <a href="{{ . }}" target="_blank" class="no-underline text-neutral-500 hover:text-primary-500 dark:text-neutral-400 dark:hover:text-primary-400">Code</a>
+            {{ end }}
+          </div>
+        </div>
+
+      </div>
+      {{ end }}
+    </div>
+
+    <!-- View All Link -->
+    <div class="mt-8 text-center">
+      <a href="{{ "/selected-publications/" | relURL }}" class="text-sm text-primary-500 hover:underline font-medium">
+        View All Selected Publications →
+      </a>
+    </div>
+  </section>
+  {{ end }}
+{{ end }}

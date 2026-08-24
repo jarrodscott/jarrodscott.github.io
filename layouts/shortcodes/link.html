@@ -1,0 +1,13 @@
+<a href="{{ .Get "url" }}" target="_blank" rel="noopener noreferrer" class="custom-link">
+  {{- if .Get "icon_before" -}}
+    {{- $icon := resources.Get (printf "icons/%s.svg" (.Get "icon_before")) -}}
+    {{- if $icon -}}<span class="link-icon icon-before">{{ $icon.Content | safeHTML }}</span>{{- end -}}
+  {{- end -}}
+  
+  <span class="link-text">{{ .Get "text" }}</span>
+  
+  {{- if .Get "icon_after" -}}
+    {{- $icon := resources.Get (printf "icons/%s.svg" (.Get "icon_after")) -}}
+    {{- if $icon -}}<span class="link-icon icon-after">{{ $icon.Content | safeHTML }}</span>{{- end -}}
+  {{- end -}}
+</a>

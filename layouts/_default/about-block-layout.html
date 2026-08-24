@@ -1,0 +1,161 @@
+{{ define "main" }}
+{{- $author := .Site.Params.author -}}
+
+<div class="custom-bio-wrapper">
+  
+  <header class="mb-6">
+    <h1 class="text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-neutral-100 !m-0">
+      {{ .Title }}
+    </h1>
+  </header>
+
+  <div class="biography-grid-container">
+    
+    <!-- ==================== LEFT COLUMN SIDEBAR ==================== -->
+    <div class="left-bio-sidebar">
+      
+      <!-- Banner Component Frame Box -->
+      {{ if $author.banner }}
+        {{ $bannerImg := resources.Get $author.banner }}
+        <div class="contained-banner-frame" style="background-image: url('{{ if $bannerImg }}{{ ($bannerImg.Fill "800x400 q100 Center").RelPermalink }}{{ else }}{{ $author.banner | relURL }}{{ end }}');"></div>
+      {{ else }}
+        <div class="contained-banner-frame bg-gradient-to-tr from-primary-600 to-secondary-900"></div>
+      {{ end }}
+      
+      <!-- Smooth Zoom Housing Cell Container -->
+      <div class="avatar-layout-cell">
+        {{ if $author.image }}
+          {{ $avatarImg := resources.Get $author.image }}
+          {{ if $avatarImg }}
+            {{ $processedAvatar := $avatarImg.Fill "500x500 q100 Center" }}
+            <img src="{{ $processedAvatar.RelPermalink }}" class="avatar-smooth-zoom-img" alt="{{ $author.name }}">
+          {{ else }}
+            <img src="{{ $author.image | relURL }}" class="avatar-smooth-zoom-img" alt="{{ $author.name }}">
+          {{ end }}
+        {{ end }}
+      </div>
+
+      <div style="width: 100%;">
+        <h2 class="text-3xl font-semibold text-neutral-900 dark:text-neutral-100 !m-0">{{ $author.name }}</h2>
+        <p class="text-md font-semibold text-neutral-500 dark:text-neutral-400 mt-1 !mb-0">{{ $author.headline }}</p>
+      </div>
+
+      <!-- Social Row Handles Icon Connections Grid -->
+      {{ if $author.links }}
+      <div class="bio-social-row">
+        {{ range $author.links }}
+          {{ range $key, $value := . }}
+            <a href="{{ $value }}" target="_blank" rel="noopener noreferrer" 
+               class="bio-social-badge bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-primary-500 dark:hover:text-primary-400" 
+               aria-label="{{ $key }}">
+              {{ partial "icon.html" $key }}
+            </a>
+          {{ end }}
+        {{ end }}
+      </div>
+      {{ end }}
+
+    </div>
+
+    <!-- ==================== RIGHT COLUMN CONTENT CARDS ==================== -->
+    <div class="right-bio-content">
+      
+      <!-- Biography Summary Block Layout -->
+      <div class="bio-summary-card border border-neutral-200 dark:border-neutral-700/50 p-6 rounded-lg">
+        <h3 class="text-xl font-bold mb-3 text-neutral-900 dark:text-neutral-100 !m-0">Professional Summary</h3>
+        <div class="text-neutral-600 dark:text-neutral-300 text-md leading-relaxed max-w-none">
+          {{ if $author.bio }}
+            <p class="!m-0">{{ $author.bio | markdownify }}</p>
+          {{ end }}
+        </div>
+        
+        <!-- Extensive Bio Link Button -->
+        {{ if $author.full_bio_url }}
+        <div class="mt-4 flex justify-end">
+          <a href="{{ $author.full_bio_url | relURL }}" 
+             class="inline-flex items-center text-md font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 transition-colors duration-200">
+            Read full biography
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://w3.org">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+        {{ end }}
+      </div> <!-- Moving this closing div here safely isolates the Summary Card first -->
+
+      <!-- DOWNLOAD CV BUTTON (Now sitting completely free below the box) -->
+      <div class="bio-cv-button-container hover:text-primary-500 dark:hover:text-primary-400 hover:border-primary-500 dark:hover:border-primary-400" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
+        <a href="/cv.pdf" target="_blank" rel="noopener noreferrer" class="bio-cv-download-btn">
+          <span class="bio-cv-icon-frame">
+            {{ partial "icon.html" "download" }}
+          </span>
+          Download CV
+        </a>
+      </div>
+
+      <!-- Secondary Data Splitter Meta Grid Fields Section -->
+      <div class="bio-meta-subgrid border-t border-neutral-200 dark:border-neutral-700/60">
+        <!-- Swapped  author.skills for author.skills-->
+        <!-- Interests Subsection Badges Cloud -->
+        {{ if $author.skills }}
+        <div>
+          <h4 class="text-sm font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-2 !mt-0">Skills</h4>
+          <div class="bio-tag-cloud">
+            {{ range $author.skills }}
+              <span class="bio-custom-tag text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700/40">{{ . }}</span>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+
+        <!-- Educational Pathway Records History -->
+        {{ if $author.education }}
+        <div>
+          <h4 class="text-sm font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-2 !mt-0">Education</h4>
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            {{ range $author.education }}
+              <div style="display: flex; flex-direction: column; gap: 0.15rem;">
+                <h5 class="text-md font-bold text-neutral-900 dark:text-neutral-100 !m-0">{{ .course }}</h5>
+                <p class="text-sm text-neutral-500 dark:text-neutral-400 !m-0">
+                  <span class="text-neutral-500 dark:text-neutral-400 font-semibold">{{ .institution }}</span> — {{ .year }}
+                  
+                </p>
+              </div>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+
+      </div>
+
+    </div>
+
+  </div>
+  <!-- ==================== NEW FULL-WIDTH DASHBOARD MENU ==================== -->
+  <!-- Sits safely outside the grid so it stretches across both sidebars -->
+  {{ if $author.aboutButtons }}
+  <div class="bio-dashboard-menu border-t border-neutral-200 dark:border-neutral-700/60 pt-8" style="margin-top: 3rem;">
+    {{ range $author.aboutButtons }}
+      <!-- Base text colors are set natively via Tailwind tokens, paired with independent hover state shifts -->
+      <a href="{{ .url | relURL }}" class="bio-dashboard-btn text-neutral-700 dark:text-neutral-300 hover:text-primary-500 dark:hover:text-primary-400 hover:border-primary-500 dark:hover:border-primary-400">
+        {{ if .icon }}
+          <span class="bio-dashboard-icon-frame">{{ partial "icon.html" .icon }}</span>
+        {{ end }}
+        {{ .text }}
+      </a>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  {{ if .Content }}
+  <div class="max-w-none pt-6 border-t border-neutral-200 dark:border-neutral-700 w-full block"  style="margin-top: 1.5rem;">
+    <div class="text-lg dark:prose-invert max-w-none">
+      {{ .Content }}
+    </div>
+  </div>
+  {{ end }}
+
+</div>
+<!---{{ partial "featured-homepage.html" . }}--->
+{{ end }}
+

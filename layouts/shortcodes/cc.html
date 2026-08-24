@@ -1,0 +1,26 @@
+{{ $license := .Get 0 | default "by" }}
+
+{{/* 1. Build the correct web link */}}
+{{ $url := "" }}
+{{ if eq $license "cc0" }}
+    {{ $url = "https://creativecommons.org/publicdomain/zero/1.0/" }}
+{{ else }}
+    <!-- Cleaned up URL structure to prevent 404 routing errors -->
+    {{ $url = print "https://creativecommons.org/licenses/" $license "/4.0/" }}
+{{ end }}
+
+{{/* 2. Fix the text display */}}
+{{ $text := "" }}
+{{ if eq $license "cc0" }}
+    {{ $text = "This work has been marked as dedicated to the public domain." }}
+{{ else }}
+    {{ $text = print "This work is licensed under a Creative Commons " ($license | upper) " 4.0 International License." }}
+{{-  end -}}
+
+<!-- Absolute Local Layout: Fully interactive with perfect routing -->
+<a href="{{ $url }}" target="_blank" rel="noopener noreferrer" class="creative-commons-notice">
+    <img src="{{ print "/images/cc/" $license ".png" | relURL }}" alt="CC {{ $license }}" class="nozoom" style="border-width:0;" />
+    <span rel="license">{{ $text }}</span>
+</a>
+
+<!--get more icons here https://creativecommons.org/mission/downloads/-->

@@ -1,0 +1,141 @@
+<!-- 
+  1. DESKTOP VIEW 
+  Only displays on screens large enough to support a sidebar layout (lg:block).
+  It removes the interactive toggle styling entirely so it is completely flat.
+-->
+<div id="TOCView" class="toc-right mt-0 overflow-y-auto overscroll-contain bf-scrollbar rounded-lg hidden lg:block custom-native-toc-styles">
+  <!-- Desktop Header -->
+  <h2 class="text-sm font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 mb-3">
+    {{ i18n "article.table_of_contents" | default "On this page" }}
+  </h2>
+  <div class="lg:min-w-[220px] py-2 border-solid border-s-1 ps-5 dark:border-neutral-600 text-sm text-neutral-900 dark:text-neutral-100 [&>nav>ul]:list-none [&>nav>ul]:p-0 [&_li]:my-1.5">
+    {{ .TableOfContents | emojify }}
+  </div>
+</div>
+
+<!-- 
+  2. MOBILE VIEW
+  Guarantees an elegant, interactive dropdown layout across ALL page types on smaller viewports.
+-->
+<details class="toc-inside mt-4 mb-6 overflow-hidden rounded-lg bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 lg:hidden custom-native-toc-styles">
+  <summary class="py-2 px-4 text-base font-semibold cursor-pointer bg-neutral-100 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-100 select-none flex justify-between items-center">
+    <span>{{ i18n "article.table_of_contents" | default "Table of Contents" }}</span>
+    <!-- Visual cue arrow that works nicely on mobile devices -->
+    <span class="transition-transform duration-200 pointer-events-none text-xs text-neutral-400">▼</span>
+  </summary>
+  <div class="py-2 px-4 border-t border-neutral-200 dark:border-neutral-700 text-sm text-neutral-900 dark:text-neutral-100 [&>nav>ul]:list-none [&>nav>ul]:p-0 [&_li]:my-1.5">
+    {{ .TableOfContents | emojify }}
+  </div>
+</details>
+
+<!-- CSS Layout Injection -->
+<style type="text/css">
+  /* Strip global styling overrides that default Blowfish wrappers sometimes try to inject */
+  .custom-native-toc-styles a {
+    color: inherit !important;
+    transition: color 0.15s ease-in-out !important;
+    text-decoration: none !important;
+  }
+  .custom-native-toc-styles a:hover {
+    color: rgb(var(--color-primary-500)) !important;
+  }
+  .dark .custom-native-toc-styles a:hover {
+    color: rgb(var(--color-primary-400)) !important;
+  }
+  .custom-native-toc-styles a.active {
+    color: rgb(var(--color-primary-500)) !important;
+    font-weight: 600 !important;
+  }
+  .dark .custom-native-toc-styles a.active {
+    color: rgb(var(--color-primary-400)) !important;
+  }
+  
+  /* Smooth visual cleanup for native details components */
+  details.toc-inside[open] summary span:last-child {
+    transform: rotate(180deg);
+  }
+</style>
+
+{{ if .Site.Params.smartTOC }}
+<script>
+  (function () {
+    'use strict'
+    const SCROLL_OFFSET_RATIO = 0.33
+    const TOC_SELECTOR = '#TableOfContents'
+    const ANCHOR_SELECTOR = '.anchor'
+    const TOC_LINK_SELECTOR = 'a[href^="#"]'
+    const NESTED_LIST_SELECTOR = 'li ul'
+    const ACTIVE_CLASS = 'active'
+    let isJumpingToAnchor = false
+
+    function getActiveAnchorId(anchors, offsetRatio) {
+      const threshold = window.scrollY + window.innerHeight * offsetRatio
+      const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
+      const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      if (isJumpingToAnchor) {
+        for (let i = 0; i < anchors.length; i++) {
+          const anchor = anchors[i]
+          if (!tocIds.has(anchor.id)) continue
+          const top = anchor.getBoundingClientRect().top + window.scrollY
+          if (Math.abs(window.scrollY - top) < 100) return anchor.id
+        }
+      }
+
+      for (let i = anchors.length - 1; i >= 0; i--) {
+        const top = anchors[i].getBoundingClientRect().top + window.scrollY
+        if (top <= threshold && tocIds.has(anchors[i].id)) return anchors[i].id
+      }
+      return anchors.find(anchor => tocIds.has(anchor.id))?.id || ''
+    }
+
+    function updateTOC({ toc, anchors, links, scrollOffset, collapseInactive }) {
+      const activeId = getActiveAnchorId(anchors, scrollOffset)
+      if (!activeId) return
+
+      links.forEach(link => {
+        const isActive = link.getAttribute('href') === `#${activeId}`
+        link.classList.toggle(ACTIVE_CLASS, isActive)
+        if (collapseInactive) {
+          const ul = link.closest('li')?.querySelector('ul')
+          if (ul) ul.style.display = isActive ? '' : 'none'
+        }
+      })
+
+      if (collapseInactive) {
+        const activeLink = toc.querySelector(`a[href="#${CSS.escape(activeId)}"]`)
+        let el = activeLink
+        while (el && el !== toc) {
+          if (el.tagName === 'UL') el.style.display = ''
+          if (el.tagName === 'LI') el.querySelector('ul')?.style.setProperty('display', '')
+          el = el.parentElement
+        }
+      }
+    }
+
+    function initTOC() {
+      const toc = document.querySelector(TOC_SELECTOR)
+      if (!toc) return
+
+      const collapseInactive = {{ if site.Params.smartTOCHideUnfocusedChildren }}true{{ else }}false{{ end }}
+      const anchors = [...document.querySelectorAll(ANCHOR_SELECTOR)]
+      const links = [...toc.querySelectorAll(TOC_LINK_SELECTOR)]
+
+      if (collapseInactive) {
+        toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
+      }
+
+      links.forEach(link => {
+        link.addEventListener('click', () => { isJumpingToAnchor = true })
+      })
+
+      const config = { toc, anchors, links, scrollOffset: SCROLL_OFFSET_RATIO, collapseInactive }
+      window.addEventListener('scroll', () => updateTOC(config), { passive: true })
+      window.addEventListener('hashchange', () => updateTOC(config), { passive: true })
+      updateTOC(config)
+    }
+
+    document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', initTOC) : initTOC()
+  })()
+</script>
+{{ end }}

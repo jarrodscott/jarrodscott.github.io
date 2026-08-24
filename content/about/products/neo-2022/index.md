@@ -1,0 +1,13 @@
+---
+title: "R Markdown Fieldguide & Data Curation"
+date: 2022-06-25
+summary: "Web project guide book for **2022 STRI-McGill NEO Tropical Biology Field Course**."
+externalUrl: "https://stri-mcgill-neo.github.io/2022/"
+showSummary: true
+build:
+  render: never
+  list: local
+badge: "tutorial"    
+---
+
+

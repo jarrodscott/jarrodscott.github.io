@@ -1,0 +1,41 @@
+{{ $cid := .Get "cid" }}
+{{ $size := .Get "size" | default "300" }}
+{{ $name := .Get "name" | default "Chemical Structure" }}
+{{ $id := math.Counter }}
+
+<!-- Define your exact PubChem base URL directly in Hugo's build engine -->
+{{ $pubchemBase := "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/" }}
+
+<!-- 
+  CRITICAL FIX: Both states must use the exact same high-resolution URL 
+  so Lightbox3 registers the target element and unlocks zoom/pan.
+-->
+{{ $moleculeSrc := printf "%s%s/PNG?width=1200&height=1200" $pubchemBase $cid }}
+
+<!-- Main Layout Wrapper -->
+<div class="molecule-container clear-both my-8 flex flex-col justify-center items-center select-none" style="max-width: {{ $size }}px;">
+  
+  <!-- Outer Card Frame -->
+  <div class="p-4 rounded-xl border bg-white border-neutral-200 shadow-sm dark:border-neutral-300 dark:shadow-md w-full flex justify-center items-center relative overflow-hidden" style="height: {{ $size }}px;">
+
+    <!-- Inner Link matching your working lightbox.html structure -->
+    <a href="{{ $moleculeSrc | safeURL }}" 
+       data-lightbox="molecules" 
+       data-caption="{{ $name }}" 
+       class="w-full max-h-full flex items-center justify-center no-underline">
+      
+      <!-- 
+        The image element points to the identical source file, but is 
+        safely shrunk to fit your card container via Tailwind utilities.
+      -->
+      <img src="{{ $moleculeSrc | safeURL }}"
+           alt="Structure representation of {{ $name }}"
+           class="block max-w-full max-h-full mx-auto mix-blend-multiply object-contain pointer-events-none rounded cursor-pointer transition transform hover:scale-[1.02]" />
+           
+    </a>
+  </div>
+  
+  <div class="text-center text-sm text-neutral-700 dark:text-neutral-100 mt-2 font-medium">
+    {{ $name }}
+  </div>
+</div>

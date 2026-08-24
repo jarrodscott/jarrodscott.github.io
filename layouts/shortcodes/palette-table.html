@@ -1,0 +1,120 @@
+{{/* Parse the JSON string passed into the shortcode */}}
+{{ $palette := .Get "colors" | transform.Unmarshal }}
+
+{{/* Build clean comma-separated lists of all HEX and RGB values for global copying */}}
+{{ $hexList := slice }}
+{{ $rgbList := slice }}
+{{ range $palette }}
+  {{ $hexList = $hexList | append .hex }}
+  {{ $rgbList = $rgbList | append .rgb }}
+{{ end }}
+{{ $allHex := delimit $hexList ", " }}
+{{ $allRgb := delimit $rgbList ", " }}
+
+<!-- ORIGINAL
+<div class="my-6 w-full">
+  <div class="overflow-x-auto w-full">
+    <table class="min-w-full text-left border-collapse border border-neutral-200 dark:border-neutral-700 m-0">
+ -->
+<!-- MOD1 
+<div class="my-6 w-full max-w-[720px]"> 
+  <div class="overflow-x-auto w-full">
+    <table class="min-w-full text-left border-none border border-neutral-200 dark:border-neutral-700 m-0">
+-->
+<!-- To revert, uncomment upper block and comment lower block -->
+
+<!-- Changed from w-max to w-full with a max-width limit -->
+<div class="my-6 w-full max-w-max">
+  <!-- The overflow container now has full permission to scroll when squeezed -->
+  <div class="overflow-x-auto w-full block">
+    <!-- Removed layout-forcing width constraints from the table tag -->
+    <table class="text-left border-none border border-neutral-200 dark:border-neutral-700 m-0">
+<!-- -------------------- -->
+
+      <thead>
+        <!-- Forced uniform header colors for light/dark mode override -->
+        <tr class="!bg-neutral-100 dark:!bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-bold border-b border-neutral-200 dark:border-neutral-700">
+          <!--border border-neutral-200 dark:border-neutral-700-->
+          <th class="p-3  text-center w-24">Preview</th>
+          <!-- Left open to push table columns flush to the right edge -->
+          
+          <th class="p-3 ">Color Name</th>
+          <th class="p-3  text-center w-44">HEX Code</th>
+          <th class="p-3  text-center w-56">RGB Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{ range $palette }}
+        <tr class="border-b border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800/50">
+          <!-- Color Circle Preview - UNTOUCHED WORKING LAYOUT -->
+          <td class="p-3 text-center align-middle">
+            <span class="inline-block w-8 h-8 rounded-full border border-neutral-300 dark:border-neutral-600 shadow-sm" 
+                  style="background-color: {{ .hex }};"></span>
+          </td>
+          <!-- Color Name -->
+          <td class="p-3 font-medium align-middle text-neutral-800 dark:text-neutral-200">
+            {{ .name }}
+          </td>
+          <!-- HEX with Individual Copy Button -->
+          <td class="p-3 align-middle text-center whitespace-nowrap">
+            <code class="px-2 py-1 bg-neutral-800 dark:bg-neutral-800 rounded text-sm text-rose-600 dark:text-rose-400">{{ .hex }}</code>
+            <button onclick="copyColorText('{{ .hex }}', this)" 
+                    class="ml-2 text-sm text-neutral-400 hover:text-primary-500 focus:outline-none transition-colors cursor-pointer" 
+                    title="Copy HEX">
+              📋
+            </button>
+          </td>
+          <!-- RGB with Individual Copy Button -->
+          <td class="p-3 align-middle text-right whitespace-nowrap">
+            <code class="px-2 py-1 bg-neutral-800 dark:bg-neutral-800 rounded text-sm text-blue-600 dark:text-blue-400">{{ .rgb }}</code>
+            <button onclick="copyColorText('{{ .rgb }}', this)" 
+                    class="ml-2 text-sm text-neutral-400 hover:text-primary-500 focus:outline-none transition-colors cursor-pointer" 
+                    title="Copy RGB">
+              📋
+            </button>
+          </td>
+        </tr>
+        {{ end }}
+      </tbody>
+    </table>
+  </div>
+  <!-- Global Palette Copy Buttons -->
+  <div class="flex flex-wrap gap-3 mb-4">
+    <button onclick="copyColorText('{{ $allHex }}', this)" 
+            class="bio-dashboard-btn text-neutral-700 dark:text-neutral-300 hover:text-primary-500 dark:hover:text-primary-400 hover:border-primary-500 dark:hover:border-primary-400">            
+      <span>📋</span> <span class="btn-text">Copy All HEX</span>
+    </button>
+    <button onclick="copyColorText('{{ $allRgb }}', this)" 
+            class="bio-dashboard-btn text-neutral-700 dark:text-neutral-300 hover:text-primary-500 dark:hover:text-primary-400 hover:border-primary-500 dark:hover:border-primary-400">
+      <span>📋</span> <span class="btn-text">Copy All RGB</span>
+    </button>
+  </div>
+</div>
+
+{{/* Intelligent copy clipboard script that handles both individual icons and row text buttons */}}
+<script>
+function copyColorText(text, element) {
+  navigator.clipboard.writeText(text).then(() => {
+    const textSpan = element.querySelector('.btn-text');
+    if (textSpan) {
+      const originalText = textSpan.innerText;
+      textSpan.innerText = "Copied!";
+      element.classList.add("!border-green-500", "text-green-600", "dark:text-green-400");
+      setTimeout(() => {
+        textSpan.innerText = originalText;
+        element.classList.remove("!border-green-500", "text-green-600", "dark:text-green-400");
+      }, 1500);
+    } else {
+      const originalText = element.innerText;
+      element.innerText = "✓";
+      element.classList.add("text-green-500");
+      setTimeout(() => {
+        element.innerText = originalText;
+        element.classList.remove("text-green-500");
+      }, 1500);
+    }
+  }).catch(err => {
+    console.error('Could not copy color list: ', err);
+  });
+}
+</script>

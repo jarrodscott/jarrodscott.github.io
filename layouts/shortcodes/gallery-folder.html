@@ -1,0 +1,46 @@
+{{- $dir := .Get "dir" -}}
+{{- $galleryName := .Get "name" | default "page-gallery" -}}
+{{- $title := .Get "title" -}}
+{{- $images := .Page.Resources.ByType "image" -}}
+
+{{- if $dir -}}
+  {{- $images = .Page.Resources.Match (printf "%s/*.*" $dir) -}}
+{{- else -}}
+  {{- $images = .Page.Resources.Match "*.*" -}}
+{{- end -}}
+
+{{- if $images -}}
+<div class="my-4">
+  {{- if $title -}}
+    <h3 class="text-xl font-bold text-gray-800 mb-2 mt-0">{{ $title }}</h3>
+  {{- end -}}
+  
+  <div class="flex flex-wrap justify-start items-center" style="gap: 6px !important;">
+    {{- range $images -}}
+      {{- if eq .ResourceType "image" -}}
+        {{- if not (strings.HasPrefix .Name "featured") -}}
+          
+          {{- $filename := path.Base .Name -}}
+          {{- $ext := path.Ext .Name -}}
+          {{- $caption := strings.TrimSuffix $ext $filename | humanize -}}
+          
+          <a href="{{ .RelPermalink }}" 
+             data-lightbox="{{ $galleryName }}" 
+             data-caption="{{ $caption }}"
+             class="inline-block">
+            <img src="{{ .RelPermalink }}" 
+                 alt="{{ $caption }}" 
+                 class="rounded shadow-md cursor-pointer transition transform hover:scale-[1.02]"
+                 style="height: 130px !important; width: auto !important; max-width: 100% !important; object-fit: contain !important; margin-bottom: 10px !important; margin-top: 0px !important;"
+                 loading="lazy">
+          </a>
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  </div>
+</div>
+{{- else -}}
+  {{- if templates.Exists "partials/functions/alert.html" -}}
+    <p class="text-red-500 font-bold">No images found.</p>
+  {{- end -}}
+{{- end -}}

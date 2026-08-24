@@ -1,0 +1,110 @@
+{{ $disableImageOptimization := .Site.Params.disableImageOptimization | default false }}
+<article class="max-w-full">
+  <div class="relative">
+    
+    <!-- FIXED BACKGROUND IMAGE LAYER -->
+    <div class="fixed inset-x-0 top-0 -z-10 h-screen w-full">
+      {{ $useDefault := true }}
+      {{ $homepageImage := "" }}
+      {{ with .Site.Params.defaultBackgroundImage }}
+        {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+          {{ $homepageImage = resources.GetRemote . }}
+        {{ else }}
+          {{ $homepageImage = resources.Get . }}
+        {{ end }}
+      {{ end }}
+      {{ with .Site.Params.homepage.homepageImage }}
+        {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+          {{ $homepageImage = resources.GetRemote . }}
+          {{ $useDefault = false }}
+        {{ else }}
+          {{ $homepageImage = resources.Get . }}
+          {{ $useDefault = false }}
+        {{ end }}
+      {{ end }}
+      {{ if $homepageImage }}
+        {{ $style := "" }}
+        {{ $defaultPosition := cond $useDefault site.Params.imagePosition false }}
+        {{ with $.Params.imagePosition | default $defaultPosition }}
+          {{ $style = printf "object-position: %s;" . }}
+        {{ end }}
+        <img
+          id="background-image"
+          class="nozoom m-0 h-screen w-full object-cover"
+          src="{{ $homepageImage.RelPermalink }}"
+          role="presentation"
+          {{ if $style }}style="{{ $style | safeCSS }}"{{ end }}>
+       
+        <!--Fully controllable background overlay mask 
+        <div class="absolute inset-0 h-screen bg-neutral-100 mix-blend-normal dark:bg-neutral-800" style="opacity: 0.0;"></div>          
+         -->        
+        <div class="absolute inset-0 h-screen bg-gradient-to-t from-neutral to-transparent dark:from-neutral-800"></div>
+        <div class="absolute inset-0 h-screen bg-gradient-to-t from-neutral to-neutral-100 opacity-60 
+         dark:from-neutral-800 dark:to-neutral-800"></div>
+      {{ end }}
+    </div>
+
+    <!-- NEW FIXED VERTICAL SIDEBAR (Bypasses compilation using pre-compiled classes + inline styles) -->
+<!-- NEW FIXED VERTICAL SIDEBAR -->
+{{ if ne .Params.show_sidebar false }}
+  {{ with .Site.Params.Author.links }}
+    <div class="fixed top-1/2 left-6 z-50 flex flex-col items-center gap-y-4 text-4xl" style="transform: translateY(-50%);">
+      {{ range $links := . }}
+        {{ range $name, $url := $links }}
+          {{ $isEmail := eq $name "email" }}
+          <a
+            class="{{ cond $isEmail "email-link" "" }} hover:text-primary-500 dark:hover:text-primary-400  text-neutral-500 dark:text-neutral-400  block py-1 transition-colors duration-200"
+            href="{{ cond $isEmail "#" ($url | safeURL) }}"
+            {{ if $isEmail }}
+              data-email="{{ $url | base64Encode }}"
+              data-subject="Contact"
+            {{ end }}
+            target="_blank"
+            aria-label="{{ $name | title }}"
+            title="{{ $name | title }}"
+            rel="me noopener noreferrer">
+            {{ partial "icon.html" $name }}
+          </a>
+        {{ end }}
+      {{ end }}
+    </div>
+  {{ end }}
+{{ end }}
+
+    <!-- FOREGROUND CONTENT LAYER -->
+    <div class="relative flex flex-col items-center justify-start px-4 text-center" style="margin-top: 25vh; min-height: 40vh;">
+      
+      <h1 class="mb-2 text-3xl font-semibold text-neutral-800 dark:text-neutral-200">
+        {{ .Site.Params.Author.name | default .Site.Title }}
+      </h1>
+
+{{ if ne .Params.show_headline false }}
+      {{ with .Site.Params.Author.headline }}
+        <h2 class="mt-0 mb-6 text-xl text-neutral-800 dark:text-neutral-300">
+          {{ . | markdownify }}
+        </h2>
+      {{ end }}
+{{ end }}
+      
+      <!-- Note: Social links div block removed from here entirely -->
+      
+      <section class="prose dark:prose-invert w-full max-w-none custom-button-spacing">
+        {{ .Content }}
+      </section>
+      
+      <!-- Simple style override to inject spacing between the shortcode buttons -->
+      <style>
+        .custom-button-spacing .bio-dashboard-btn {
+          margin-left: 0.75rem !important;
+          margin-right: 0.75rem !important;
+          margin-top: 0.5rem !important;
+        }
+      </style>
+    </div>
+
+  </div>
+</article>
+
+<section class="relative z-10 max-w-7xl mx-auto px-4 mt-16">
+  {{ partial "recent-articles/main.html" . }}
+</section>

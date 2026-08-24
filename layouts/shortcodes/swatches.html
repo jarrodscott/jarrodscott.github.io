@@ -1,0 +1,14 @@
+<!-- 
+  We use explicit inline styles for display: flex and gap. 
+  This guarantees a horizontal layout and prevents trailing margin bugs.
+-->
+<div class="my-6 w-full" style="display: flex; gap: 12px; max-width: 720px;">
+  <span style="flex: 1; height: 48px; border-radius: 6px; {{ with .Get 0 }}background-color: {{ . }}{{ end }}"></span>
+  <span style="flex: 1; height: 48px; border-radius: 6px; {{ with .Get 1 }}background-color: {{ . }}{{ end }}"></span>
+  <span style="flex: 1; height: 48px; border-radius: 6px; {{ with .Get 2 }}background-color: {{ . }}{{ end }}"></span>
+  <span style="flex: 1; height: 48px; border-radius: 6px; {{ with .Get 3 }}background-color: {{ . }}{{ end }}"></span>
+  <span style="flex: 1; height: 48px; border-radius: 6px; {{ with .Get 4 }}background-color: {{ . }}{{ end }}"></span>
+  <span style="flex: 1; height: 48px; border-radius: 6px; {{ with .Get 5 }}background-color: {{ . }}{{ end }}"></span>
+  <span style="flex: 1; height: 48px; border-radius: 6px; {{ with .Get 6 }}background-color: {{ . }}{{ end }}"></span>
+  <span style="flex: 1; height: 48px; border-radius: 6px; {{ with .Get 7 }}background-color: {{ . }}{{ end }}"></span>
+</div>

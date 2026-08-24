@@ -1,0 +1,67 @@
+{{ $icon := .Get "icon" | default "check" }}
+{{ $md := .Get "md" | default false }}
+{{ $header := .Get "header" }}
+{{ $badge := .Get "badge" }}
+{{ $subheader := .Get "subheader" }}
+{{ $location := .Get "location" }}
+
+<li>
+  <div class="flex relative">
+    <!-- FIX: Replaced risky fixed margins with absolute centering or universal padding safe limits -->
+    <div
+      class="bg-neutral-50 dark:bg-neutral-800 border-2 border-primary-500 dark:border-primary-300 text-primary-500 dark:text-primary-300 min-w-[32px] w-8 h-8 text-lg flex items-center justify-center rounded-full ltr:-ml-12 rtl:-mr-12 mt-5 z-10">
+      {{ partial "icon" $icon }}
+    </div>
+    
+    <!-- Changed wrapper margin and layout properties to guarantee fluid responsiveness -->
+    <div class="block p-4 sm:p-6 rounded-lg shadow-2xl flex-1 ms-4 sm:ms-6 mb-10 w-full min-w-0 break-words overflow-hidden">
+      
+      <!-- FIX: Switches to stacked column on mobile, horizontal layout on tablet/desktop -->
+      <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-4">
+        
+        <!-- Left Side: Header & Subheader -->
+        <div class="min-w-0 flex-1">
+          {{ if $header }}
+            <h3 class="mt-0 mb-1 text-xl sm:text-xl font-bold text-neutral-900 dark:text-neutral">
+              {{ $header }}
+            </h3>
+          {{ end }}
+          {{ if $subheader }}
+            <h4 class="mt-0 mb-1 text-lg sm:text-base text-neutral-500 dark:text-neutral-400">
+              {{ $subheader }}
+            </h4>
+          {{ end }}
+        </div>
+        
+        <!-- Right Side: Badge & Location -->
+        <!-- FIX: items-start text-left on mobile; items-end text-right on desktops -->
+        <div class="flex flex-col items-start sm:items-end text-left sm:text-right justify-start shrink-0">
+          {{ if $badge }}
+            <div class="mt-0 mb-1">
+              {{ partial "exp-badge" $badge }}
+            </div>
+          {{ end }}
+          
+          <!-- Location Wrapper matching current text flow direction -->
+          {{ if $location }}
+            <div class="flex items-center text-sm text-neutral-500 dark:text-neutral-400 mt-1">
+              <span class="me-1 flex items-center justify-center w-4 h-4">
+                {{ partial "icon" "location-dot" }} 
+              </span>
+              <span>{{ $location }}</span>
+            </div>
+          {{ end }}
+        </div>
+      </div>
+
+      <!-- Inner Content Body -->
+      <div class="mb-0 mt-0 text-md sm:text-base prose-sm dark:prose-invert max-w-full overflow-x-auto">
+        {{ if $md }}
+          {{- .Inner | .Page.RenderString -}}
+        {{ else }}
+          {{- .Inner -}}
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</li>

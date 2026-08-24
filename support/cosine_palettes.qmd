@@ -1,0 +1,184 @@
+---
+title: "cosine_palettes"
+format: html
+---
+
+from https://blog.djnavarro.net/posts/2025-09-14_cosine-palettes/
+
+```{r}
+cosine_palette <- function(n, base = NULL, seed = NULL) {
+  if (!is.null(seed)) set.seed(seed)
+  if (is.null(base)) base <- colors(distinct = TRUE)
+  a <- c(0.5, 0.5, 0.5)
+  b <- (sample(base, 1) |> col2rgb() |> as.vector()) / 255
+  c <- (sample(base, 1) |> col2rgb() |> as.vector()) / 255
+  d <- (sample(base, 1) |> col2rgb() |> as.vector()) / 255
+  pal <- vapply(
+    seq(0, 1, length.out = n), 
+    function(t) a + b * cos(2 * pi * (c * t + d)), 
+    double(3)
+  )
+  pal[pal > 1] <- 1
+  rgb(t(abs(pal)))
+}
+
+```
+
+```{r}
+cosine_palette(n = 15, seed = 119)
+```
+
+```{r}
+shade_strip <- function(cols) {
+  withr::with_par(
+    list(mar = c(0,0,0,0)),
+    image( matrix(seq_along(cols), ncol = 1), col = cols, axes = FALSE)
+  )
+}
+```
+
+```{r}
+seeds <- 1:15
+seeds |> 
+  purrr::map(\(s) cosine_palette(n = 256, seed = s)) |> 
+  purrr::walk(shade_strip)
+```
+
+```{r}
+choose_rectangle <- function(blocks) {
+  sample(nrow(blocks), 1, prob = blocks$area)
+}
+
+choose_break <- function(lower, upper) {
+  round((upper - lower) * runif(1))
+}
+
+create_rectangles <- function(left, right, bottom, top, value) {
+  tibble::tibble(
+    left = left,
+    right = right,
+    bottom = bottom,
+    top = top,
+    width = right - left,
+    height = top - bottom,
+    area = width * height,
+    value = value
+  )
+}
+
+split_rectangle_x <- function(rectangle, new_value) {
+  with(rectangle, {
+    split <- choose_break(left, right)
+    new_left  <- c(left, left + split)
+    new_right <- c(left + split, right)
+    new_value <- c(value, new_value)
+    create_rectangles(new_left, new_right, bottom, top, new_value)
+  })
+}
+
+split_rectangle_y <- function(rectangle, new_value) {
+  with(rectangle, {
+    split <- choose_break(bottom, top)
+    new_bottom <- c(bottom, bottom + split)
+    new_top <- c(bottom + split, top)
+    new_value <- c(value, new_value)
+    create_rectangles(left, right, new_bottom, new_top, new_value)
+  })
+}
+
+split_rectangle <- function(rectangle, value) {
+  split_fn <- ifelse(runif(1) < .5, split_rectangle_x, split_rectangle_y)
+  split_fn(rectangle, value)
+}
+
+split_block <- function(blocks, value) {
+  old <- choose_rectangle(blocks) 
+  new <- split_rectangle(blocks[old, ], value)
+  dplyr::bind_rows(blocks[-old, ], new)
+}
+```
+
+```{r}
+wong_pal <- c("#000000", "#0072B2", "#56B4E9", "#CC79A7", "#009E73", "#D55E00", "#E69F00", "#F0E442")
+```
+
+```{r}
+subdivision <- function(ncol = 200, 
+                        nrow = 100, 
+                        nsplits = 256,
+                        border = NULL, 
+                        seed = NULL) {
+  
+  if (!is.null(seed)) set.seed(seed)
+
+  #pal <- cosine_palette(n = 256, seed = seed)
+  pal <- wong_pal # to use wong palette
+
+  if (is.null(border)) border <- pal[128]
+
+  rct <- create_rectangles(
+    left = 1, 
+    right = ncol, 
+    bottom = 1, 
+    top = nrow, 
+    value = 0
+  )
+
+  div <- purrr::reduce(
+    1:nsplits, 
+    split_block, 
+    .init = rct
+  )
+
+  plt <- div |> 
+    ggplot2::ggplot(ggplot2::aes(
+      xmin = left, 
+      xmax = right, 
+      ymin = bottom, 
+      ymax = top,
+      fill = value
+    )) +
+    ggplot2::geom_rect(
+      show.legend = FALSE, 
+      color = border,
+      linewidth = 1
+    ) +
+    ggplot2::scale_fill_gradientn(colours = pal) +
+    ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = .15)) + 
+    ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = .15)) + 
+    ggplot2::coord_equal() +
+    ggplot2::theme_void() +
+    ggplot2::theme(plot.background = ggplot2::element_rect(
+      color = border,
+      fill = border
+    ))
+
+  plt
+}
+```
+
+
+```{r}
+#seeds |> purrr::walk(\(s) plot(subdivision()))  # plot wong palette
+
+seeds |> purrr::walk(\(s) plot(subdivision(seed = s)))  
+```
+
+```{r}
+tmp <- plot(subdivision(seed = 2))
+class(tmp)
+
+# Assuming your S7 object is named 'my_s7_object' 
+# and the property holding the plot is named 'plot'
+
+# Save the extracted plot as a PNG
+ggplot2::ggsave(
+  filename = "featured.png", 
+  plot = tmp, 
+  width = 8, 
+  height = 6, 
+  dpi = 300
+)
+
+```
+

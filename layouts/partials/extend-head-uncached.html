@@ -1,0 +1,8 @@
+<!-- Dynamically load badge engines ONLY on pages that invoke the shortcodes -->
+{{ if or (.HasShortcode "altmetric") (.HasShortcode "dimensions") }}
+  <!-- Altmetric Canonical Engine -->
+  <script type="text/javascript" src="https://embed.altmetric.com/assets/embed.js" async></script>
+
+  <!-- Dimensions Canonical Engine -->
+  <script type="text/javascript" src="https://badge.dimensions.ai/badge.js" charset="utf-8" async></script>
+{{ end }}

@@ -1,0 +1,383 @@
+{{ define "main" }}
+<article class="max-w-3xl mx-auto py-12 px-4">
+  <!-- Back to Biography Link -->
+  <div class="mb-8">
+    <a href="{{ "/featured-publications/" | relURL }}" class="text-md text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors inline-flex items-center no-underline">
+      ← Back to Featured Publications
+    </a>
+  </div>
+
+  <header class="mb-6">
+    <h1 class="text-4xl font-light text-neutral-800 dark:text-neutral-200 mb-2">{{ .Title }}</h1>
+    {{ with .Params.description }}<p class="text-neutral-500 dark:text-neutral-400 text-lg">{{ . }}</p>{{ end }}
+  </header>
+
+  <div class="prose dark:prose-invert">
+    {{ .Content }}
+  </div>
+
+  <section class="mt-8 mb-12 p-4 bg-neutral-50 dark:bg-neutral-800/40 rounded-lg border border-neutral-200 dark:border-neutral-700/60 text-sm">
+    <div class="flex flex-col sm:flex-row gap-4">
+      <div class="flex-1">
+        <label for="typeFilter" class="block text-sm font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-1.5">Publication Type</label>
+        <select id="typeFilter" onchange="filterPublications()" class="w-full bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded px-2.5 py-1.5 text-neutral-700 dark:text-neutral-300 focus:outline-none focus:border-primary-500 text-sm font-medium cursor-pointer">
+          <option value="all">All Types</option>
+          {{- $types := slice -}}
+          {{- range .Pages -}}
+            {{- with .Params.publication_type -}}{{- $types = $types | append . -}}{{- end -}}
+          {{- end -}}
+          {{- range ($types | uniq | sort) -}}
+            <option value="{{ . | urlize }}">{{ . }}</option>
+          {{- end -}}
+        </select>
+      </div>
+
+      <div class="flex-1">
+        <label for="tagFilter" class="block text-md font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-1.5">Filter by Topic / Tag</label>
+        <select id="tagFilter" onchange="filterPublications()" class="w-full bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded px-2.5 py-1.5 text-neutral-700 dark:text-neutral-300 focus:outline-none focus:border-primary-500 text-sm font-medium cursor-pointer">
+          <option value="all">All Topics</option>
+          {{- $tags := slice -}}
+          {{- range .Pages -}}
+            {{- with .Params.tags -}}
+              {{- range . -}}{{- $tags = $tags | append . -}}{{- end -}}
+            {{- end -}}
+          {{- end -}}
+          {{- range ($tags | uniq | sort) -}}
+            <option value="{{ . | urlize }}">{{ . }}</option>
+          {{- end -}}
+        </select>
+      </div>
+    </div>
+  </section>
+  {{ $myName := .Site.Params.academic_name | default "My Name" }}
+
+  {{ range .Pages.GroupByDate "2006" }}
+  <div class="mt-12 year-group" data-year="{{ .Key }}">
+    <h2 class="text-2xl font-semibold text-neutral-800 dark:text-neutral-200 border-b border-neutral-300 dark:border-neutral-600 pb-2 mb-6 year-header">
+      {{ .Key }}
+    </h2>
+
+    <ul class="space-y-8 list-none p-0 m-0">
+      {{ range .Pages.ByDate.Reverse }}
+      <li class="publication-item border-b border-neutral-200 dark:border-neutral-700 pb-6 last:border-none"
+          data-pubtype="{{ with .Params.publication_type }}{{ . | urlize }}{{ else }}none{{ end }}"
+          data-tags="{{ with .Params.tags }}{{ range . }}{{ . | urlize }} {{ end }}{{ else }}none{{ end }}">
+        
+        <div class="text-neutral-800 dark:text-neutral-200 text-lg leading-relaxed block w-full">
+          <!-- 1. TITLE FIRST -->
+          <a href="{{ .RelPermalink }}" class="font-normal underline text-neutral-800 dark:text-neutral-200 hover:text-primary-500 transition-colors no-underline">
+            {{ .Title }}
+          </a>
+
+          <!-- 2. AUTHORS SECOND -->
+          <span class="font-medium text-md inline">
+            {{- if reflect.IsSlice .Params.authors -}}
+              {{- $authorNotes := .Params.author_notes -}}
+              {{- $totalAuthors := len .Params.authors -}}
+              
+              {{- range $index, $author := .Params.authors -}}
+                <!-- Handle punctuation between authors with precise spacing -->
+                {{- if gt $index 0 -}}
+                  {{- if eq (add $index 1) $totalAuthors -}}
+                    ,&#32;and&#32;
+                  {{- else -}}
+                    ,&#32;
+                  {{- end -}}
+                {{- end -}}
+                
+                {{- $note := "" -}}
+                {{- if $authorNotes -}}{{- $note = index $authorNotes $index -}}{{- end -}}
+                {{- $isMe := eq $author $myName -}}
+                
+                {{- if $note -}}
+                  <span class="relative inline-flex flex-col-reverse items-center group cursor-help border-b border-dotted border-neutral-400 dark:border-neutral-500 vertical-align: middle;">
+                    <span class="inline-flex items-center">
+                      <span class="{{ if $isMe }}font-bold underline decoration-primary-500 decoration-2 text-neutral-950 dark:text-primary-400{{ end }}">{{ $author }}</span>
+                      <sup class="ml-1 select-none text-primary-700 dark:text-primary-400" style="font-size: 0.95em !important; line-height: 1 !important; transform: translateY(-1px);">
+                        {{- with resources.Get "icons/circle-info.svg" -}}
+                          <span class="inline-block align-middle blowfish-svg-icon" style="width: 1em; height: 1em;">
+                            <style>
+                              .blowfish-svg-icon svg, .blowfish-svg-icon svg path, .blowfish-svg-icon svg circle { fill: rgb(var(--color-primary-700)) !important; }
+                              .dark .blowfish-svg-icon svg, .dark .blowfish-svg-icon svg path, .dark .blowfish-svg-icon svg circle { fill: rgb(var(--color-primary-400)) !important; }
+                            </style>
+                            {{- .Content | safeHTML -}}
+                          </span>
+                        {{- end -}}
+                      </sup>
+                    </span>
+                    <span class="invisible group-hover:visible bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900 rounded shadow-md z-50 transition-all opacity-0 group-hover:opacity-100 text-center pointer-events-none" style="line-height: 1.2 !important; padding: 4px 8px !important; position: absolute !important; bottom: 115% !important; left: 50% !important; transform: translateX(-50%) !important; width: max-content !important;">
+                      {{ $note }}
+                    </span>
+                  </span>
+                {{- else -}}
+                  <span class="inline {{ if $isMe }}font-bold underline decoration-primary-500 decoration-2 text-neutral-950 dark:text-primary-400{{ end }}">{{ $author }}</span>
+                {{- end -}}
+              {{- end -}}
+              .
+            {{- else -}}
+              {{- .Params.authors -}}
+            {{- end -}}
+          </span>
+          
+          <!-- 3. JOURNAL & PAGES THIRD -->
+          {{ if reflect.IsMap .Params.publication }}
+            {{ with .Params.publication.name }} <span class="italic text-neutral-800 dark:text-neutral-200">{{ . }}</span>{{ end -}}
+            {{- with .Params.publication.volume }}, <span class="font-medium">{{ . }}</span>{{ end -}}
+            <!-- Removed parentheses around issue, replaced with colon before pages -->
+            {{- with .Params.publication.pages }}: {{ . }}{{ end }}.
+          {{ else }}
+            {{ with .Params.publication }} <span class="italic text-neutral-800 dark:text-neutral-200">{{ . }}.</span>{{ end }}
+          {{ end }}
+
+          <!-- 4. YEAR LAST -->
+          {{ if .Date }}<span> {{ .Date.Format "2006" }}.</span>{{ end }}
+        </div>
+
+<!--
+        {{ if .Params.tags }}
+        <div class="flex flex-wrap gap-2 mt-2 select-none opacity-60 hover:opacity-100 transition-opacity">
+          {{ range .Params.tags }}
+            <span class="text-[10px] uppercase font-mono tracking-wider bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 px-2 py-0.5 rounded">
+              #{{ . }}
+            </span>
+          {{ end }}
+        </div>
+        {{ end }}
+-->
+
+        <!-- Block 2: Action Buttons Row -->
+        <div class="flex flex-wrap mt-2.5 text-sm font-medium w-full theme-action-buttons" style="gap: 12px !important; padding-left: 0px !important; margin-left: 0px !important;">
+        
+        <style>
+          /* Base layout styling tied directly to Blowfish theme configuration */
+          .theme-action-buttons a, 
+          .theme-action-buttons button, 
+          .theme-action-buttons .oa-badge {
+            color: rgb(var(--color-primary-700)) !important;
+            background: none !important;
+            border: none !important;
+            padding: 0 !important;
+            cursor: pointer !important;
+            text-decoration: none !important;
+            transition: color 0.2s ease-in-out !important;
+          }
+          
+          /* Force external SVG icons to scale with text and use theme colors */
+          .theme-action-buttons svg,
+          .theme-action-buttons svg path,
+          .theme-action-buttons svg circle {
+            stroke: rgb(var(--color-primary-700)) !important;
+            width: auto !important;
+            height: 1.1em !important;
+            transition: stroke 0.2s ease-in-out !important;
+          }
+          
+          /* Interactive Hover States (Light Mode) */
+          .theme-action-buttons a:hover, 
+          .theme-action-buttons button:hover {
+            color: rgb(var(--color-primary-600)) !important;
+            text-decoration: underline !important;
+          }
+          .theme-action-buttons a:hover svg,
+          .theme-action-buttons a:hover svg path,
+          .theme-action-buttons a:hover svg circle,
+          .theme-action-buttons button:hover svg,
+          .theme-action-buttons button:hover svg path,
+          .theme-action-buttons button:hover svg circle {
+            stroke: rgb(var(--color-primary-600)) !important;
+            text-decoration: none !important; /* Prevents the SVG icon itself from getting an underline */
+          }
+          
+          /* Dark Mode Base Theme Adjustments */
+          .dark .theme-action-buttons a, 
+          .dark .theme-action-buttons button, 
+          .dark .theme-action-buttons .oa-badge {
+            color: rgb(var(--color-primary-400)) !important;
+          }
+          .dark .theme-action-buttons svg,
+          .dark .theme-action-buttons svg path,
+          .dark .theme-action-buttons svg circle {
+            stroke: rgb(var(--color-primary-400)) !important;
+          }
+
+          /* Interactive Hover States (Dark Mode) */
+          .dark .theme-action-buttons a:hover, 
+          .dark .theme-action-buttons button:hover {
+            color: rgb(var(--color-primary-300)) !important;
+            text-decoration: underline !important;
+          }
+          .dark .theme-action-buttons a:hover svg,
+          .dark .theme-action-buttons a:hover svg path,
+          .dark .theme-action-buttons a:hover svg circle,
+          .dark .theme-action-buttons button:hover svg,
+          .dark .theme-action-buttons button:hover svg path,
+          .dark .theme-action-buttons button:hover svg circle {
+            stroke: rgb(var(--color-primary-300)) !important;
+            text-decoration: none !important;
+          }
+
+          /* Ensure loaded assets behave as tight inline items */
+          .dynamic-icon-wrapper {
+            margin-right: 6px !important;
+            display: inline-block !important;
+            text-decoration: none !important; /* Keeps the underline off the icon wrapper box */
+          }
+        </style>
+          <!-- PDF Button -->
+          {{ $pdf := .Resources.GetMatch "*.pdf" }}
+          {{ if or $pdf .Params.url_pdf }}
+            {{ $pdf_url := "" }}{{ if $pdf }}{{ $pdf_url = $pdf.RelPermalink }}{{ else }}{{ $pdf_url = .Params.url_pdf }}{{ end }}
+            <a href="{{ $pdf_url }}" target="_blank" class="inline-flex items-center no-underline hover:text-primary-500">
+              {{- with resources.Get "icons/pdf.svg" -}}
+                <span class="inline-block align-middle dynamic-icon-wrapper">{{ .Content | safeHTML }}</span>
+              {{- end -}}
+              PDF
+            </a>
+          {{ end }}
+
+          <!-- CITE Button -->
+          {{ $bib := .Resources.GetMatch "cite.bib" }}
+          {{ if $bib }}
+            <button onclick="copyBibTeX(this)" data-bibtex="{{ $bib.Content | htmlEscape }}" class="inline-flex items-center font-medium text-sm hover:text-primary-500">
+              {{- with resources.Get "icons/cite.bib.svg" -}}
+                <span class="inline-block align-middle dynamic-icon-wrapper">{{ .Content | safeHTML }}</span>
+              {{- end -}}
+              <span class="cite-text">Cite</span>
+            </button>
+          {{ end }}
+
+          <!-- DOI Button (Optimized: removed absURL loop) -->
+          {{ $doi_url := "" }}
+          {{ with .Params.doi }}
+            {{ $doi_url = print "https://doi.org/" . }}
+          {{ else }}
+            {{ with .Params.url_doi }}
+              {{ $doi_url = . }}
+            {{ end }}
+          {{ end }}
+          
+          {{ if $doi_url }}
+            <a href="{{ $doi_url }}" target="_blank" class="inline-flex items-center no-underline hover:text-primary-500">
+              {{- with resources.Get "icons/doi.svg" -}}
+                <span class="inline-block align-middle dynamic-icon-wrapper">{{ .Content | safeHTML }}</span>
+              {{- end -}}
+              DOI
+            </a>
+          {{ end }}
+
+          <!-- CODE Button -->
+          {{ with .Params.url_code }}
+            <a href="{{ . }}" target="_blank" class="inline-flex items-center no-underline hover:text-primary-500">
+              {{- with resources.Get "icons/code.svg" -}}
+                <span class="inline-block align-middle dynamic-icon-wrapper">{{ .Content | safeHTML }}</span>
+              {{- end -}}
+              Code
+            </a>
+          {{ end }}
+
+          <!-- DATASET Button -->
+          {{ with .Params.url_dataset }}
+            <a href="{{ . }}" target="_blank" class="inline-flex items-center no-underline hover:text-primary-500">
+              {{- with resources.Get "icons/database.svg" -}}
+                <span class="inline-block align-middle dynamic-icon-wrapper">{{ .Content | safeHTML }}</span>
+              {{- end -}}
+              Dataset
+            </a>
+          {{ end }}
+
+          <!-- Open Access Badge -->
+          {{ if eq .Params.open_access true }}
+            <span class="inline-flex items-center cursor-help group relative oa-badge select-none">
+              {{- with resources.Get "icons/open-access.svg" -}}
+                <span class="inline-block align-middle dynamic-icon-wrapper">{{ .Content | safeHTML }}</span>
+              {{- end -}}
+              Open Access
+              
+              {{ with .Params.license }}
+                <span class="invisible group-hover:visible bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900 rounded shadow-md z-50 transition-all opacity-0 group-hover:opacity-100 text-center pointer-events-none"
+                      style="line-height: 1.2 !important; padding: 4px 8px !important; height: auto !important; width: max-content !important; min-width: 0 !important; max-width: none !important; letter-spacing: normal !important; text-transform: none !important; margin-bottom: 6px !important; position: absolute !important; bottom: 125% !important; left: 50% !important; transform: translateX(-50%) !important;">
+                  License: {{ . }}
+                </span>
+              {{ end }}
+            </span>
+          {{ end }}
+      
+        </div>
+
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+  {{ end }}
+</article>
+
+<script>
+function filterPublications() {
+  const selectedType = document.getElementById('typeFilter').value;
+  const selectedTag = document.getElementById('tagFilter').value;
+  const publicationItems = document.querySelectorAll('.publication-item');
+  const yearGroups = document.querySelectorAll('.year-group');
+  const noPubsMessage = document.getElementById('noPubsMessage');
+  
+  let totalVisibleCount = 0;
+
+  publicationItems.forEach(item => {
+    const itemType = item.getAttribute('data-pubtype');
+    const rawTags = item.getAttribute('data-tags') || '';
+    const itemTags = rawTags.trim().split(/\s+/);
+
+    const matchType = (selectedType === 'all' || itemType === selectedType);
+    const matchTag = (selectedTag === 'all' || itemTags.includes(selectedTag));
+
+    if (matchType && matchTag) {
+      item.style.display = 'block';
+      totalVisibleCount++;
+    } else {
+      item.style.display = 'none';
+    }
+  });
+
+  yearGroups.forEach(group => {
+    const allItemsInGroup = group.querySelectorAll('.publication-item');
+    let visibleInGroup = 0;
+    
+    allItemsInGroup.forEach(item => {
+      if (item.style.display !== 'none') {
+        visibleInGroup++;
+      }
+    });
+
+    if (visibleInGroup === 0) {
+      group.style.display = 'none';
+    } else {
+      group.style.display = 'block';
+    }
+  });
+
+  if (totalVisibleCount === 0) {
+    noPubsMessage.classList.remove('hidden');
+  } else {
+    noPubsMessage.classList.add('hidden');
+  }
+}
+
+function copyBibTeX(button) {
+  const encodedBib = button.getAttribute('data-bibtex');
+  if (!encodedBib) return;
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(encodedBib, 'text/html');
+  const bibtex = doc.documentElement.textContent;
+  const textLabel = button.querySelector('.cite-text');
+  
+  navigator.clipboard.writeText(bibtex).then(() => {
+    const originalText = textLabel.textContent;
+    textLabel.textContent = 'COPIED!';
+    button.classList.add('text-emerald-600', 'dark:text-emerald-400');
+    setTimeout(() => { 
+      textLabel.textContent = originalText; 
+      button.classList.remove('text-emerald-600', 'dark:text-emerald-400');
+    }, 2000);
+  }).catch(err => { console.error('Clipboard copy failed: ', err); });
+}
+</script>
+{{ end }}

@@ -1,0 +1,83 @@
+{{- $keysString := .Get 0 -}}
+{{- $style := .Get 1 -}}
+{{- $page := .Page -}}
+
+{{- /* Split the keys string by space into an array */ -}}
+{{- $keys := split $keysString " " -}}
+
+{{- /* Initialize an array to hold the rendered inline HTML blocks */ -}}
+{{- $renderedCites := slice -}}
+
+{{- range $key := $keys -}}
+    {{- /* Check BOTH 'references' and 'reference' just in case */ -}}
+    {{- $dataSource := $.Site.Data.references -}}
+    {{- if not $dataSource -}}
+        {{- $dataSource = $.Site.Data.reference -}}
+    {{- end -}}
+
+    {{- $entry := index (where $dataSource "id" $key) 0 -}}
+    
+    {{- if $entry -}}
+        {{- $authorText := "Unknown" -}}
+        {{- if $entry.author -}}
+            {{- $firstAuthor := index $entry.author 0 -}}
+            {{- $count := len $entry.author -}}
+            {{- if eq $count 1 -}}
+                {{- $authorText = $firstAuthor.family -}}
+            {{- else if eq $count 2 -}}
+                {{- $secondAuthor := index $entry.author 1 -}}
+                {{- $authorText = printf "%s & %s" $firstAuthor.family $secondAuthor.family -}}
+            {{- else -}}
+                {{- $authorText = printf "%s et al." $firstAuthor.family -}}
+            {{- end -}}
+        {{- end -}}
+        
+        {{- $year := "n.d." -}}
+        {{- if index $entry "issued" -}}
+            {{- $dateParts := index (index $entry "issued" "date-parts") 0 -}}
+            {{- $year = index $dateParts 0 -}}
+        {{- end -}}
+
+        {{- $.Page.Scratch.SetInMap "cited_keys" $key true -}}
+        
+        {{- /* Use a clean fallback if title is missing */ -}}
+        {{- $titleText := index $entry "title" | default "No Title" -}}
+        {{- $tooltipText := printf "%s (%s). %s" $authorText $year $titleText -}}
+
+        {{- /* Build HTML structure without nesting layouts inside the printf token evaluation loop */ -}}
+        {{- $tooltipHTML := printf `<span class="pointer-events-none absolute bottom-full z-50 mb-2 invisible opacity-0 scale-95 rounded-md border border-neutral-200 bg-white pl-4 pr-3 py-3 text-sm text-neutral-700 shadow-md transition-all duration-200 group-hover:visible group-hover:opacity-100 group-hover:scale-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 text-left leading-normal cite-popup-override">%s</span>` $tooltipText -}}
+        
+        {{- $citeHTML := "" -}}
+        {{- if or (eq $style "n") (eq $style "narrative") -}}
+            {{- $linkHTML := printf `<a href="#bib-%s" class="text-primary-600 dark:text-primary-400 no-underline hover:text-primary-700 dark:hover:text-primary-300">%s</a>` $key $authorText -}}
+            {{- $citeHTML = printf `<span class="relative inline group">%s%s</span> (%s)` $linkHTML $tooltipHTML $year -}}
+        {{- else -}}
+            {{- $linkHTML := printf `<a href="#bib-%s" class="text-primary-600 dark:text-primary-400 no-underline hover:text-primary-700 dark:hover:text-primary-300">%s %s</a>` $key $authorText $year -}}
+            {{- $citeHTML = printf `<span class="relative inline group">%s%s</span>` $linkHTML $tooltipHTML -}}
+        {{- end -}}
+
+        {{- $renderedCites = $renderedCites | append $citeHTML -}}
+    {{- else -}}
+        {{- $errorHTML := printf `<span style="color:red;">[Missing Citation Data: %s]</span>` $key -}}
+        {{- $renderedCites = $renderedCites | append $errorHTML -}}
+    {{- end -}}
+{{- end -}}
+
+{{- $joinedCites := delimit $renderedCites "; " -}}
+
+{{- if or (eq $style "p") (eq $style "parentheses") -}}
+    ({{ $joinedCites | safeHTML }})
+{{- else -}}
+    {{ $joinedCites | safeHTML }}
+{{- end -}}
+
+<style>
+  .cite-popup-override {
+    width: 22rem; 
+    max-width: 80vw; 
+    white-space: normal; 
+    left: max(10px, min(50%, calc(100vw - 23rem))); 
+    transform: translateX(-50%); 
+    padding-left: 1.25rem;
+  }
+</style>

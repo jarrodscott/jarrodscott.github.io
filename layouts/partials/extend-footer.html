@@ -1,0 +1,28 @@
+{{ $js := resources.Get "js/lightbox3.min.js" }}
+{{ if $js }}
+  <script src="{{ $js.RelPermalink }}"></script>
+  <script>
+    (function() {
+      function resetLightbox() {
+        // Destroy active overlays clogging the background markup
+        const staleOverlays = document.querySelectorAll('.lightbox3-container, .lb-overlay, #lightboxOuter');
+        staleOverlays.forEach(el => el.remove());
+
+        // Re-initialize exactly one fresh instance for the new layout
+        if (typeof Lightbox !== 'undefined' && typeof Lightbox.init === 'function') {
+          Lightbox.init();
+        }
+      }
+
+      // Run immediately on standard page initialization
+      document.addEventListener("DOMContentLoaded", resetLightbox);
+
+      // Hook into Blowfish's dynamic Turbo / InstantPage lifecycle events
+      document.addEventListener("turbo:load", resetLightbox);
+      document.addEventListener("turbo:before-cache", function() {
+        const staleOverlays = document.querySelectorAll('.lightbox3-container, .lb-overlay, #lightboxOuter');
+        staleOverlays.forEach(el => el.remove());
+      });
+    })();
+  </script>
+{{ end }}

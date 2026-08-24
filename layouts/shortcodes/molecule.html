@@ -1,0 +1,96 @@
+{{ $file := .Get "file" }}
+{{ $sizeStr := .Get "size" | default "300" }}
+{{ $size := int $sizeStr }}
+{{ $name := .Get "name" | default "Chemical Structure" }}
+{{ $id := math.Counter }}
+
+<!-- Hugo Build-Time Local File Reader -->
+{{ $filePath := printf "static/molecules/%s" $file }}
+{{ $sdfData := "" }}
+
+{{ if fileExists $filePath }}
+  {{ $sdfData = readFile $filePath }}
+{{ end }}
+
+<div class="molecule-container clear-both my-8 flex flex-col justify-center items-center select-none mx-auto w-full" style="max-width: {{ $size }}px;">
+  
+  <!-- Outer Card Frame -->
+  <div class="p-1 rounded-xl border bg-white border-neutral-200 shadow-sm dark:border-neutral-700 w-full" style="height: {{ $size }}px; position: relative; z-index: 10;">
+    
+    {{ if $sdfData }}
+      <!-- Securely store your multi-line 2D SDF text -->
+      <textarea id="sdf-raw-{{ $id }}" style="display: none !important;">{{ $sdfData | safeHTML }}</textarea>
+
+      <!-- Target Node for the Interactive 3D Canvas -->
+      <div id="mol-canvas-{{ $id }}" class="w-full h-full cursor-grab active:cursor-grabbing" style="width: 100%; height: 100%;"></div>
+    {{ else }}
+      <div class="w-full h-full flex flex-col items-center justify-center text-xs text-red-500 bg-neutral-50 p-4 text-center">
+        <strong>Molecule File Missing:</strong><br>
+        Check path: <code class="bg-neutral-200 px-1 py-0.5 rounded mt-1">static/molecules/{{ $file }}</code>
+      </div>
+    {{ end }}
+
+  </div>
+  
+  <div class="text-center text-sm text-neutral-700 dark:text-neutral-100 mt-2 font-medium">
+    {{ $name }} <span class="text-xs text-neutral-400 font-normal">(Drag to rotate / Scroll to zoom)</span>
+  </div>
+</div>
+
+<!-- Load Core Libraries (jQuery, 3D Viewer, and the 2D-to-3D Coordinate Calculator) -->
+<script src="https://jquery.com"></script>
+<script src="https://pitt.edu"></script>
+<script src="https://unpkg.com"></script>
+
+<script>
+  (function() {
+    function generate3DAndRender() {
+      const container = document.getElementById("mol-canvas-{{ $id }}");
+      const textData = document.getElementById("sdf-raw-{{ $id }}");
+      
+      if (!container || !textData || container.dataset.rendered) return;
+
+      // Ensure all scripts are fully ready in global memory before building
+      if (typeof $3Dmol === 'undefined' || typeof Kekule === 'undefined' || !Kekule.Chem) {
+        setTimeout(generate3DAndRender, 100);
+        return;
+      }
+      
+      container.dataset.rendered = "true";
+
+      try {
+        const raw2dSdfText = textData.value.trim();
+
+        // 1. Read the 2D file structure via Kekule
+        const molecule = Kekule.IO.loadFormatData(raw2dSdfText, 'mol');
+
+        // 2. Generate realistic 3D coordinates (adds depth to your 2D coordinates)
+        const structureGenerator = new Kekule.Calculator.Generate3DStructure(molecule);
+        structureGenerator.execute(function() {
+          
+          // 3. Export the newly generated 3D data back out as a clean SDF string
+          const raw3dSdfText = Kekule.IO.saveFormatData(molecule, 'mol');
+
+          // 4. Fire up the 3Dmol canvas viewer inside your card frame
+          const viewer = $3Dmol.createViewer($(container), { backgroundColor: '#ffffff' });
+          
+          viewer.addModel(raw3dSdfText, "sdf");
+          
+          // Apply a crisp 3D ball and stick layout view scheme
+          viewer.setStyle({}, { 
+            stick: { radius: 0.20, colorscheme: 'Jmol' }, 
+            sphere: { radius: 0.45, colorscheme: 'Jmol' } 
+          });
+          
+          viewer.zoomTo();
+          viewer.render();
+        });
+
+      } catch (err) {
+        console.error("2D to 3D Conversion Failed:", err);
+      }
+    }
+
+    generate3DAndRender();
+  })();
+</script>

@@ -1,0 +1,19 @@
+{{- $doi := .Get "doi" -}}
+{{- $size := .Get "size" | default "medium" -}}
+{{- $align := .Get "align" | default "left" -}}
+
+{{- $style := "medium_circle" -}}
+{{- if eq $size "small" }}{{ $style = "small_circle" }}{{ end -}}
+{{- if eq $size "medium" }}{{ $style = "medium_circle" }}{{ end -}}
+{{- if eq $size "large" }}{{ $style = "large_circle" }}{{ end -}}
+
+{{- $alignClass := "text-left" -}}
+{{- if eq $align "center" }}{{ $alignClass = "text-center mx-auto" }}{{ end -}}
+{{- if eq $align "right" }}{{ $alignClass = "text-right ml-auto" }}{{ end -}}
+
+<div class="inline-block align-middle my-4 mr-4 {{ $alignClass }}">
+    <span class="__dimensions_badge_embed__" 
+          data-doi="{{ $doi }}" 
+          data-style="{{ $style }}">
+    </span>
+</div>
