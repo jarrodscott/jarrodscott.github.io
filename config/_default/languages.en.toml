@@ -5,140 +5,81 @@ weight = 1
 title = "Jarrod J Scott"
 
 [params]
-  displayName = "EN"
-  isoCode = "en"
-  rtl = false
-  dateFormat = "2 January 2006"
-  logo = "logo2.png"
-  secondaryLogo = "img/secondary-logo.png"
-  description = "DESCRIPTION This is in languages.en.toml"
-  #copyright = "Copy, _right?_ :thinking_face:"
+displayName = "EN"
+isoCode = "en"
+rtl = false
+dateFormat = "2 January 2006"
+description = "DESCRIPTION This is in languages.en.toml"
+logo = "logo.png"
 
-[params.author]
+  [params.author]
   name = "Jarrod J Scott"
   email = "jarrod.jukebox308@slmail.me"
   image = "images/cover.jpg"
   banner = "images/mind_map.jpg"
   imageQuality = 96
   headline = "Field biologist, systems ecologist, data scientist, interdisciplinary researcher."
-  
   bio = "My approach to biological questions is interdisciplinary & systems oriented. I combine field ecology, molecular & computational methods, ecological statistics, & advanced visualization to investigate how organisms coalesce into communities & how complex community interactions shape the structure & function of systems."
-
-  full_bio_url = "about/bio/" # Added by jjs
-  # NEW: Modular button repository array
-  # Add, remove, or rearrange items here as needed
-
-  links = [
-    { google-scholar = "https://scholar.google.com/citations?hl=en&user=5qejxxIAAAAJ"},
-    { github = "https://github.com/jarrodscott" },
-    { orcid = "https://orcid.org/0000-0001-9863-1318" },
-    { researchgate = "https://www.researchgate.net/profile/Jarrod-Scott-3" },
-    { email = "mailto:jarrod.jukebox308@slmail.me" },
-    { envelope = "/contact" },
-
-    
-#    { link = "" },
-#    { amazon = "" },
-#    { apple = "" },
-#    { blogger = "" },
-#    { bluesky = "" },
-#    { codepen = "" },
-#    { dev = "" },
-#    { discord = "" },
-#    { dribbble = "" },
-#    { facebook = "" },
-#    { flickr = "" },
-#    { foursquare = "" },
-#    { gitlab = "" },
-#    { google = "" },
-#    { hashnode = "" },
-#    { instagram = "" },
-#    { itch-io = "" },
-#    { keybase = "" },
-#    { keyoxide = "" },
-#    { kickstarter = "" },
-#    { lastfm = "" },
-#    { linkedin = "" },
-#    { mastodon = "" },
-#    { matrix = "" },
-#    { medium = "" },
-#    { microsoft = "" },
-#    { patreon = "" },
-#    { pinterest = "" },
-#    { reddit = "" },
-#    { signal = "" },
-#    { slack = "" },
-#    { snapchat = "" },
-#    { soundcloud = "" },
-#    { spotify = "" },
-#    { stack-overflow = "" },
-#    { steam = "" },
-#    { strava = "" },
-#    { telegram = "" },
-#    { threads = "" },
-#    { tiktok = "" },
-#    { tumblr = "" },
-#    { twitch = "" },
-#    { untappd = "" },
-#    { twitter = "" },
-#    { x-twitter = "" },
-#    { whatsapp = "" },
-#    { youtube = "" },
-#    { ko-fi = "" },
-#    { codeberg = ""},
-#    { printables = ""},
-  ]
-  # Custom fields to precisely mimic the HugoBlox biography layout
+  full_bio_url = "about/bio/"
   interests = [
-    "Symbiosis",
-    "Complexity",
-    "DNA",
-    "Ethnobotany",
-    "'Omics",
-    "Coevolution"
-  ]
+  "Symbiosis",
+  "Complexity",
+  "DNA",
+  "Ethnobotany",
+  "'Omics",
+  "Coevolution"
+]
+  skills = [ "Field", "Lab", "'Omics", "R", "Python", "Quarto" ]
 
-  skills = [
-    "Field",
-    "Lab",
-    "'Omics",
-    "R", 
-    "Python",
-    "Quarto",
+    [[params.author.links]]
+    google-scholar = "https://scholar.google.com/citations?hl=en&user=5qejxxIAAAAJ"
 
-  ]
+    [[params.author.links]]
+    github = "https://github.com/jarrodscott"
 
-  [[params.author.education]]
+    [[params.author.links]]
+    orcid = "https://orcid.org/0000-0001-9863-1318"
+
+    [[params.author.links]]
+    researchgate = "https://www.researchgate.net/profile/Jarrod-Scott-3"
+
+    [[params.author.links]]
+    email = "mailto:jarrod.jukebox308@slmail.me"
+
+    [[params.author.links]]
+    envelope = "/contact"
+
+    [[params.author.education]]
     course = "PhD Microbiology"
     institution = "University of Wisconsin-Madison"
     year = "2011"
 
-  [[params.author.education]]
+    [[params.author.education]]
     course = "BSc Biology"
     institution = "University of Texas-Austin"
     year = "2002"
 
-  [[params.author.aboutButtons]]
+    [[params.author.aboutButtons]]
     text = "Experience & Training"
     url = "/about/experience/"
     icon = "graduation-cap"
 
-  [[params.author.aboutButtons]]
+    [[params.author.aboutButtons]]
     text = "Publications"
     url = "/about/featured-publications/"
-    icon = "pdf" 
+    icon = "pdf"
 
-  [[params.author.aboutButtons]]
+    [[params.author.aboutButtons]]
     text = "Expertise"
     url = "/about/expertise/"
-    icon = "microscope" 
+    icon = "microscope"
 
-  [[params.author.aboutButtons]]
+    [[params.author.aboutButtons]]
     text = "Products"
     url = "/about/products/"
-    icon = "chalkboard" 
+    icon = "chalkboard"
 
-  [[params.author.aboutButtons]]
+    [[params.author.aboutButtons]]
     text = "Media"
     url = "/about/media/"
-    icon = "newspaper" 
+    icon = "newspaper"

@@ -49,6 +49,7 @@ error:
   404_title: "Page Not Found :confused:"
   404_error: "Error 404"
   404_description: "Hum. What are you doing here? It seems that whatever you are looking for is not here :/"
+  404_home: "Take me home"
 
 footer:
   dark_appearance: "Switch to dark appearance"
@@ -60,29 +61,34 @@ list:
   no_articles: "There are no articles to list here yet."
 
 nav:
+  close_menu: "Close menu"
+  footer_menu: "Footer menu"
+  main_menu: "Main menu"
+  mobile_menu: "Mobile menu"
   scroll_to_top_title: "Scroll to top"
   skip_to_main: "Skip to main content"
+  toggle_submenu: "Toggle submenu"
 
 search:
-  open_button_title: "Search (/)"
+  open_button_title: "Search (/ or ⌘K)"
   close_button_title: "Close (Esc)"
   input_placeholder: "Search"
 
-#sharing:
-#  email: "Send via email"
-#  facebook: "Share on Facebook"
-#  line: "Share on LINE"
-#  linkedin: "Share on LinkedIn"
-#  pinterest: "Pin on Pinterest"
-#  reddit: "Submit to Reddit"
-#  twitter: "Tweet on Twitter"
-#  bluesky: "Post on Bluesky"
-#  whatsapp: "Share via WhatsApp"
-#  telegram: "Share via Telegram"
-#  mastodon: "Share via Mastodon"
+sharing:
+  email: "Send via email"
+  facebook: "Share on Facebook"
+  line: "Share on LINE"
+  linkedin: "Share on LinkedIn"
+  pinterest: "Pin on Pinterest"
+  reddit: "Submit to Reddit"
+  twitter: "Tweet on Twitter"
+  bluesky: "Post on Bluesky"
+  whatsapp: "Share via WhatsApp"
+  telegram: "Share via Telegram"
+  mastodon: "Share via Mastodon"
 
 shortcode:
-  recent_articles: ""
+  recent_articles: "Recent"
 
 recent:
   show_more: "Show More"

@@ -14,6 +14,7 @@
 [tableOfContents]
   startLevel = 2
   endLevel = 4
+  
 # I added this section below
 [markup]
   [markup.goldmark]

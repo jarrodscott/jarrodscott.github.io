@@ -1,4 +1,14 @@
 {{ define "main" }}
+  {{ .Scratch.Set "scope" "timeline-simple" }}
+
+  {{ $showReadingProgress := site.Params.article.showReadingProgress | default false }}
+  {{ if isset .Params "showreadingprogress" }}
+    {{ $showReadingProgress = .Params.showReadingProgress }}
+  {{ end }}
+  {{ if $showReadingProgress }}
+    {{ partial "reading-progress.html" . }}
+  {{ end }}
+
   <!-- Outer utility class allows the content container to slide out fully -->
   <article class="w-full max-w-full overflow-x-hidden">
       {{/* Hero */}}
