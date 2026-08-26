@@ -4,11 +4,11 @@ description: "A handpicked list of my primary research highlights."
 layout: "selected-pub-grid" # selected-pub-list or selected-pub-grid
 ---
 
+{{< cta url="/about/publications" label="See all publications" style="outline" >}}
 
-{{< button pageRef="/about/publications" >}}
-  {{< icon "link" >}} See all publications
-{{< /button >}}
-
+<!--
+{{< cta url="/about/publications" label="See all publications"  >}}
+-->
 
 <!--
 Please see →  {{< link url="/about/publications" text="this link for a complete list of my publications" >}}.

@@ -1,7 +1,7 @@
 ---
 title: "Credits"
 menu: "footer"
-layout: single
+layout: mod-single
 ---
 
 > Unless otherwise noted, all content of this website, including text and images, are my own. 

@@ -1,6 +1,6 @@
 ---
 title: "Media Features"
-layout: "list"
+layout: mod-list
 groupByYear: false
 ---
 

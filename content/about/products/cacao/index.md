@@ -7,6 +7,6 @@ showSummary: true
 build:
   render: never
   list: local
-badge: "talk"    
+badge: "slides"    
 ---
 

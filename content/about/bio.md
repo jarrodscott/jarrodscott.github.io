@@ -3,4 +3,6 @@ title: "Biography"
 layout: "simple"
 ---
 
-Coming soon! 
+{{< lead >}}
+COMING SOON
+{{< /lead >}}

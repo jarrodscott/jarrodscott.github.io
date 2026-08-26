@@ -4,14 +4,13 @@ summary: "Which codons specify particular amino acids? To help memorize the codo
 categories: ["Post","Blog",]
 #tags: ["post","lorem","ipsum"]
 #externalUrl: ""
-#showSummary: true
+showSummary: true
 date: 2026-07-04
 draft: false
-showSummary: true
 showHero: true
 heroStyle: background # basic, big, background, thumbAndBackground. Effective only if article.showHero = true.
 layoutBackgroundBlur: true
-layout: "single"
+layout: mod-single
 ---
 
 {{< katex >}}
@@ -41,7 +40,7 @@ Because there are four distinct bases (**$\ce{A}$**, **$\ce{T}$**, **$\ce{G}$**,
 For example, **Glutamine (Gln)** is coded by $\ce{CAG}$ and $\ce{CAA}$ while **Histidine (His)** is coded by $\ce{CAC}$ and $\ce{CAU}$. In fact only methionine and tryptophan are specified by a single codon. The remaining amino acids are coded by at least two, and up to six, codons. Below is a lookup table that describes the relationship between codons and amino acids. 
 
 {{< alert "link" >}}
-Use this → link for [more detailed information about each amino acid](amino_acids).
+Use this → link for [more detailed information about each amino acid](/posts/amino-acids).
 {{< /alert >}}
 
 {{< codon-table >}}

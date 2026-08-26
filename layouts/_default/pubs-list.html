@@ -8,6 +8,10 @@
   </div>
 
   <header class="mb-6">
+    {{ if .Params.showBreadcrumbs | default (site.Params.list.showBreadcrumbs | default false) }}
+      {{ partial "breadcrumbs.html" . }}
+    {{ end }}
+  
     <h1 class="text-4xl font-light text-neutral-800 dark:text-neutral-200 mb-2">{{ .Title }}</h1>
     {{ with .Params.description }}<p class="text-neutral-500 dark:text-neutral-400 text-lg">{{ . }}</p>{{ end }}
   </header>

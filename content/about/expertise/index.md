@@ -7,9 +7,11 @@ heroStyle: background # basic, big, background, thumbAndBackground. Effective on
 layoutBackgroundBlur: true
 ---
 
-1 tsp baking soda
-3 drops h2o2
-8 drops h20
+{{< lead >}}
+COMING SOON
+{{< /lead >}}
+
+<!--
 
 ## Field Work
 
@@ -50,7 +52,6 @@ Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapi
 Complete list of my publications
 {{< /button >}}
 
-<!--
 Please see →  {{< link url="/about/publications" text="this link for a complete list of my publications" >}}.
 
 {{< alert "link" >}}
@@ -61,5 +62,7 @@ Code like so {{< link url="http://doi.org/10.37807/GBMF5603" text="SOME TEXT" >}
 
 > [!note]
 > Use this → link so see all of [my publications](/about/publications).
+
+
 
 -->

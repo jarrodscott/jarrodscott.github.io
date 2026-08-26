@@ -1,6 +1,8 @@
 ---
 title: "Amino Acid Reference Guide"
-layout: "single"
+layout: "mod-single"
+build:
+  list: "never"
 ---
 
 {{< katex >}}

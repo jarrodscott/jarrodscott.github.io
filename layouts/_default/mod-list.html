@@ -13,14 +13,6 @@
     {{ end }}
   {{ end }}
 
-  {{ if in (slice "media" "products" ) .Section }}
-    <div class="mb-4">
-      <a href="{{ "/about/" | relURL }}" class="text-md text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors inline-flex items-center no-underline">
-        ← Back to Biography
-      </a>
-    </div>
-  {{ end }}
-
   {{/* Header */}}
   <header>
     {{ if .Params.showBreadcrumbs | default (site.Params.list.showBreadcrumbs | default false) }}
@@ -45,9 +37,15 @@
         </div>
       </div>
     {{ end }}
+    <!-- Swapping max-w-prose for a wider 2xl layout scale -->
+    <div class="min-w-0 min-h-0 max-w-2xl w-full"> 
+      {{ .Content }}
+    </div>
+    <!--
     <div class="min-w-0 min-h-0 max-w-prose w-full">
       {{ .Content }}
     </div>
+    -->
   </section>
 
   {{/* Article Grid */}}

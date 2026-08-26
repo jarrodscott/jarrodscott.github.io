@@ -6,7 +6,7 @@ categories: ["Post","Blog",]
 #externalUrl: ""
 #showSummary: true
 date: 2021-09-04
-draft: false
+draft: true
 ---
 
 ## Lorem ipsum dolor sit amet
