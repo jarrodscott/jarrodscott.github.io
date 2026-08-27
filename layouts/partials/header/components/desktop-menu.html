@@ -1,4 +1,4 @@
-<nav class="flex items-center gap-x-5 h-12">
+<nav aria-label="{{ i18n "nav.main_menu" }}" class="flex items-center gap-x-5 h-12">
   {{ if .Site.Menus.main }}
     {{ range .Site.Menus.main }}
       {{ template "DesktopMenu" . }}
@@ -13,20 +13,28 @@
   {{ if .Site.Params.enableSearch | default false }}
     <button
       id="search-button"
-      aria-label="Search"
-      class="text-base bf-icon-color-hover"
+      aria-label="{{ i18n "search.open_button_title" }}"
+      class="flex items-center gap-2 rounded-lg border bf-border-color bf-border-color-hover bg-neutral-100/50 px-2 py-1 text-sm text-neutral-500 transition-colors hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral-400 dark:hover:text-primary-400"
       title="{{ i18n "search.open_button_title" }}">
       {{ partial "icon.html" "search" }}
+      <kbd
+        id="search-shortcut-hint"
+        class="pointer-events-none font-sans text-xs text-neutral-500 dark:text-neutral-400"
+        aria-hidden="true">
+        ⌘K
+      </kbd>
     </button>
   {{ end }}
 
-  {{ if .Site.Params.footer.showAppearanceSwitcher | default false }}
+
+{{ if .Site.Params.footer.showAppearanceSwitcher | default false }}
     <div class="flex items-center">
       <button
         id="appearance-switcher"
-        aria-label="Dark mode switcher"
+        aria-label="{{ i18n "footer.dark_appearance" }}"
         type="button"
-        class="text-base bf-icon-color-hover">
+        class="text-sm bf-icon-color-hover"
+        title="{{ i18n "footer.dark_appearance" }}">
         <div class="flex items-center justify-center dark:hidden">
           {{ partial "icon.html" "moon" }}
         </div>
@@ -35,6 +43,7 @@
         </div>
       </button>
     </div>
+  
 <!-- layouts/partials/header/components/desktop-menu.html snippet -->
 
 <!-- layouts/partials/header/components/desktop-menu.html snippet -->
@@ -189,6 +198,8 @@
             tabindex="0"
           {{ end }}
           {{ with or .Name .Pre }}aria-label="{{ . }}"{{ end }}
+          aria-haspopup="true"
+          aria-expanded="false"
           class="flex items-center text-base font-medium bf-icon-color-hover"
           title="{{ .Title }}">
           {{ if .Pre }}

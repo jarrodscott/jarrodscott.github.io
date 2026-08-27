@@ -5,11 +5,13 @@
 theme = "blowfish" # UNCOMMENT THIS LINE
 # baseURL = "https://jarrodscott.github.io/"
 defaultContentLanguage = "en"
+disableLanguages = [] #to allow translation work requiring shipping to production
 
 # pluralizeListTitles = "true" # hugo function useful for non-english languages, find out more in  https://gohugo.io/getting-started/configuration/#pluralizelisttitles
 
 enableRobotsTXT = true
 summaryLength = 30
+hasCJKLanguage = true
 
 buildDrafts = false
 buildFuture = false
@@ -24,12 +26,6 @@ enableEmoji = true
 [imaging]
   anchor = 'Center'
   resampleFilter = "box"
-
-[params]
-  academic_name = "Jarrod J. Scott"
-
-[permalinks]
-  publications = "/publications/:contentbasename/"
 
 [taxonomies]
   tag = "tags"
@@ -74,3 +70,30 @@ enableEmoji = true
       name = 'fragmentrefs'
       type = 'fragments'
       weight = 10
+
+[params]
+  academic_name = "Jarrod J. Scott"
+
+[permalinks]
+  publications = "/publications/:contentbasename/"
+
+# Render only specific parts of the site for faster development. 
+# Note that there are more files are ignored in development/hugo.toml
+#
+# Usage: `hugo --renderSegments core` or `hugo --renderSegments core,en_only`
+#[segments]
+#  [segments.core]
+#    [[segments.core.includes]]
+      # Debug core pages
+ #     path = '{/,/docs,/docs/**,/samples,/samples/**}'
+#  [segments.en_only]
+#    [[segments.en_only.includes]]
+      # Alternatively, you can use environment variable
+      #   - UNIX: HUGO_DISABLELANGUAGES='it ja zh-cn' npm run example:core
+      #   - Windows CMD: set "HUGO_DISABLELANGUAGES=it ja zh-cn" && npm run example:core
+      #   - Windows PowerShell: $env:HUGO_DISABLELANGUAGES="it ja zh-cn"; npm run example:core
+#      lang = 'en'
+
+
+
+
