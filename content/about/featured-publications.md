@@ -1,6 +1,6 @@
 ---
 title: "Featured Publications"
-description: "A handpicked list of my primary research highlights."
+description: "A selection of publications that highlight my primary research interests."
 layout: "selected-pub-grid" # selected-pub-list or selected-pub-grid
 ---
 

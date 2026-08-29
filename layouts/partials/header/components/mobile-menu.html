@@ -92,18 +92,19 @@
       {{ partial "icon.html" "bars" }}
     </label>
 
+    <!-- FINAL WORKING RESPONSIVE MODAL CONTAINER -->
     <div
       role="dialog"
       aria-modal="true"
       style="scrollbar-gutter: stable;"
-      class="fixed inset-0 z-50 invisible overflow-y-auto px-6 py-20 opacity-0 transition-[opacity,visibility] duration-300 peer-checked:visible peer-checked:opacity-100 bg-neutral-50/97 dark:bg-neutral-900/99
+      class="fixed inset-0 z-50 invisible h-screen overflow-y-auto px-6 py-20 opacity-0 transition-[opacity,visibility] duration-300 peer-checked:visible peer-checked:opacity-100 bg-neutral-50/97 dark:bg-neutral-900/99
       {{ if site.Params.enableStyledScrollbar | default true }}bf-scrollbar{{ end }}">
       <label
         for="mobile-menu-toggle"
         class="fixed end-8 top-5 flex items-center justify-center z-50 h-12 w-12 cursor-pointer select-none rounded-full bf-icon-color-hover border bf-border-color bf-border-color-hover bg-neutral-50 dark:bg-neutral-900">
         {{ partial "icon.html" "xmark" }}
       </label>
-      <nav class="mx-auto max-w-md space-y-6">
+      <nav class="mx-auto max-w-md space-y-6 pb-24">
         {{ template "mobile-main-menu" . }}
         {{ template "mobile-subnavigation" . }}
         {{ template "mobile-footer-components" . }}

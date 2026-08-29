@@ -31,9 +31,19 @@ The genetic code is the set of rules used by cells to translate nucleotide seque
 
 Hydrogen bonding between purines and pyrimidines form the standard base pairs **$\ce{A=T}$** (double bond) and **$\ce{G#C}$** (triple bond). During the process of transcription, DNA serves as the template to synthesize messenger RNA (mRNA), where Uracil (**$\ce{U}$**) replaces Thymine to pair with Adenine. The linear sequence of these bases is read sequentially by cellular machinery in discrete, non-overlapping *triplets* known as **codons**. 
 
+{{< steps >}}
+{{< step number="1" title="DNA to RNA (Transcription)" >}}RNA polymerase reads a specific gene on the DNA strand and builds a matching single-stranded copy called messenger RNA (mRNA). During this step, the RNA base uracil (U) replaces the DNA base thymine (T). The mRNA then leaves the nucleus and goes into the cytoplasm.{{< /step >}}
+
+{{< step number="2" title="RNA to Amino Acids (Translation)" >}}The ribosome reads the mRNA code in groups of three bases called codons. Another molecule called transfer RNA (tRNA) brings the matching amino acids to the ribosome one by one. Each codon matches a specific amino acid.{{< /step >}}
+
+{{< step number="3" title="Amino Acids to Proteins (Folding)" >}}The ribosome joins the amino acids together with peptide bonds into a long chain called a polypeptide. Once the chain is complete, it twists and folds into a complex, three-dimensional shape based on the traits of its amino acids. This finished shape becomes a working, functional protein.{{< /step >}}
+
+{{< /steps >}}
+
+
 {{< lightbox src="gallery/translate.png" gallery="rna" caption="Example sequence showing messenger RNA (mRNA) codons translated to amino acids." showCaptionBelow="true" size="300">}}
 
-Replication: DNA makes exact copies of itself so cells can divide and pass instructions to new cells.Transcription: The cell copies a section of DNA into a messenger RNA (mRNA) molecule inside the nucleus.Translation: Ribosomes read the mRNA code to link amino acids together and build a functional protein.
+Replication: DNA makes exact copies of itself so cells can divide and pass instructions to new cells.Transcription: The cell copies a section of DNA into a messenger RNA (mRNA) molecule inside the nucleus. Translation: Ribosomes read the mRNA code to link amino acids together and build a functional protein.
 
 Because there are four distinct bases (**$\ce{A}$**, **$\ce{T}$**, **$\ce{G}$**, and **$\ce{C}$**), three-base combinations yield **$4^3 = 64$** possible codons, where specific codons code for particular amino acids (or one of three stop codons). Since there are only **$20$** amino acids[^1], we say there is redundancy, or **degeneracy**, in the genetic code. In other words, multiple codons can map to a single amino acid. 
 
