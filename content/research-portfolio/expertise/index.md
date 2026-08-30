@@ -48,20 +48,20 @@ Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapi
 
 
 
-{{< button pageRef="/about/products" >}}
+{{< button pageRef="/research-portfolio/products" >}}
 Complete list of my publications
 {{< /button >}}
 
-Please see →  {{< link url="/about/publications" text="this link for a complete list of my publications" >}}.
+Please see →  {{< link url="/research-portfolio/publications" text="this link for a complete list of my publications" >}}.
 
 {{< alert "link" >}}
-Use this → link so see all of [my publications](/about/publications).
+Use this → link so see all of [my publications](/research-portfolio/publications).
 {{< /alert >}}
 
 Code like so {{< link url="http://doi.org/10.37807/GBMF5603" text="SOME TEXT" >}}
 
 > [!note]
-> Use this → link so see all of [my publications](/about/publications).
+> Use this → link so see all of [my publications](/research-portfolio/publications).
 
 
 

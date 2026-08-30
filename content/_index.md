@@ -32,9 +32,7 @@ SciArt
 
 content/_index.md Welcome to my website! I'm really happy you stopped by.
 
-{{< button pageRef="about/" target="_self" style="primary" >}}
-About
-{{< /button >}}
+{{< cta url="research-portfolio/" label="Research Portfolio" style="outline" >}}
 
 
 

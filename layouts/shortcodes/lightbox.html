@@ -53,6 +53,8 @@
 
 <!-- Container to keep the thumbnail and text caption stacked together -->
 <div class="inline-block text-center" style="margin: 3px !important; vertical-align: top;">
+
+<!-- Added this modified block to fix padding between caption and image when certain png files are used
   <a href="{{ $link }}" 
      data-lightbox="{{ $gallery | default "page-gallery" }}" 
      {{ $captionAttr }}
@@ -63,6 +65,20 @@
          class="rounded shadow-md cursor-pointer transition transform hover:scale-[1.02]"
          style="height: {{ $thumbHeight }}px !important; {{ if $ratio }}aspect-ratio: {{ $ratio }} !important; object-fit: cover !important;{{ else }}width: auto !important; max-width: 100% !important; object-fit: contain !important;{{ end }} margin-bottom: 0px !important; margin-top: 0px !important;">
   </a>
+  -->
+
+
+  <a href="{{ $link }}" 
+     data-lightbox="{{ $gallery | default "page-gallery" }}" 
+     {{ $captionAttr }}
+     {{ if strings.HasPrefix $src "http" }}target="_blank" rel="noopener"{{ end }}
+     class="block clear-both">
+    <img src="{{ $thumbSrc }}" 
+         {{ if $caption }}alt="{{ $caption | plainify }}"{{ end }} 
+         class="rounded shadow-md cursor-pointer transition transform hover:scale-[1.02] mx-auto block max-w-full"
+         style="{{ if $ratio }}aspect-ratio: {{ $ratio }} !important; object-fit: cover !important; height: {{ $thumbHeight }}px;{{ else }}height: auto; max-height: {{ $thumbHeight }}px; width: auto; object-fit: scale-down;{{ end }} margin: 0 auto !important;">
+  </a>
+
   
   <!-- Conditional Text Caption Below -->
   {{- if and $caption (eq $showCaptionBelow "true") -}}

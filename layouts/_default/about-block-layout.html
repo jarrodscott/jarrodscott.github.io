@@ -102,7 +102,7 @@
           <h4 class="text-sm font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-2 !mt-0">Skills</h4>
           <div class="bio-tag-cloud">
             {{ range $author.skills }}
-              <span class="bio-custom-tag text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700/40">{{ . }}</span>
+              <span class="bio-custom-tag text-neutral-700 dark:text-neutral-300 border border-neutral-700 dark:border-neutral-700/40">{{ . }}</span>
             {{ end }}
           </div>
         </div>
@@ -133,8 +133,15 @@
   </div>
   <!-- ==================== NEW FULL-WIDTH DASHBOARD MENU ==================== -->
   <!-- Sits safely outside the grid so it stretches across both sidebars -->
+  {{ if .Content }}
+  <div class="max-w-none pt-6  w-full block"  style="margin-top: 2.5rem;">
+    <div class="text-lg dark:prose-invert max-w-none">
+      {{ .Content }}
+    </div>
+  </div>
+  {{ end }}
   {{ if $author.aboutButtons }}
-  <div class="bio-dashboard-menu border-t border-neutral-200 dark:border-neutral-700/60 pt-8" style="margin-top: 3rem;">
+  <div class="bio-dashboard-menu border-t border-neutral-200 dark:border-neutral-700/60 pt-8" style="margin-top: 1rem;">
     {{ range $author.aboutButtons }}
       <!-- Base text colors are set natively via Tailwind tokens, paired with independent hover state shifts -->
       <a href="{{ .url | relURL }}" class="bio-dashboard-btn text-neutral-700 dark:text-neutral-300 hover:text-primary-500 dark:hover:text-primary-400 hover:border-primary-500 dark:hover:border-primary-400">
@@ -147,13 +154,6 @@
   </div>
   {{ end }}
 
-  {{ if .Content }}
-  <div class="max-w-none pt-6 border-t border-neutral-200 dark:border-neutral-700 w-full block"  style="margin-top: 1.5rem;">
-    <div class="text-lg dark:prose-invert max-w-none">
-      {{ .Content }}
-    </div>
-  </div>
-  {{ end }}
 
 </div>
 <!---{{ partial "featured-homepage.html" . }}--->

@@ -20,7 +20,7 @@ title = "Jarrod J Scott"
   imageQuality = 96
   headline = "Field biologist, systems ecologist, data scientist, interdisciplinary researcher."
   bio = "My approach to biological questions is interdisciplinary & systems oriented. I combine field ecology, molecular & computational methods, ecological statistics, & advanced visualization to investigate how organisms coalesce into communities & how complex community interactions shape the structure & function of systems."
-  full_bio_url = "about/bio/"
+  full_bio_url = "research-portfolio/bio/"
   interests = [
   "Symbiosis",
   "Complexity",
@@ -29,7 +29,7 @@ title = "Jarrod J Scott"
   "'Omics",
   "Coevolution"
 ]
-  skills = [ "Field", "Lab", "'Omics", "R", "Python", "Quarto" ]
+  skills = [ "Field", "Lab", "'Omics", "R", "Python", "Quarto", "Workflows", "Graphics"]
 
     [[params.author.links]]
     google-scholar = "https://scholar.google.com/citations?hl=en&user=5qejxxIAAAAJ"
@@ -61,25 +61,25 @@ title = "Jarrod J Scott"
 
     [[params.author.aboutButtons]]
     text = "Experience & Training"
-    url = "/about/experience/"
+    url = "/research-portfolio/experience/"
     icon = "graduation-cap"
 
     [[params.author.aboutButtons]]
     text = "Publications"
-    url = "/about/featured-publications/"
+    url = "/research-portfolio/featured-publications/"
     icon = "pdf"
 
     [[params.author.aboutButtons]]
     text = "Expertise"
-    url = "/about/expertise/"
+    url = "/research-portfolio/expertise/"
     icon = "microscope"
 
     [[params.author.aboutButtons]]
     text = "Products"
-    url = "/about/products/"
+    url = "/research-portfolio/products/"
     icon = "chalkboard"
 
     [[params.author.aboutButtons]]
     text = "Media"
-    url = "/about/media/"
+    url = "/research-portfolio/media/"
     icon = "newspaper"

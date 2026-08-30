@@ -40,8 +40,8 @@ Hydrogen bonding between purines and pyrimidines form the standard base pairs **
 
 {{< /steps >}}
 
-
 {{< lightbox src="gallery/translate.png" gallery="rna" caption="Example sequence showing messenger RNA (mRNA) codons translated to amino acids." showCaptionBelow="true" size="300">}}
+
 
 Replication: DNA makes exact copies of itself so cells can divide and pass instructions to new cells.Transcription: The cell copies a section of DNA into a messenger RNA (mRNA) molecule inside the nucleus. Translation: Ribosomes read the mRNA code to link amino acids together and build a functional protein.
 

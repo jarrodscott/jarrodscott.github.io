@@ -234,21 +234,21 @@ Attribution-NonCommercial-No Derivatives Allows: Most restrictive option. Only a
 {{< cc "cc0" >}}
 Public Domain DedicationAllows: Waives all worldwide copyright protections completely
 
-{{< button pageRef="/about/publications" >}}
+{{< button pageRef="/research-portfolio/publications" >}}
 Complete list of my publications
 {{< /button >}}
 
 <!--
-Please see →  {{< link url="/about/publications" text="this link for a complete list of my publications" >}}.
+Please see →  {{< link url="/research-portfolio/publications" text="this link for a complete list of my publications" >}}.
 
 {{< alert "link" >}}
-Use this → link so see all of [my publications](/about/publications).
+Use this → link so see all of [my publications](/research-portfolio/publications).
 {{< /alert >}}
 
 Code like so {{< link url="http://doi.org/10.37807/GBMF5603" text="SOME TEXT" >}}
 
 > [!note]
-> Use this → link so see all of [my publications](/about/publications).
+> Use this → link so see all of [my publications](/research-portfolio/publications).
 
 -->
 
