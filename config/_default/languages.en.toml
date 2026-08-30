@@ -60,26 +60,66 @@ title = "Jarrod J Scott"
     year = "2002"
 
     [[params.author.aboutButtons]]
-    text = "Experience & Training"
+    title = "Experience & Training"
     url = "/research-portfolio/experience/"
     icon = "graduation-cap"
+    description = "Start from a thoughtful default, then adjust every meaningful detail."
+    label = "Learn more"
 
     [[params.author.aboutButtons]]
-    text = "Publications"
+    title = "Publications"
     url = "/research-portfolio/featured-publications/"
     icon = "pdf"
+    description = "Start from a thoughtful default, then adjust every meaningful detail."
+    label = "Browse Publications"
 
     [[params.author.aboutButtons]]
-    text = "Expertise"
+    title = "Skills & Expertise"
     url = "/research-portfolio/expertise/"
     icon = "microscope"
+    description = "Start from a thoughtful default, then adjust every meaningful detail."
+    label = "Learn more"
 
     [[params.author.aboutButtons]]
-    text = "Products"
+    title = "Data-driven Web Products"
     url = "/research-portfolio/products/"
     icon = "chalkboard"
+    description = "A collection of data-driven web products I have created including project websites, reproducible workflows, tutorials, and slides from talks."
+    label = "Browse Web Products"
 
     [[params.author.aboutButtons]]
-    text = "Media"
+    title = "Media Features"
     url = "/research-portfolio/media/"
     icon = "newspaper"
+    description = "A collection of media features highlighting some of the projects I have been involved in recently."
+    label = "Browse Media Features"
+
+
+
+
+## This is the formatting needed for research portfolio buttons page buttons
+
+#    [[params.author.aboutButtons]]
+#    text = "Experience & Training"
+#    url = "/research-portfolio/experience/"
+#    icon = "graduation-cap"
+#
+#    [[params.author.aboutButtons]]
+#    text = "Publications"
+#    url = "/research-portfolio/featured-publications/"
+#    icon = "pdf"
+#
+#    [[params.author.aboutButtons]]
+#    text = "Expertise"
+#    url = "/research-portfolio/expertise/"
+#    icon = "microscope"
+#
+#    [[params.author.aboutButtons]]
+#    text = "Products"
+#    url = "/research-portfolio/products/"
+#    icon = "chalkboard"
+#
+#    [[params.author.aboutButtons]]
+#    text = "Media"
+#    url = "/research-portfolio/media/"
+#    icon = "newspaper"

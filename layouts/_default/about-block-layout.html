@@ -7,6 +7,13 @@
     <h1 class="text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-neutral-100 !m-0">
       {{ .Title }}
     </h1>
+      {{ with .Params.description }}
+      <p class="text-neutral-500 dark:text-neutral-400 text-lg mt-6">{{ . }}</p>
+      {{ end }}
+      <div class="mt-1 mb-14 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      {{ partial "article-meta/list.html" (dict "context" . "scope" "single") }}
+    </div>
+
   </header>
 
   <div class="biography-grid-container">
@@ -133,17 +140,78 @@
   </div>
   <!-- ==================== NEW FULL-WIDTH DASHBOARD MENU ==================== -->
   <!-- Sits safely outside the grid so it stretches across both sidebars -->
-  {{ if .Content }}
-  <div class="max-w-none pt-6  w-full block"  style="margin-top: 2.5rem;">
-    <div class="text-lg dark:prose-invert max-w-none">
-      {{ .Content }}
-    </div>
+{{ if .Content }}
+<div class="max-w-none pt-6 w-full block" style="margin-top: 2.5rem; margin-bottom: 1.5rem;">
+  <!-- Added style="max-width: 100% !important;" to smash the theme's core constraint -->
+  <div class="prose text-lg dark:prose-invert" style="max-width: 100% !important;">
+    {{ .Content }}
   </div>
-  {{ end }}
+</div>
+{{ end }}
+
+
+{{ if $author.aboutButtons }}
+<div class="bio-dashboard-menu border-t border-neutral-200 dark:border-neutral-700/60 pt-8" style="margin-top: 1rem;">
+  
+  <!-- Exact wrapper from feature-grid.html matching 3 columns (lg:grid-cols-3 grid-balance-3) -->
+  <div class="not-prose my-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 grid-balance grid-balance-3">
+    
+    {{ range $author.aboutButtons }}
+      {{ $icon := .icon | default "wand-magic-sparkles" }}
+      {{ $title := .title | default "Feature" }}
+      {{ $url := .url }}
+      {{ $label := .label | default "Learn more" }}
+      {{ $headingLevel := .headingLevel | default "h2" }}
+      
+      <!-- Fallback sanity check matching shortcode validation rules -->
+      {{ if not (in (slice "h1" "h2" "h3" "h4" "h5" "h6") $headingLevel) }}
+        {{ $headingLevel = "h2" }}
+      {{ end }}
+
+      <!-- Exact card container element layout structure from feature.html -->
+      <article class="group rounded-2xl border border-neutral-200/80 bg-white/60 p-6 shadow-sm backdrop-blur-xl transition duration-200 hover:-translate-y-1 hover:border-primary-300 hover:shadow-xl hover:shadow-primary-500/10 dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:border-primary-700">
+        
+        <!-- Icon rendering plate -->
+        <span class="mb-5 inline-flex rounded-xl bg-primary-200 p-3 text-neutral-900 dark:bg-primary-950 dark:text-neutral-900">
+          {{ partial "icon.html" $icon }}
+        </span>
+        
+        <!-- Dynamic Heading Rendering Block matching original safeHTML architecture -->
+        {{ printf `<%s class="text-lg font-bold text-neutral-900 dark:text-white">` $headingLevel | safeHTML }}
+          {{ $title | markdownify }}
+        {{ printf `</%s>` $headingLevel | safeHTML }}
+        
+        <!-- Sub-description layer mimicking the converted markdown content container -->
+        {{ with .description }}
+          <div class="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+            {{ . | markdownify }}
+          </div>
+        {{ end }}
+        
+        <!-- Action target text link with inline "link" asset partial call -->
+        {{ with $url }}
+          <a class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-primary-600 hover:text-primary-500 dark:text-primary-400" href="{{ . | safeURL }}">
+            {{ $label | markdownify }}
+            {{ partial "icon.html" "link" }}
+          </a>
+        {{ end }}
+        
+      </article>
+
+    {{ end }}
+  </div>
+
+</div>
+{{ end }}
+
+<!-- for Simple buttons  -->
+
+<!-- 
   {{ if $author.aboutButtons }}
   <div class="bio-dashboard-menu border-t border-neutral-200 dark:border-neutral-700/60 pt-8" style="margin-top: 1rem;">
-    {{ range $author.aboutButtons }}
+    {{ range $author.aboutButtons }} -->
       <!-- Base text colors are set natively via Tailwind tokens, paired with independent hover state shifts -->
+<!-- 
       <a href="{{ .url | relURL }}" class="bio-dashboard-btn text-neutral-700 dark:text-neutral-300 hover:text-primary-500 dark:hover:text-primary-400 hover:border-primary-500 dark:hover:border-primary-400">
         {{ if .icon }}
           <span class="bio-dashboard-icon-frame">{{ partial "icon.html" .icon }}</span>
@@ -153,9 +221,12 @@
     {{ end }}
   </div>
   {{ end }}
-
+ -->
 
 </div>
+
+
 <!---{{ partial "featured-homepage.html" . }}--->
 {{ end }}
+
 
