@@ -2,7 +2,7 @@ disabled = false
 locale = "en"
 label = "English"
 weight = 1
-title = "Jarrod J Scott"
+title = ""
 
 [params]
   displayName = "EN"
@@ -96,7 +96,7 @@ title = "Jarrod J Scott"
 
     [[params.author.aboutButtons]]
     title = "Data Visualization"
-    url = "/research-portfolio/media/"
+    url = "/research-portfolio/visuals/"
     icon = "palette"
     description = "A collection of media pieces highlighting some of the projects I have been involved in recently."
     label = "Browse Portfolio"
