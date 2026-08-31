@@ -1,0 +1,4 @@
+{{- $modified := .Page.Lastmod | time.Format ":date_medium" -}}
+<span class="text-md text-neutral-500 dark:text-neutral-400 italic">
+  (Last modified: {{ $modified }})
+</span>

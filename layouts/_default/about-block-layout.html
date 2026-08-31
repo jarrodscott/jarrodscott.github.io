@@ -177,7 +177,7 @@
         </span>
         
         <!-- Dynamic Heading Rendering Block matching original safeHTML architecture -->
-        {{ printf `<%s class="text-lg font-bold text-neutral-900 dark:text-white">` $headingLevel | safeHTML }}
+        {{ printf `<%s class="text-xl font-bold text-neutral-900 dark:text-white">` $headingLevel | safeHTML }}
           {{ $title | markdownify }}
         {{ printf `</%s>` $headingLevel | safeHTML }}
         

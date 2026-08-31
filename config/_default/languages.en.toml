@@ -63,37 +63,43 @@ title = "Jarrod J Scott"
     title = "Experience & Training"
     url = "/research-portfolio/experience/"
     icon = "graduation-cap"
-    description = "Start from a thoughtful default, then adjust every meaningful detail."
+    description = "Detailed information about my research & teaching experience, education, additional training & certifications, & fellowships."
     label = "Learn more"
 
     [[params.author.aboutButtons]]
     title = "Publications"
     url = "/research-portfolio/featured-publications/"
     icon = "pdf"
-    description = "Start from a thoughtful default, then adjust every meaningful detail."
+    description = "A detailed list of my peer reviewed publications."
     label = "Browse Publications"
 
     [[params.author.aboutButtons]]
     title = "Skills & Expertise"
     url = "/research-portfolio/expertise/"
     icon = "microscope"
-    description = "Start from a thoughtful default, then adjust every meaningful detail."
+    description = "Information about my skills in field & laboratory methods, bioinformatics, & molecular biology."
     label = "Learn more"
 
     [[params.author.aboutButtons]]
-    title = "Data-driven Web Products"
+    title = "Data-Driven Web Products"
     url = "/research-portfolio/products/"
     icon = "chalkboard"
-    description = "A collection of data-driven web products I have created including project websites, reproducible workflows, tutorials, and slides from talks."
+    description = "A collection of data-driven web products I have created including project websites, reproducible workflows, tutorials, & slides from talks."
     label = "Browse Web Products"
 
     [[params.author.aboutButtons]]
     title = "Media Features"
     url = "/research-portfolio/media/"
     icon = "newspaper"
-    description = "A collection of media features highlighting some of the projects I have been involved in recently."
+    description = "A collection of media pieces highlighting some of the projects I have been involved in recently."
     label = "Browse Media Features"
 
+    [[params.author.aboutButtons]]
+    title = "Data Visualization"
+    url = "/research-portfolio/media/"
+    icon = "palette"
+    description = "A collection of media pieces highlighting some of the projects I have been involved in recently."
+    label = "Browse Portfolio"
 
 
 
