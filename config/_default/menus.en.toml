@@ -11,7 +11,7 @@
 # ordered by weight from lowest to highest.
 
 [[main]]
-  name = "Research Portfolio"
+  name = "Research"
   pageRef = "research-portfolio"
   weight = 5
 
@@ -36,6 +36,12 @@
   pre = "github"
   url = "https://github.com/jarrodscott/jarrodscott.github.io"
   weight = 50
+
+[[main]]
+  identifier = "how-to"
+  pre = "question"
+  url = "/how-to"
+  weight = 60
 
 # [[main]]
 #   identifier = "twitter"

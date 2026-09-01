@@ -10,7 +10,7 @@ title = ""
   rtl = false
   dateFormat = "2 January 2006"
   description = "DESCRIPTION This is in languages.en.toml"
-  logo = "logo.png"
+  logo = "images/logo.png"
 
 [params.author]
   name = "Jarrod J Scott"
@@ -88,18 +88,18 @@ title = ""
     label = "Browse Web Products"
 
     [[params.author.aboutButtons]]
+    title = "Data Visualization"
+    url = "/research-portfolio/visuals/"
+    icon = "palette"
+    description = "A potfolio of some visualizations I have created. Many are from published works while others are not. "
+    label = "Browse Portfolio"
+
+    [[params.author.aboutButtons]]
     title = "Media Features"
     url = "/research-portfolio/media/"
     icon = "newspaper"
     description = "A collection of media pieces highlighting some of the projects I have been involved in recently."
     label = "Browse Media Features"
-
-    [[params.author.aboutButtons]]
-    title = "Data Visualization"
-    url = "/research-portfolio/visuals/"
-    icon = "palette"
-    description = "A collection of media pieces highlighting some of the projects I have been involved in recently."
-    label = "Browse Portfolio"
 
 
 

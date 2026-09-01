@@ -1,7 +1,7 @@
 ---
 title: "Accessibility Statement"
 menu: "footer"
-lastmod: 2026-08-31
+lastmod: 2026-09-01
 ---
 
 {{< modified-date >}}
@@ -41,3 +41,20 @@ These technologies are relied upon for conformance with the accessibility standa
 ## Assessment Approach
 
 I regularly evaluate this site's layout, text contrast, keyboard navigation, and image alt-text to maintain an inclusive digital space.
+
+## Site Features 
+
+This site has a few features that I hope will increase accessibility. In the navigationn bar at the top of each page there are three option that allow you to modify the look of the site:
+
+**a**) Accessibility options,   
+**b**) Light & dark mode toggle,   
+**c**) Color theme picker.
+
+{{< lightbox src="images/nav-menu.png" gallery="nav" caption="**a**) Accessibility options, **b**) light & dark mode toggle, **c**) color theme picker." size="350"  >}}
+
+If you click the Accessibility icon (**a**) a dropdown will appear giving you several additional options including  changing the default font size. 
+
+{{< lightbox src="images/access.png" gallery="access"  size="350" >}}
+
+I also have a post on designinging [Accessible Color Palettes](http://localhost:1313/posts/color/) for data visualization. After all, why not strive for accessibility across the board. 
+
