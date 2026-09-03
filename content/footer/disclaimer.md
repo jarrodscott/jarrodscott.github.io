@@ -2,6 +2,7 @@
 title: "Disclaimer"
 menu: "footer"
 lastmod: 2026-08-31
+weight: 40
 ---
 
 {{< modified-date >}}

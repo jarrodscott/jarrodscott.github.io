@@ -1,10 +1,14 @@
 ---
 title: "Skills & Expertise"
+description: "A selection of publications that highlight my primary research interests."
 #date: 2026-06-15T16:35:49-07:00
 draft: false
 showHero: true
+layout: mod-single
 heroStyle: background # basic, big, background, thumbAndBackground. Effective only if article.showHero = true.
 layoutBackgroundBlur: true
+weight: 40
+invertPagination: true
 ---
 
 {{< lead >}}

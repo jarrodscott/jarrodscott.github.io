@@ -2,6 +2,7 @@
 title: "Licensing & Terms of Use"
 menu: "footer"
 lastmod: 2026-08-31
+weight: 50
 ---
 
 {{< modified-date >}}

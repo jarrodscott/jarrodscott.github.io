@@ -8,4 +8,5 @@ build:
   render: never
   list: local
 badge: "workflow"    
+featureImage: "research-portfolio/products/hypocolypse.png"  
 ---

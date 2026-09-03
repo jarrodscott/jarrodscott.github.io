@@ -8,5 +8,6 @@ build:
   render: never
   list: local
 badge: "project"    
+featureImage: "research-portfolio/products/istmobiome.png"
 ---
 

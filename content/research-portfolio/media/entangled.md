@@ -7,4 +7,5 @@ showSummary: true
 build:
   render: never
   list: local
+featureImage: "research-portfolio/media/entangled.jpg"  
 ---

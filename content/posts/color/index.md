@@ -1,16 +1,18 @@
 ---
 title: "Accessible Color Palettes for Data Visualization"
 summary: "High-contrast color palettes that help make figures accessible to all types of people."
+description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 categories: ["Post","Blog",]
 #tags: ["post","lorem","ipsum"]
 #externalUrl: ""
 showSummary: true
-date: 2026-07-02
+#date: 2026-07-02
 draft: false
 showHero: true
 heroStyle: background # basic, big, background, thumbAndBackground. Effective only if article.showHero = true.
 layoutBackgroundBlur: true
 layout: mod-single
+weight: -20
 ---
 
 I spend a lot of time thinking about color and how I can use color to convey a message. For example, if you use too many colors in a figure you force your reader to continually go back and forth from the chart to the legend. This can be confusing and ultimately may detract from the meaning of the figure {{< cite "liptoninformationdesign2007 rolandiBriefGuideDesigning2011" "p" >}}.  

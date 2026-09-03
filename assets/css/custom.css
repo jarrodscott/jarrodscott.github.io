@@ -22,6 +22,20 @@
 /* 1. Define the Regular style */
 @font-face {
     font-family: 'Plus Jakarta Sans';
+    src: url('/fonts/PlusJakartaSans-ExtraLight.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/fonts/PlusJakartaSans-Light.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
     src: url('/fonts/PlusJakartaSans-Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
@@ -47,17 +61,33 @@
 @font-face {
     font-family: 'Plus Jakarta Sans';
     src: url('/fonts/PlusJakartaSans-Bold.ttf') format('truetype');
-    font-weight: 700;
+    font-weight: 800;
     font-style: normal;
 }
 
 /* 4. Apply to your Hugo website */
+
 body {
     font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
 h1, h2, h3 {
     font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-weight: 600 !important;
+}
+
+/* 1. Target main navigation menu links */
+header .nav-link,
+header nav a {
+    font-size: 1.1rem !important;      /* Change size */
+    font-weight: 100 !important;        /* Make it bolder */
+    text-transform: uppercase;         /* Optional capitalize */
+}
+
+/* 3. Target the main site title/branding text */
+header .navbar-brand,
+header a[class*="text-"] {
+    font-size: 1.5rem !important;
     font-weight: 600 !important;
 }
 

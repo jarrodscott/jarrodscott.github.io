@@ -1,16 +1,18 @@
 ---
-title: "The Codon Map"
+title: "Codon Map"
 summary: "Which codons specify particular amino acids? To help memorize the codon to amino acid assignment, I created a new way of visualizing these relationships."
+description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 categories: ["Post","Blog",]
 #tags: ["post","lorem","ipsum"]
 #externalUrl: ""
 showSummary: true
-date: 2026-07-04
+#date: 2026-07-04
 draft: false
 showHero: true
 heroStyle: background # basic, big, background, thumbAndBackground. Effective only if article.showHero = true.
 layoutBackgroundBlur: true
 layout: mod-single
+weight: -10
 ---
 
 {{< katex >}}

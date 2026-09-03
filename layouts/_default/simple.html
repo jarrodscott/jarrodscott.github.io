@@ -4,16 +4,21 @@
       {{ if .Params.showBreadcrumbs | default (.Site.Params.article.showBreadcrumbs | default false) }}
         {{ partial "breadcrumbs.html" . }}
       {{ end }}
-      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      <h1 class="mt-0 mb-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
         {{ .Title | emojify }}
       </h1>
     </header>
+      {{ with .Params.description }}
+      <p class="max-w-2xl text-neutral-500 dark:text-neutral-400 text-lg">{{ . }}</p>
+      {{ end }}
+
     <section class="max-w-full mt-6 prose dark:prose-invert">
       {{ .Content }}
     </section>
     <footer class="pt-8 print:hidden">
       {{ partial "sharing-links.html" . }}
       {{ partial "article-comments.html" . }}
+      {{ partial "portfolio-nav.html" . }}
     </footer>
   </article>
 {{ end }}

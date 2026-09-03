@@ -2,6 +2,7 @@
 title: "Credits"
 menu: "footer"
 layout: mod-single
+weight: 20
 ---
 
 > Unless otherwise noted, all content of this website, including text and images, are my own. 

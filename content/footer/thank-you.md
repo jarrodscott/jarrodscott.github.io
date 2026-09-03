@@ -1,6 +1,8 @@
 ---
 title: "Thank You!"
 layout: "simple"
+build:
+  list: never
 ---
 
 <div class="text-center py-12 max-w-md mx-auto">

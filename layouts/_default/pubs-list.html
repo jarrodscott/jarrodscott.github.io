@@ -1,26 +1,25 @@
 {{ define "main" }}
-<article class="max-w-3xl mx-auto py-12 px-4">
-  <!-- Back to Biography Link -->
-  <div class="mb-8">
-    <a href="{{ "/about/featured-publications/" | relURL }}" class="text-md text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors inline-flex items-center no-underline">
-      ← Back to Featured Publications
-    </a>
-  </div>
-
+<article class="max-w-4xl mx-auto py-12 px-4">
   <header class="mb-6">
     {{ if .Params.showBreadcrumbs | default (site.Params.list.showBreadcrumbs | default false) }}
       {{ partial "breadcrumbs.html" . }}
     {{ end }}
   
-    <h1 class="text-4xl font-light text-neutral-800 dark:text-neutral-200 mb-2">{{ .Title }}</h1>
+    <h1 class="mt-0 mb-0 text-4xl font-light text-neutral-800 dark:text-neutral-200">{{ .Title }}</h1>
     {{ with .Params.description }}<p class="text-neutral-500 dark:text-neutral-400 text-lg">{{ . }}</p>{{ end }}
   </header>
 
   <div class="prose dark:prose-invert">
     {{ .Content }}
   </div>
+  <!-- Back to Biography Link -->
+  <div class="mb-8">
+    <a href="{{ "/research-portfolio/featured-publications/" | relURL }}" class="text-sm text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors inline-flex items-center no-underline">
+      ← Back to Featured Publications
+    </a>
+  </div>
 
-  <section class="mt-8 mb-12 p-4 bg-neutral-50 dark:bg-neutral-800/40 rounded-lg border border-neutral-200 dark:border-neutral-700/60 text-sm">
+  <section class="max-w-2xl mt-8 mb-12 p-4 bg-neutral-50 dark:bg-neutral-800/40 rounded-lg border border-neutral-200 dark:border-neutral-700/60 text-sm ">
     <div class="flex flex-col sm:flex-row gap-4">
       <div class="flex-1">
         <label for="typeFilter" class="block text-sm font-semibold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-1.5">Publication Type</label>
@@ -313,6 +312,12 @@
     </ul>
   </div>
   {{ end }}
+<!-- Footer wrapper mirroring standard theme structure -->
+    <footer class="pt-8 w-full mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      {{ partial "sharing-links.html" . }}
+      {{ partial "portfolio-nav.html" . }}
+    </footer>
+
 </article>
 
 <script>

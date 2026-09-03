@@ -2,6 +2,7 @@
 title: "Privacy Policy"
 menu: "footer"
 lastmod: 2026-08-31
+weight: 60
 ---
 
 {{< modified-date >}}

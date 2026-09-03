@@ -1,6 +1,11 @@
 ---
 title: "Biography"
-layout: "simple"
+description: "STUFF"
+weight: 70
+showPagination: false
+parentAnchor: ""
+build:
+  list: never
 ---
 
 {{< lead >}}

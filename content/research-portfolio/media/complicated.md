@@ -8,5 +8,5 @@ build:
   render: never
   list: local
 #badge: "workflow"    
-
+featureImage: "research-portfolio/media/complicated.png"  
 ---

@@ -1,17 +1,19 @@
 ---
 title: "A Brief Essay on the History of Microbial Science"
 summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in eleifend justo, vestibulum congue lacus. Quisque est libero, lacinia sed placerat ac, interdum id urna."
+description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 categories: ["Post","Blog",]
 #tags: ["post","lorem","ipsum"]
 #externalUrl: ""
 #showSummary: true
-date: 2022-09-04
+#date: 2022-09-04
 draft: false
 showTableOfContents: true
 showHero: true
 heroStyle: background # basic, big, background, thumbAndBackground. Effective only if article.showHero = true.
 layoutBackgroundBlur: true
 layout: mod-single
+weight: -30
 ---
 
 WE ARE IN THE MIDST OF A REVOLUTION that is changing our understanding of the natural world. Spurred in part by recent advances in sequencing and computational capabilities, we are poised to fully integrate the deeply rooted principles of evolutionary ecology with the mechanistic approaches of molecular biology. Nowhere have the implications of this union been more pronounced than in the field of microbial ecology {{< cite "martinyMicrobialBiogeographyPutting2006 prosserRoleEcologicalTheory2007" "p" >}}. Ongoing work is revealing that taxonomic and metabolic diversity is far greater than previously thought {{< cite "hugNewViewTree2016" "p" >}}. There is also emerging evidence that microbial communities are not random assortments solely recruited from their surroundings; instead they form microbiomes—functionally unified assemblages adapted to specific habitats {{< cite "tysonCommunityStructureMetabolism2004" "p" >}}. The structure of these microbiomes can profoundly affect host biology {{< cite "mcfall-ngaiAnimalsBacterialWorld2013" "p" >}} and biogeochemical cycles {{< cite "falkowskiMicrobialEnginesThat2008" "p" >}}. We are only just beginning to grasp the magnitude of this diversity and understand its connection to ecosystem function and evolutionary processes. Microbial ecology as a discipline and philosophy sits at a developmental crossroad.

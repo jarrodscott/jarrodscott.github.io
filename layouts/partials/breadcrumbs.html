@@ -1,0 +1,27 @@
+<ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  <!-- 1. Change name here -->
+  {{ template "customcrumb" (dict "p1" . "p2" .) }}
+</ol>
+<!-- 2. Change name here -->
+{{ define "customcrumb" }}
+  {{ if .p1.Parent }}
+    {{ template "customcrumb" (dict "p1" .p1.Parent "p2" .p2 ) }}
+  {{ else if not .p1.IsHome }}
+    {{ template "customcrumb" (dict "p1" .p1.Site.Home "p2" .p2 ) }}
+  {{ end }}
+  <li class="{{ if or (eq .p1 .p2) (.p1.IsHome) }}hidden{{ else }}inline{{ end }}">
+    
+    {{ $link := .p1.RelPermalink }}
+    {{ if and (eq .p1 .p2.Parent) .p2.Params.parentAnchor }}
+      {{ $link = printf "%s#%s" .p1.RelPermalink .p2.Params.parentAnchor }}
+    {{ end }}
+
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="{{ $link }}"
+      >{{ if .p1.Title }}
+        {{- .p1.Title -}}
+      {{ else }}
+        {{- .p1.Section -}}
+      {{ end }}</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+{{ end }}

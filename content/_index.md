@@ -1,6 +1,6 @@
 ---
 title: "Jarrod"
-layout: "custom"
+#layout: "custom" #page, profile, hero, card, background, landing, or custom
 show_sidebar: false
 show_headline: false
 ---

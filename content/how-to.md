@@ -1,11 +1,22 @@
 ---
 title: "Reference Guide"
 layout: "mod-single"
+showPagination: false
 ---
+
+https://www.visualcinnamon.com/
 
 ## Update Blowfish Tools
 
 `npm update -g blowfish-tools`
+
+## Update Blowfish Theme
+
+### Hugo module
+
+I used `Git submodule` to install
+
+Simply run `git submodule update --remote --merge`
 
 ## Creating Pulication File
 

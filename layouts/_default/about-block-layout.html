@@ -7,8 +7,10 @@
     <h1 class="text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-neutral-100 !m-0">
       {{ .Title }}
     </h1>
-      {{ with .Params.description }}
-      <p class="text-neutral-500 dark:text-neutral-400 text-lg mt-6">{{ . }}</p>
+      {{ with .Params.description | markdownify }}
+      <div class="prose dark:prose-invert prose-neutral max-w-none text-lg mt-6">
+        <p>{{ . }}</p>
+      </div>
       {{ end }}
       <div class="mt-1 mb-14 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       {{ partial "article-meta/list.html" (dict "context" . "scope" "single") }}
@@ -69,7 +71,7 @@
       
       <!-- Biography Summary Block Layout -->
       <div class="bio-summary-card border border-neutral-200 dark:border-neutral-700/50 p-6 rounded-lg">
-        <h3 class="text-xl font-bold mb-3 text-neutral-900 dark:text-neutral-100 !m-0">Professional Summary</h3>
+        <h3 class="text-xl font-bold mb-3 text-neutral-900 dark:text-neutral-100 !m-0">Research Summary</h3>
         <div class="text-neutral-600 dark:text-neutral-300 text-md leading-relaxed max-w-none">
           {{ if $author.bio }}
             <p class="!m-0">{{ $author.bio | markdownify }}</p>
@@ -149,9 +151,8 @@
 </div>
 {{ end }}
 
-
 {{ if $author.aboutButtons }}
-<div class="bio-dashboard-menu border-t border-neutral-200 dark:border-neutral-700/60 pt-8" style="margin-top: 1rem;">
+<div class="bio-dashboard-menu border-t border-neutral-200 dark:border-neutral-700/60 pt-2" style="margin-top: 1rem;">
   
   <!-- Exact wrapper from feature-grid.html matching 3 columns (lg:grid-cols-3 grid-balance-3) -->
   <div class="not-prose my-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 grid-balance grid-balance-3">

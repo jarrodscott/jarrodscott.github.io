@@ -2,6 +2,7 @@
 title: "Contact"
 layout: "simple"
 menu: "footer"
+weight: 10
 ---
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start w-full">

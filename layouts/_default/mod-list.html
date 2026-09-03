@@ -146,4 +146,41 @@
     </section>
   {{ end }}
   {{ partial "pagination.html" . }}
+  {{/* Section-Locked Next/Prev Loop for Portfolio Branches */}}
+  {{ if eq .Section "portfolio" }}
+    {{ $peers := .Parent.Pages }}
+    {{ $current := . }}
+    {{ $prevPage := "" }}
+    {{ $nextPage := "" }}
+
+    {{ range $index, $page := $peers }}
+      {{ if eq $page $current }}
+        {{ if gt $index 0 }}
+          {{ $prevPage = index $peers (sub $index 1) }}
+        {{ end }}
+        {{ if lt $index (sub (len $peers) 1) }}
+          {{ $nextPage = index $peers (add $index 1) }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+
+    {{ if or (not (eq $prevPage "")) (not (eq $nextPage "")) }}
+      <div class="mt-10 flex justify-between border-t border-neutral-200 pt-6 text-sm font-medium text-neutral-600 dark:border-neutral-700 dark:text-neutral-400 print:hidden">
+        <div>
+          {{ if not (eq $prevPage "") }}
+            <a class="flex items-center gap-2 hover:text-primary-600 dark:hover:text-primary-400" href="{{ $prevPage.RelPermalink }}">
+              <span>&larr;</span> {{ $prevPage.LinkTitle }}
+            </a>
+          {{ end }}
+        </div>
+        <div>
+          {{ if not (eq $nextPage "") }}
+            <a class="flex items-center gap-2 hover:text-primary-600 dark:hover:text-primary-400" href="{{ $nextPage.RelPermalink }}">
+              {{ $nextPage.LinkTitle }} <span>&rarr;</span>
+            </a>
+          {{ end }}
+        </div>
+      </div>
+    {{ end }}
+  {{ end }}
 {{ end }}

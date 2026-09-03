@@ -8,5 +8,6 @@ build:
   render: never
   list: local
 badge: "slides"    
+featureImage: "research-portfolio/products/isthmus.png"  
 ---
 

@@ -2,6 +2,7 @@
 title: "Featured Publications"
 description: "A selection of publications that highlight my primary research interests."
 layout: "selected-pub-grid" # selected-pub-list or selected-pub-grid
+weight: 20
 ---
 
 {{< cta url="/research-portfolio/publications" label="See all publications" style="outline" >}}

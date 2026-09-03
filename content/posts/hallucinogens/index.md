@@ -1,12 +1,14 @@
 ---
 title: "Super cool article that I wrote"
 summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean in eleifend justo, vestibulum congue lacus. Quisque est libero, lacinia sed placerat ac, interdum id urna."
+description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 categories: ["Post","Blog",]
 #tags: ["post","lorem","ipsum"]
 #externalUrl: ""
 #showSummary: true
-date: 2021-09-04
+#date: 2021-09-04
 draft: true
+weight: -40
 ---
 
 ## Lorem ipsum dolor sit amet

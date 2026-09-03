@@ -2,6 +2,7 @@
 title: "Accessibility Statement"
 menu: "footer"
 lastmod: 2026-09-01
+weight: 30
 ---
 
 {{< modified-date >}}
