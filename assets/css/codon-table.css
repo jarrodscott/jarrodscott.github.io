@@ -1,0 +1,81 @@
+/* ==========================================================================
+   FOR CUSTOM CODON TABLE
+   ========================================================================== */
+/* Responsive, centered container wrapper */
+.codon-table-container {
+  width: 100%;
+  margin: 1.5rem auto !important;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Base table layout constraints */
+.prose table.codon-table {
+  width: auto; 
+  max-width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin: 0 auto !important;
+}
+
+/* Vertically compressed cellular layout */
+.prose .codon-table th, 
+.prose .codon-table td {
+  padding: 0.2rem 0.4rem !important;
+  font-size: 1.05rem !important; /* changed from 0.95rem */
+  border: 1.5px solid #d4d4d4 !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  line-height: 1.25 !important;
+}
+
+/* Dark mode cell borders */
+.dark .prose .codon-table th,
+.dark .prose .codon-table td {
+  border: 1.5px solid #757575 !important;
+}
+
+/* Header style settings */
+.prose .codon-table th {
+  @apply font-bold bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 !important;
+}
+
+/* Structural labels (U, C, A, G) styling */
+.prose .codon-table .codon-axis-label {
+  @apply font-extrabold bg-neutral-50 dark:bg-neutral-800/50 text-neutral-900 dark:text-white !important;
+}
+
+/* General amino acid font color weights */
+.prose .codon-table .codon-amino-acid {
+  @apply font-medium text-neutral-700 dark:text-neutral-300 !important;
+}
+
+/* ====================================================
+   NATIVE LIGHT MODE COLORS (No Tailwind dependancies)
+   ==================================================== */
+.prose .codon-table .codon-stop {
+  background-color: rgb(var(--color-neutral-900)) !important; 
+  color: rgb(var(--color-secondary-100)) !important; 
+  font-weight: 600 !important;
+}
+
+.prose .codon-table .codon-start {
+  background-color: rgb(var(--color-primary-200)) !important; 
+  color: rgb(var(--color-primary-900)) !important; 
+  font-weight: bold !important;
+}
+
+/* ====================================================
+   NATIVE DARK MODE COLORS (Triggers via theme toggle)
+   ==================================================== */
+.dark .prose .codon-table .codon-stop {
+  background-color: rgb(var(--color-neutral-900)) !important; 
+  color: rgb(var(--color-neutral-200)) !important; 
+  font-weight: 600 !important;
+}
+
+.dark .prose .codon-table .codon-start {
+  background-color: rgb(var(--color-primary-100)) !important; 
+  color: rgb(var(--color-primary-800)) !important; 
+  font-weight: bold !important;
+}

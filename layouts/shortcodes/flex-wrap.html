@@ -17,39 +17,4 @@
   <span style="clear: both; display: block; width: 100%;"></span>
 </p>
 
-<style>
-  /* Mobile Viewports: Centered layout stack with room below */
-  .true-wrap-container .wrap-image-frame {
-    float: none !important;
-    width: 100% !important;
-    max-width: 280px !important;
-    margin: 0 auto 1.5rem auto !important;
-  }
-  .true-wrap-container .wrap-image-frame img {
-    box-shadow: none !important;
-    background: transparent !important;
-  }
 
-  /* Desktop Viewports: Pulls the image tight against the typography margin wall */
-  @media (min-width: 768px) {
-    /* INTERCEPTOR: Disable custom positioning rules while the lightbox macro class is active */
-    .true-wrap-container .wrap-image-frame:not(.medium-zoom-image--opened) {
-      float: right !important;
-      width: var(--desktop-width) !important;
-      max-width: {{ $width }} !important; 
-      margin: 0 0 1.5rem 2rem !important; 
-    }
-    
-    /* Ensure the internal figure block output by the hook stays constrained to your layout wrapper */
-    .true-wrap-container .wrap-image-frame figure {
-      margin: 0 !important;
-      display: block !important;
-      width: 100% !important;
-    }
-  }
-  
-  :where(img):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-        margin-top: 0em !important;
-        margin-bottom: 0em !important;
-  }
-</style>

@@ -15,7 +15,7 @@ title = ""
 [params.author]
   name = "Jarrod J Scott"
   email = "jarrod.jukebox308@slmail.me"
-  image = "images/cover.jpg"
+  image = "images/cover.png"
   banner = "images/mind_map.jpg"
   imageQuality = 96
   headline = "Field biologist, systems ecologist, data scientist, interdisciplinary researcher."

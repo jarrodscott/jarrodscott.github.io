@@ -1,0 +1,30 @@
+/* Custom Select Menu Resets for Theme Picker Dropdown */
+select#theme-picker-select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding-left: 0.5rem !important;
+  padding-right: 1.5rem !important;
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+}
+
+select#theme-picker-select::-ms-expand {
+  display: none !important;
+}
+
+/* Hidden utility to keep script registry metadata out of sight */
+.raw-scheme-data {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+}

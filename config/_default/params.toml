@@ -29,7 +29,7 @@ rssnext = { }
 advertisement = { }
 
 [header]
-layout = "floating"
+layout = "custom-centered" #basic, fixed, fixed-fill, fixed-gradient, fixed-fill-blur, and floating
 mobileMenuStyle = "dropdown"
 theme_picker = true
 

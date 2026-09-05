@@ -1,4 +1,8 @@
 {{ define "main" }}
+{{/* Load and bundle dedicated pub-single layout styles */}}
+{{ $pubsingleCSS := resources.Get "css/pub-single.css" | resources.Minify | resources.Fingerprint }}
+<link rel="stylesheet" href="{{ $pubsingleCSS.RelPermalink }}" integrity="{{ $pubsingleCSS.Data.Integrity }}">
+
 <!-- Changed max-w-4xl to max-w-5xl for a slightly wider layout -->
 <article class="max-w-5xl mx-auto py-12 px-4"> 
   
@@ -15,7 +19,7 @@
       {{ partial "breadcrumbs.html" . }}
     {{ end }}
 
-    <h1 class="text-3xl sm:text-4xl font-light text-neutral-800 dark:text-neutral-200 mb-4 leading-snug">
+    <h1 class="mt-2 mb-2 text-3xl sm:text-4xl font-light text-neutral-800 dark:text-neutral-200 mb-4 leading-snug">
       {{ .Title }}
     </h1>
 
@@ -58,68 +62,7 @@
   {{ if or $doi_url .Params.open_access $bib .Params.url_code }}
   <!-- Standardized, Uniform Flat Minimalist Toolbar Container -->
   <div class="flex flex-wrap items-center pb-6 mb-8 border-b border-neutral-200 dark:border-neutral-700" style="gap: 12px 24px !important;">
-    
-    <!-- CENTRALIZED TOOLBAR STYLE ARCHITECTURE: THEME RESPONSIVE & PERFECT ALIGNMENT -->
-    <style>
-      .pub-toolbar-item {
-        display: inline-flex !important;
-        align-items: center !important;
-        vertical-align: middle !important;
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
-        font-weight: 500 !important;
-        text-transform: uppercase !important;
-        letter-spacing: 0.05em !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        background: transparent !important;
-        border: none !important;
-        cursor: pointer !important;
-        outline: none !important;
-        box-shadow: none !important;
-        text-decoration: none !important;
-        transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1) !important;
         
-        /* Dynamic Theme Colors (Inherits from your text-neutral utilities) */
-        font-size: 0.875rem !important; 
-        color: inherit !important; 
-        opacity: 0.75; /* Blends nicely with existing theme text */
-      }
-
-      /* Global Hover Transitions linking directly to your theme primary variables */
-      .pub-toolbar-item:hover, 
-      .pub-toolbar-item:hover * {
-        opacity: 1;
-        color: rgb(var(--color-primary-500, 59, 130, 246)) !important;
-      }
-      .dark .pub-toolbar-item:hover, 
-      .dark .pub-toolbar-item:hover * {
-        opacity: 1;
-        color: rgb(var(--color-primary-400, 96, 165, 250)) !important;
-      }
-
-      /* Fixes Icon Baseline issues by forcing inline-flex block mechanics */
-      .pub-toolbar-icon {
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        width: 14px !important;
-        height: 14px !important;
-        min-width: 14px !important;
-        min-height: 14px !important;
-        margin-right: 6px !important;
-        margin-top: 0 !important;
-        margin-bottom: 0 !important;
-      }
-      .pub-toolbar-icon svg { 
-        width: 14px !important; 
-        height: 14px !important; 
-        display: block !important; 
-      }
-      .pub-toolbar-icon svg path, .pub-toolbar-icon svg circle { 
-        fill: currentColor !important; 
-      }
-    </style>
-    
     <!-- DOI -->
     {{ if $doi_url }}
       <div class="pub-toolbar-item text-neutral-500 dark:text-neutral-400">
@@ -302,32 +245,6 @@
 
 </article>
 
-<!-- Clipboard CITE Management Script -->
-<script>
-function copyBibTeX(button) {
-  const encodedBib = button.getAttribute('data-bibtex');
-  if (!encodedBib) return;
-  
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(encodedBib, 'text/html');
-  const bibtex = doc.documentElement.textContent;
-  
-  const textLabel = button.querySelector('.cite-text');
-  const originalText = textLabel.textContent;
-  
-  navigator.clipboard.writeText(bibtex).then(() => {
-    textLabel.textContent = 'COPIED!';
-    button.classList.add('text-emerald-600', 'dark:text-emerald-400');
-    
-    setTimeout(() => {
-      textLabel.textContent = originalText;
-      button.classList.remove('text-emerald-600', 'dark:text-emerald-400');
-    }, 2000);
-  }).catch(err => {
-    console.error('Clipboard copy failed: ', err);
-  });
-}
-</script>
 <!-- Load and Initialize Dimensions Citation Badge Engine -->
 <script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script>
 <script>
@@ -343,5 +260,8 @@ function copyBibTeX(button) {
 <!-- <script type='text/javascript' src='https://embed.altmetric.com/assets/embed.js'></script> -->
 
 <script type='text/javascript' src='https://embed.altmetric.com/assets/altmetric_badges-3dcf1358caca595ec0bfccb98c6a4e0246f1d27cd56715e5150c508aa827efbd.js'></script>
+
+{{ $pageScript := resources.Get "js/copy-bibtex.js" | resources.Minify | resources.Fingerprint }}
+<script src="{{ $pageScript.RelPermalink }}" integrity="{{ $pageScript.Data.Integrity }}" defer></script>
 
 {{ end }}

@@ -1,0 +1,279 @@
+/* ==========================================================================
+   HUGOBLOX HERO BLOCK PROFILE STYLE OVERRIDES
+   Target path exclusively bound to page layouts parsing custom-bio blocks.
+   ========================================================================== */
+
+.custom-bio-wrapper {
+  max-width: 1240px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
+
+/* Cross-Device Flexible Grid Engine */
+.biography-grid-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .biography-grid-container {
+    display: grid;
+    grid-template-columns: 5fr 8fr;
+    gap: 1.5rem;
+  }
+}
+
+/* LEFT SIDEBAR AREA STYLES */
+.left-bio-sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .left-bio-sidebar {
+    align-items: center !important;  /* Changed from flex-start */
+    text-align: center !important;   /* Changed from left */
+  }
+}
+
+/* MINI BANNER FRAME */
+.contained-banner-frame {
+  width: 100%;
+  height: 240px;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  background-size: cover;
+  background-position: center;
+}
+
+/* THE AVATAR POSITIONING CONTAINER */
+.avatar-layout-cell {
+  display: block !important;
+  width: 280px !important;
+  height: 280px !important;
+  margin-top: -125px !important; 
+  margin-bottom: 1rem !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  position: relative !important;
+  z-index: 20 !important;
+}
+
+@media (min-width: 768px) {
+  .avatar-layout-cell {
+    /* Forces the avatar container to retain its auto-margins on large viewports */
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+/* SMOOTH IMAGE ZOOM COMPONENT */
+.avatar-smooth-zoom-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  /* border: 4px solid var(--color-neutral-body);*/
+  border: 4px solid #ffffff !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  cursor: zoom-in;
+  margin: 0;
+  padding: 0;
+  transition: transform 0.15s ease-out;
+}
+
+.avatar-smooth-zoom-img:hover {
+  transform: scale(1.03);
+}
+
+/* SOCIAL REPOSITORIES CHANNELS WRAPPER */
+.bio-social-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .bio-social-row {
+    justify-content: flex-start;
+  }
+}
+
+.bio-social-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.bio-social-badge svg {
+  width: 2rem !important;
+  height: 2rem !important;
+  fill: currentColor !important;
+}
+
+/* RIGHT COLUMN CONTENT CARDS */
+.right-bio-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.bio-summary-card {
+  background-color: rgba(148, 163, 184, 0.06) !important;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(4px);
+}
+
+.bio-custom-tag {
+  background-color: rgba(148, 163, 184, 0.08) !important;
+  padding: 0.4rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 9999px;
+}
+
+/* HORIZONTAL METADATA SUB-GRID */
+.bio-meta-subgrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding-top: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .bio-meta-subgrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.bio-tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* DOWNLOAD CV BUTTON CORE COMPONENT */
+.bio-cv-button-container {
+  margin-top: 1.5rem;
+  display: flex;
+  width: 100%;
+}
+
+.bio-cv-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  
+  /* Text and Background Layout */
+  
+  /* FIXED BORDER: Uses rgba() to properly read Blowfish theme variables */
+  border: 1px solid rgba(var(--color-neutral-300), 1); 
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 10px -2px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease-in-out;
+}
+
+/* DARK MODE TARGETING */
+/* Swaps to a darker, high-contrast theme border line */
+.dark .bio-cv-download-btn {
+  border-color: rgba(var(--color-neutral-600), 1);
+}
+
+/* HOVER EFFECT */
+.bio-cv-download-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px -2px rgba(0, 0, 0, 0.25);
+  filter: brightness(1.1);
+  border-color: rgba(var(--color-primary-400), 1); /* Border turns a bright accent color on hover */
+}
+
+/* Forces Blowfish's embedded SVG download icon to size cleanly inside the button text */
+.bio-cv-icon-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+}
+
+.bio-cv-icon-frame svg {
+  width: 1rem !important;
+  height: 1rem !important;
+  fill: none !important;
+  stroke: #ffffff !important; /* Matches the text color */
+  stroke-width: 2 !important;
+}
+
+/* ==========================================================================
+   FULL-WIDTH DASHBOARD MENU OVERRIDES
+   ========================================================================== */
+
+.bio-dashboard-menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+/*@media (min-width: 768px) {
+  .bio-dashboard-menu {
+    justify-content: flex-start;  Aligns them nicely on big screens 
+  }
+}*/
+
+/* Base structural properties only—text colors have been migrated out to Tailwind */
+.bio-dashboard-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  font-size: 1.05rem;
+  font-weight: 400;
+  text-decoration: none !important;
+  background-color: rgba(148, 163, 184, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 0.75rem;
+  transition: all 0.2s ease-in-out; 
+}
+
+.bio-dashboard-icon-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.bio-dashboard-icon-frame svg {
+  width: 1.05rem !important;
+  height: 1.05rem !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 2 !important;
+}
+
+.bio-dashboard-btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-primary-500);
+ }

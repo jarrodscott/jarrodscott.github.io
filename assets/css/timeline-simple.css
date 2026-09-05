@@ -1,0 +1,69 @@
+/* Center Article Body Headings */
+.custom-timeline-headings h1,
+.custom-timeline-headings h2 {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Native Grid Structure Overriding Theme Filters */
+.custom-page-split-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+}
+
+.custom-body-column {
+  width: 100% !important;
+  order: 2 !important; /* Move content under mobile TOC */
+}
+
+.custom-timeline-sidebar {
+  width: 100% !important;
+  order: 1 !important; /* Push mobile TOC to the very top */
+  display: block !important;
+  visibility: visible !important;
+  margin-bottom: 1.5rem;
+}
+
+/* Force mobile visibility for our custom component */
+.custom-timeline-sidebar details.toc-inside {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Desktop Layout Sizing and Positions */
+@media (min-width: 1024px) {
+  .custom-page-split-grid {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: start !important;
+  }
+
+  .custom-body-column {
+    width: 75% !important;
+    max-width: 75% !important;
+    order: 1 !important; /* Restore normal order on desktop */
+  }
+
+  .custom-timeline-sidebar {
+    width: 22% !important;
+    max-width: 22% !important;
+    order: 2 !important; /* Restore normal sidebar layout order */
+    position: sticky !important;
+    top: 6rem !important;
+    max-height: calc(100vh - 8rem) !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* 
+    FIXED DESKTOP DUPLICATE BUG:
+    Forcibly hides the interactive mobile dropdown element 
+    the instant the screen stretches out to desktop break widths.
+  */
+  .custom-timeline-sidebar details.toc-inside {
+    display: none !important;
+    visibility: hidden !important;
+  }
+}

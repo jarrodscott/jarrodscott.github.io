@@ -20,28 +20,28 @@
   pageRef = "posts"
   weight = 10
 
-#[[main]]
-  # name = "Tags"
-  # pageRef = "tags"
-  # weight = 20
+[[main]]
+   name = "Tags"
+   pageRef = "tags"
+   weight = 51
 
 [[main]]
   identifier = "web"
   pre = "link"
   url = "https://jarrodscott.github.io/"
-  weight = 40
+  weight = 19
 
 [[main]]
   identifier = "github"
   pre = "github"
   url = "https://github.com/jarrodscott/jarrodscott.github.io"
-  weight = 50
+  weight = 60
 
 [[main]]
   identifier = "how-to"
   pre = "question"
   url = "/how-to"
-  weight = 60
+  weight = 70
 
 # [[main]]
 #   identifier = "twitter"

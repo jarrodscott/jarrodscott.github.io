@@ -1,0 +1,52 @@
+{{ $ctx := . }}
+{{ $isMobile := false }}
+{{ if reflect.IsMap . }}
+  {{ $ctx = .context }}
+  {{ $isMobile = .isMobile | default false }}
+{{ end }}
+
+{{ if $ctx.Site.Params.header.theme_picker }}
+  <!-- CSS Asset loaded only once -->
+  {{ if not $isMobile }}
+    {{ $themeCSS := resources.Get "css/theme-switcher.css" }}
+    {{ if $themeCSS }}
+      <link rel="stylesheet" href="{{ $themeCSS.RelPermalink }}">
+    {{ end }}
+  {{ end }}
+
+  <!-- Dynamic Select ID based on Desktop vs Mobile -->
+  <div class="theme-picker-clean-container relative flex items-center {{ if not $isMobile }}ml-2{{ end }} z-50">
+    <select 
+      id="{{ if $isMobile }}theme-picker-select-mobile{{ else }}theme-picker-select{{ end }}" 
+      class="text-neutral-900 dark:text-neutral-100 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200 bg-transparent cursor-pointer border-none focus:ring-0 text-sm font-medium">
+      <option value="" class="bg-white dark:bg-neutral-800 font-bold" disabled selected hidden>Theme</option>
+      <option value="default" class="bg-white dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 italic">Default</option>
+      <option value="autumn" class="bg-white dark:bg-neutral-800">Autumn</option>
+      <option value="avocado" class="bg-white dark:bg-neutral-800">Avocado</option>
+      <option value="bloody" class="bg-white dark:bg-neutral-800">Blood</option>
+      <option value="blowfish" class="bg-white dark:bg-neutral-800">Blowfish</option>
+      <option value="burufugu" class="bg-white dark:bg-neutral-800">Burufugu</option>
+      <option value="congo" class="bg-white dark:bg-neutral-800">Congo</option>
+      <option value="fire" class="bg-white dark:bg-neutral-800">Fire</option>
+      <option value="forest" class="bg-white dark:bg-neutral-800">Forest</option>
+      <option value="github" class="bg-white dark:bg-neutral-800">Github</option>
+      <option value="marvel" class="bg-white dark:bg-neutral-800">Marvel</option>
+      <option value="neon" class="bg-white dark:bg-neutral-800">Neon</option>
+      <option value="noir" class="bg-white dark:bg-neutral-800">Noir</option>
+      <option value="ocean" class="bg-white dark:bg-neutral-800">Ocean</option>
+      <option value="one-light" class="bg-white dark:bg-neutral-800">One-light</option>
+      <option value="princess" class="bg-white dark:bg-neutral-800">Princess</option>
+      <option value="slate" class="bg-white dark:bg-neutral-800">Slate</option>
+      <option value="terminal" class="bg-white dark:bg-neutral-800">Terminal</option>
+    </select>
+  </div>
+
+  <!-- JS Asset loaded only once -->
+  {{ if not $isMobile }}
+    {{ $themeJS := resources.Get "js/theme-switcher.js" }}
+    {{ if $themeJS }}
+      {{ $secureJS := $themeJS | resources.Minify }}
+      <script src="{{ $secureJS.RelPermalink }}" defer></script>
+    {{ end }}
+  {{ end }}
+{{ end }}

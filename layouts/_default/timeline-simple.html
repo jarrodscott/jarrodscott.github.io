@@ -1,5 +1,8 @@
 {{ define "main" }}
   {{ .Scratch.Set "scope" "timeline-simple" }}
+  {{ $timelineCSS := resources.Get "css/timeline-simple.css" | resources.Minify | resources.Fingerprint }}
+<link rel="stylesheet" href="{{ $timelineCSS.RelPermalink }}" integrity="{{ $timelineCSS.Data.Integrity }}">
+
 
   {{ $showReadingProgress := site.Params.article.showReadingProgress | default false }}
   {{ if isset .Params "showreadingprogress" }}
@@ -55,7 +58,7 @@
       {{ if .Params.showBreadcrumbs | default (.Site.Params.article.showBreadcrumbs | default false) }}
         {{ partial "breadcrumbs.html" . }}
       {{ end }}
-      <h1 class="mt-0 mb-0  text-4xl font-bold text-neutral-900 dark:text-neutral">
+      <h1 class="mt-2 mb-2  text-4xl font-bold text-neutral-900 dark:text-neutral">
         {{ .Title | emojify }}
       </h1>
       {{ with .Params.description }}
@@ -78,80 +81,7 @@
       </aside>
 
     </div>
-
-    <!-- CSS Grid Sizing & Visibility Rules -->
-    <style type="text/css">
-      /* Center Article Body Headings */
-      .custom-timeline-headings h1,
-      .custom-timeline-headings h2 {
-        text-align: center !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-      }
-
-      /* Native Grid Structure Overriding Theme Filters */
-      .custom-page-split-grid {
-        display: flex !important;
-        flex-direction: column !important;
-        width: 100% !important;
-      }
-
-      .custom-body-column {
-        width: 100% !important;
-        order: 2 !important; /* Move content under mobile TOC */
-      }
-
-      .custom-timeline-sidebar {
-        width: 100% !important;
-        order: 1 !important; /* Push mobile TOC to the very top */
-        display: block !important;
-        visibility: visible !important;
-        margin-bottom: 1.5rem;
-      }
-
-      /* Force mobile visibility for our custom component */
-      .custom-timeline-sidebar details.toc-inside {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-      }
-
-      /* Desktop Layout Sizing and Positions */
-      @media (min-width: 1024px) {
-        .custom-page-split-grid {
-          flex-direction: row !important;
-          justify-content: space-between !important;
-          align-items: start !important;
-        }
-
-        .custom-body-column {
-          width: 75% !important;
-          max-width: 75% !important;
-          order: 1 !important; /* Restore normal order on desktop */
-        }
-
-        .custom-timeline-sidebar {
-          width: 22% !important;
-          max-width: 22% !important;
-          order: 2 !important; /* Restore normal sidebar layout order */
-          position: sticky !important;
-          top: 6rem !important;
-          max-height: calc(100vh - 8rem) !important;
-          margin-bottom: 0 !important;
-        }
-
-        /* 
-          FIXED DESKTOP DUPLICATE BUG:
-          Forcibly hides the interactive mobile dropdown element 
-          the instant the screen stretches out to desktop break widths.
-        */
-        .custom-timeline-sidebar details.toc-inside {
-          display: none !important;
-          visibility: hidden !important;
-        }
-      }
-    </style>
-
+    
     <!-- Footer wrapper mirroring standard theme structure -->
     <footer class="pt-8 w-full mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
       {{ partial "sharing-links.html" . }}

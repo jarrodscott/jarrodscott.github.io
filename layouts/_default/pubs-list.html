@@ -1,11 +1,15 @@
 {{ define "main" }}
+{{/* Load and bundle dedicated pub-list layout styles */}}
+{{ $publistCSS := resources.Get "css/pub-list.css" | resources.Minify | resources.Fingerprint }}
+<link rel="stylesheet" href="{{ $publistCSS.RelPermalink }}" integrity="{{ $publistCSS.Data.Integrity }}">
+
 <article class="max-w-4xl mx-auto py-12 px-4">
   <header class="mb-6">
     {{ if .Params.showBreadcrumbs | default (site.Params.list.showBreadcrumbs | default false) }}
       {{ partial "breadcrumbs.html" . }}
     {{ end }}
   
-    <h1 class="mt-0 mb-0 text-4xl font-light text-neutral-800 dark:text-neutral-200">{{ .Title }}</h1>
+    <h1 class="mt-2 mb-2 text-4xl font-light text-neutral-800 dark:text-neutral-200">{{ .Title }}</h1>
     {{ with .Params.description }}<p class="text-neutral-500 dark:text-neutral-400 text-lg">{{ . }}</p>{{ end }}
   </header>
 
@@ -151,81 +155,6 @@
         <!-- Block 2: Action Buttons Row -->
         <div class="flex flex-wrap mt-2.5 text-sm font-medium w-full theme-action-buttons" style="gap: 12px !important; padding-left: 0px !important; margin-left: 0px !important;">
         
-        <style>
-          /* Base layout styling tied directly to Blowfish theme configuration */
-          .theme-action-buttons a, 
-          .theme-action-buttons button, 
-          .theme-action-buttons .oa-badge {
-            color: rgb(var(--color-primary-700)) !important;
-            background: none !important;
-            border: none !important;
-            padding: 0 !important;
-            cursor: pointer !important;
-            text-decoration: none !important;
-            transition: color 0.2s ease-in-out !important;
-          }
-          
-          /* Force external SVG icons to scale with text and use theme colors */
-          .theme-action-buttons svg,
-          .theme-action-buttons svg path,
-          .theme-action-buttons svg circle {
-            stroke: rgb(var(--color-primary-700)) !important;
-            width: auto !important;
-            height: 1.1em !important;
-            transition: stroke 0.2s ease-in-out !important;
-          }
-          
-          /* Interactive Hover States (Light Mode) */
-          .theme-action-buttons a:hover, 
-          .theme-action-buttons button:hover {
-            color: rgb(var(--color-primary-600)) !important;
-            text-decoration: underline !important;
-          }
-          .theme-action-buttons a:hover svg,
-          .theme-action-buttons a:hover svg path,
-          .theme-action-buttons a:hover svg circle,
-          .theme-action-buttons button:hover svg,
-          .theme-action-buttons button:hover svg path,
-          .theme-action-buttons button:hover svg circle {
-            stroke: rgb(var(--color-primary-600)) !important;
-            text-decoration: none !important; /* Prevents the SVG icon itself from getting an underline */
-          }
-          
-          /* Dark Mode Base Theme Adjustments */
-          .dark .theme-action-buttons a, 
-          .dark .theme-action-buttons button, 
-          .dark .theme-action-buttons .oa-badge {
-            color: rgb(var(--color-primary-400)) !important;
-          }
-          .dark .theme-action-buttons svg,
-          .dark .theme-action-buttons svg path,
-          .dark .theme-action-buttons svg circle {
-            stroke: rgb(var(--color-primary-400)) !important;
-          }
-
-          /* Interactive Hover States (Dark Mode) */
-          .dark .theme-action-buttons a:hover, 
-          .dark .theme-action-buttons button:hover {
-            color: rgb(var(--color-primary-300)) !important;
-            text-decoration: underline !important;
-          }
-          .dark .theme-action-buttons a:hover svg,
-          .dark .theme-action-buttons a:hover svg path,
-          .dark .theme-action-buttons a:hover svg circle,
-          .dark .theme-action-buttons button:hover svg,
-          .dark .theme-action-buttons button:hover svg path,
-          .dark .theme-action-buttons button:hover svg circle {
-            stroke: rgb(var(--color-primary-300)) !important;
-            text-decoration: none !important;
-          }
-
-          /* Ensure loaded assets behave as tight inline items */
-          .dynamic-icon-wrapper {
-            margin-right: 6px !important;
-            display: inline-block !important;
-            text-decoration: none !important; /* Keeps the underline off the icon wrapper box */
-          }
-        </style>
           <!-- PDF Button -->
           {{ $pdf := .Resources.GetMatch "*.pdf" }}
           {{ if or $pdf .Params.url_pdf }}
@@ -319,74 +248,12 @@
     </footer>
 
 </article>
+{{/* --- Dedicated Page Script Pipeline --- */}}
+{{ $pageScript := resources.Get "js/filter-pub.js" | resources.Minify | resources.Fingerprint }}
+<script src="{{ $pageScript.RelPermalink }}" integrity="{{ $pageScript.Data.Integrity }}" defer></script>
 
-<script>
-function filterPublications() {
-  const selectedType = document.getElementById('typeFilter').value;
-  const selectedTag = document.getElementById('tagFilter').value;
-  const publicationItems = document.querySelectorAll('.publication-item');
-  const yearGroups = document.querySelectorAll('.year-group');
-  const noPubsMessage = document.getElementById('noPubsMessage');
-  
-  let totalVisibleCount = 0;
+{{ $pageScript := resources.Get "js/copy-bibtex.js" | resources.Minify | resources.Fingerprint }}
+<script src="{{ $pageScript.RelPermalink }}" integrity="{{ $pageScript.Data.Integrity }}" defer></script>
 
-  publicationItems.forEach(item => {
-    const itemType = item.getAttribute('data-pubtype');
-    const rawTags = item.getAttribute('data-tags') || '';
-    const itemTags = rawTags.trim().split(/\s+/);
-
-    const matchType = (selectedType === 'all' || itemType === selectedType);
-    const matchTag = (selectedTag === 'all' || itemTags.includes(selectedTag));
-
-    if (matchType && matchTag) {
-      item.style.display = 'block';
-      totalVisibleCount++;
-    } else {
-      item.style.display = 'none';
-    }
-  });
-
-  yearGroups.forEach(group => {
-    const allItemsInGroup = group.querySelectorAll('.publication-item');
-    let visibleInGroup = 0;
-    
-    allItemsInGroup.forEach(item => {
-      if (item.style.display !== 'none') {
-        visibleInGroup++;
-      }
-    });
-
-    if (visibleInGroup === 0) {
-      group.style.display = 'none';
-    } else {
-      group.style.display = 'block';
-    }
-  });
-
-  if (totalVisibleCount === 0) {
-    noPubsMessage.classList.remove('hidden');
-  } else {
-    noPubsMessage.classList.add('hidden');
-  }
-}
-
-function copyBibTeX(button) {
-  const encodedBib = button.getAttribute('data-bibtex');
-  if (!encodedBib) return;
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(encodedBib, 'text/html');
-  const bibtex = doc.documentElement.textContent;
-  const textLabel = button.querySelector('.cite-text');
-  
-  navigator.clipboard.writeText(bibtex).then(() => {
-    const originalText = textLabel.textContent;
-    textLabel.textContent = 'COPIED!';
-    button.classList.add('text-emerald-600', 'dark:text-emerald-400');
-    setTimeout(() => { 
-      textLabel.textContent = originalText; 
-      button.classList.remove('text-emerald-600', 'dark:text-emerald-400');
-    }, 2000);
-  }).catch(err => { console.error('Clipboard copy failed: ', err); });
-}
-</script>
 {{ end }}
+

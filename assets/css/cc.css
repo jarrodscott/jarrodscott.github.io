@@ -1,0 +1,55 @@
+/* ==========================================================================
+   Creative Commons notice
+   ========================================================================== */
+
+/* Outer container to break out of markdown indentation loops */
+.cc-wrapper-block {
+    width: 100% !important;
+    display: block !important;
+    clear: both !important;
+    padding: 0 !important;
+    margin: 20px 0 !important;
+    text-indent: 0 !important;
+}
+
+/* Inner flex anchor layout configuration */
+.creative-commons-notice {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important; /* Pulls EVERYTHING perfectly flush left */
+    gap: 12px !important;
+    text-decoration: none !important;
+    color: inherit !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    text-indent: 0 !important;
+    transition: color 0.2s ease;
+}
+
+/* Clears default paragraph padding on the badge text descriptor */
+.cc-text-span {
+    display: inline-block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-indent: 0 !important;
+    line-height: 1.2 !important;
+}
+
+/* Image element constraints */
+.creative-commons-notice img {
+    max-width: 108px !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+}
+
+/* Hover behaviors */
+.creative-commons-notice:hover {
+    color: var(--tw-prose-links, #3b82f6) !important;
+}
+.creative-commons-notice:hover .cc-text-span {
+    text-decoration: underline !important;
+}
+

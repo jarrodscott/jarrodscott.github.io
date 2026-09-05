@@ -1,8 +1,39 @@
-<!-- Dynamically load badge engines ONLY on pages that invoke the shortcodes -->
-{{ if or (.HasShortcode "altmetric") (.HasShortcode "dimensions") }}
-  <!-- Altmetric Canonical Engine -->
+<!-- 1. Altmetric Shortcode Canonical Engine Trigger -->
+{{ if .HasShortcode "altmetric" }}
   <script type="text/javascript" src="https://embed.altmetric.com/assets/embed.js" async></script>
+{{ end }}
 
-  <!-- Dimensions Canonical Engine -->
+<!-- 2. Dimensions Shortcode Canonical Engine -->
+{{ if .HasShortcode "dimensions" }}
   <script type="text/javascript" src="https://badge.dimensions.ai/badge.js" charset="utf-8" async></script>
+{{ end }}
+
+<!-- 3. Creative Commons Shortcode Styles -->
+{{ if .HasShortcode "cc" }}
+  {{ $ccCSS := resources.Get "css/cc.css" | resources.Minify | resources.Fingerprint }}
+  <link rel="stylesheet" href="{{ $ccCSS.RelPermalink }}" integrity="{{ $ccCSS.Data.Integrity }}">
+{{ end }}
+
+<!-- 4. Codon table Shortcode Styles -->
+{{ if .HasShortcode "codon-table" }}
+  {{ $codontableCSS := resources.Get "css/codon-table.css" | resources.Minify | resources.Fingerprint }}
+  <link rel="stylesheet" href="{{ $codontableCSS.RelPermalink }}" integrity="{{ $codontableCSS.Data.Integrity }}">
+{{ end }}
+
+<!-- 5. Cite Shortcode Styles -->
+{{ if .HasShortcode "cite" }}
+  {{ $citeCSS := resources.Get "css/cite.css" | resources.Minify | resources.Fingerprint }}
+  <link rel="stylesheet" href="{{ $citeCSS.RelPermalink }}" integrity="{{ $citeCSS.Data.Integrity }}">
+{{ end }}
+
+<!-- 5. Flex-wrap Shortcode Styles -->
+{{ if .HasShortcode "flex-wrap" }}
+  {{ $flexwrapCSS := resources.Get "css/flex-wrap.css" | resources.Minify | resources.Fingerprint }}
+  <link rel="stylesheet" href="{{ $flexwrapCSS.RelPermalink }}" integrity="{{ $flexwrapCSS.Data.Integrity }}">
+{{ end }}
+
+<!-- 6. Palette Table Shortcode Clipboard Script -->
+{{ if .HasShortcode "palette-table" }}
+  {{ $paletteJS := resources.Get "js/palette-table.js" | resources.Minify | resources.Fingerprint }}
+  <script src="{{ $paletteJS.RelPermalink }}" integrity="{{ $paletteJS.Data.Integrity }}" defer></script>
 {{ end }}

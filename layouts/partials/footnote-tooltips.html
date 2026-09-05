@@ -14,7 +14,15 @@
   {{ $repl := printf `%s<span class="fn-tooltip" aria-hidden="true">%s</span>` $needle $html }}
   {{ $c = replace $c $needle $repl }}
 {{ end }}
+
 {{ if and (in $c `class="footnote-ref"`) (eq $c $orig) }}
   {{ warnf "footnote-tooltips.html: page has footnote refs but no tooltips were injected — Goldmark's footnote markup may have changed" }}
 {{ end }}
+
+{{/* If tooltips were injected, prepend the modular CSS asset */}}
+{{ if ne $c $orig }}
+  {{ $fnCSS := resources.Get "css/footnote-tooltips.css" | resources.Minify | resources.Fingerprint }}
+  <link rel="stylesheet" href="{{ $fnCSS.RelPermalink }}" integrity="{{ $fnCSS.Data.Integrity }}">
+{{ end }}
+
 {{ $c | safeHTML }}

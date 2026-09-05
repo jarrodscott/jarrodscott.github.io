@@ -1,0 +1,73 @@
+/* Base layout styling tied directly to Blowfish theme configuration */
+.theme-action-buttons a, 
+.theme-action-buttons button, 
+.theme-action-buttons .oa-badge {
+  color: rgb(var(--color-primary-700)) !important;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease-in-out !important;
+}
+
+/* Force external SVG icons to scale with text and use theme colors */
+.theme-action-buttons svg,
+.theme-action-buttons svg path,
+.theme-action-buttons svg circle {
+  stroke: rgb(var(--color-primary-700)) !important;
+  width: auto !important;
+  height: 1.1em !important;
+  transition: stroke 0.2s ease-in-out !important;
+}
+
+/* Interactive Hover States (Light Mode) */
+.theme-action-buttons a:hover, 
+.theme-action-buttons button:hover {
+  color: rgb(var(--color-primary-600)) !important;
+  text-decoration: underline !important;
+}
+.theme-action-buttons a:hover svg,
+.theme-action-buttons a:hover svg path,
+.theme-action-buttons a:hover svg circle,
+.theme-action-buttons button:hover svg,
+.theme-action-buttons button:hover svg path,
+.theme-action-buttons button:hover svg circle {
+  stroke: rgb(var(--color-primary-600)) !important;
+  text-decoration: none !important; /* Prevents the SVG icon itself from getting an underline */
+}
+
+/* Dark Mode Base Theme Adjustments */
+.dark .theme-action-buttons a, 
+.dark .theme-action-buttons button, 
+.dark .theme-action-buttons .oa-badge {
+  color: rgb(var(--color-primary-400)) !important;
+}
+.dark .theme-action-buttons svg,
+.dark .theme-action-buttons svg path,
+.dark .theme-action-buttons svg circle {
+  stroke: rgb(var(--color-primary-400)) !important;
+}
+
+/* Interactive Hover States (Dark Mode) */
+.dark .theme-action-buttons a:hover, 
+.dark .theme-action-buttons button:hover {
+  color: rgb(var(--color-primary-300)) !important;
+  text-decoration: underline !important;
+}
+.dark .theme-action-buttons a:hover svg,
+.dark .theme-action-buttons a:hover svg path,
+.dark .theme-action-buttons a:hover svg circle,
+.dark .theme-action-buttons button:hover svg,
+.dark .theme-action-buttons button:hover svg path,
+.dark .theme-action-buttons button:hover svg circle {
+  stroke: rgb(var(--color-primary-300)) !important;
+  text-decoration: none !important;
+}
+
+/* Ensure loaded assets behave as tight inline items */
+.dynamic-icon-wrapper {
+  margin-right: 6px !important;
+  display: inline-block !important;
+  text-decoration: none !important; /* Keeps the underline off the icon wrapper box */
+}

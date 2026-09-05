@@ -1,0 +1,31 @@
+/* ==========================================================================
+   For footnote tooltip hover
+   ========================================================================== */   
+.fn-tooltip {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  /* FIXED: Use max-width with max-content for precise sizing */
+  width: max-content;
+  max-width: clamp(16rem, 90vw, 18rem); 
+  padding: 0.6em 0.8em;
+  background: rgb(var(--color-neutral-50));
+  color: rgb(var(--color-neutral-900));
+  border: 2px solid rgb(var(--color-neutral-300));
+  border-radius: 0.375rem; 
+  font-size: 0.9rem;
+  font-weight: normal;
+  line-height: 1.2;
+  white-space: normal;
+  overflow-wrap: break-word;
+  text-align: left;
+  z-index: 10;
+}
+
+sup:hover > .fn-tooltip,
+a.footnote-ref:focus + .fn-tooltip {
+  display: block;
+}

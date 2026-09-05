@@ -1,7 +1,11 @@
 <nav aria-label="{{ i18n "nav.main_menu" }}" class="flex items-center gap-x-5 h-12">
-  {{ if .Site.Menus.main }}
-    {{ range .Site.Menus.main }}
-      {{ template "DesktopMenu" . }}
+  
+  <!-- Lowercase site param verification blocks duplication cleanly -->
+  {{ if ne (lower .Site.Params.header.layout) "custom-centered" }}
+    {{ if .Site.Menus.main }}
+      {{ range .Site.Menus.main }}
+        {{ template "DesktopMenu" . }}
+      {{ end }}
     {{ end }}
   {{ end }}
 
@@ -10,30 +14,13 @@
     {{ partial "header/components/a11y.html" (dict "prefix" "desktop-") }}
   {{ end }}
 
-  {{ if .Site.Params.enableSearch | default false }}
-    <button
-      id="search-button"
-      aria-label="{{ i18n "search.open_button_title" }}"
-      class="flex items-center gap-2 rounded-lg border bf-border-color bf-border-color-hover bg-neutral-100/50 px-2 py-1 text-sm text-neutral-500 transition-colors hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral-400 dark:hover:text-primary-400"
-      title="{{ i18n "search.open_button_title" }}">
-      {{ partial "icon.html" "search" }}
-      <kbd
-        id="search-shortcut-hint"
-        class="pointer-events-none font-sans text-xs text-neutral-500 dark:text-neutral-400"
-        aria-hidden="true">
-        ⌘K
-      </kbd>
-    </button>
-  {{ end }}
-
-
-{{ if .Site.Params.footer.showAppearanceSwitcher | default false }}
+  {{ if .Site.Params.footer.showAppearanceSwitcher | default false }}
     <div class="flex items-center">
       <button
         id="appearance-switcher"
         aria-label="{{ i18n "footer.dark_appearance" }}"
         type="button"
-        class="text-sm bf-icon-color-hover"
+        class="text-base bf-icon-color-hover"
         title="{{ i18n "footer.dark_appearance" }}">
         <div class="flex items-center justify-center dark:hidden">
           {{ partial "icon.html" "moon" }}
@@ -43,144 +30,28 @@
         </div>
       </button>
     </div>
-  
-<!-- layouts/partials/header/components/desktop-menu.html snippet -->
+  {{ end }}
 
-<!-- layouts/partials/header/components/desktop-menu.html snippet -->
+  {{ if .Site.Params.enableSearch | default false }}
+    <button
+      id="search-button"
+      aria-label="{{ i18n "search.open_button_title" }}"
+      class="flex items-center gap-2 rounded-lg border bf-border-color bf-border-color-hover bg-neutral-100/50 px-2 py-1 text-sm text-neutral-500 transition-colors hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral-100 dark:hover:text-primary-400"
+      title="{{ i18n "search.open_button_title" }}">
+      {{ partial "icon.html" "search" }}
+      <kbd
+        id="search-shortcut-hint"
+        class="pointer-events-none font-sans text-base text-neutral-500 dark:text-neutral-100"
+        aria-hidden="true">
+        ⌘K
+      </kbd>
+    </button>
+  {{ end }}
 
-    {{ if .Site.Params.header.theme_picker }}
-    <!-- Fully isolated theme picker markup -->
-    <div class="theme-picker-clean-container relative flex items-center ml-2 z-50">
-      
-      <!-- Hardcoded style reset completely isolates this element from the @tailwindcss/forms plugin -->
-      <style>
-        select#theme-picker-select {
-          appearance: none !important;
-          -webkit-appearance: none !important;
-          -moz-appearance: none !important;
-          background: transparent !important;
-          background-image: none !important;
-          border: none !important;
-          outline: none !important;
-          box-shadow: none !important;
-          padding-left: 0.5rem !important;
-          padding-right: 1.5rem !important;
-          padding-top: 0.25rem !important;
-          padding-bottom: 0.25rem !important;
-          font-size: 1rem !important;
-          font-weight: 500 !important;
-          cursor: pointer !important;
-        }
-        select#theme-picker-select::-ms-expand {
-          display: none !important;
-        }
-      </style>
-
-<!-- layouts/partials/header/components/desktop-menu.html snippet -->
-
-      <select 
-        id="theme-picker-select" 
-        class="text-neutral-900 dark:text-neutral-100 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200 ">
-        <!-- This acts purely as your persistent title and cannot be re-selected -->
-        <option value="" class="bg-white dark:bg-neutral-800 font-bold" disabled selected hidden>Theme</option>
-        
-        <!-- This is the explicit button users click to revert back to your base style -->
-        <option value="default" class="bg-white dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 italic">Default</option>
-        
-        <!-- The remaining available color styles -->
-        <option value="autumn" class="bg-white dark:bg-neutral-800">Autumn</option>
-        <option value="avocado" class="bg-white dark:bg-neutral-800">Avocado</option>
-        <option value="bloody" class="bg-white dark:bg-neutral-800">Blood</option>
-        <option value="blowfish" class="bg-white dark:bg-neutral-800">Blowfish</option>
-        <option value="burufugu" class="bg-white dark:bg-neutral-800">Burufugu</option>
-        <option value="congo" class="bg-white dark:bg-neutral-800">Congo</option>
-        <option value="fire" class="bg-white dark:bg-neutral-800">Fire</option>
-        <option value="forest" class="bg-white dark:bg-neutral-800">Forest</option>
-        <option value="github" class="bg-white dark:bg-neutral-800">Github</option>
-        <option value="marvel" class="bg-white dark:bg-neutral-800">Marvel</option>
-        <option value="neon" class="bg-white dark:bg-neutral-800">Neon</option>
-        <option value="noir" class="bg-white dark:bg-neutral-800">Noir</option>
-        <option value="ocean" class="bg-white dark:bg-neutral-800">Ocean</option>
-        <option value="one-light" class="bg-white dark:bg-neutral-800">One-light</option>
-        <option value="princess" class="bg-white dark:bg-neutral-800">Princess</option>
-        <option value="slate" class="bg-white dark:bg-neutral-800">Slate</option>
-        <option value="terminal" class="bg-white dark:bg-neutral-800">Terminal</option>
-      </select>
-
-      <!-- Vector chevron arrow positioned nicely outside the selector bounding box -->
-      <!-- <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center">
-        <svg class="h-3 w-3 fill-current text-neutral-500 dark:text-neutral-400" xmlns="http://w3.org" viewBox="0 0 20 20">
-          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-        </svg>
-      </div>-->
-
-      <!-- LOCAL RUNTIME INLINE INITIALIZATION SCRIPT -->
-      <script type="text/javascript">
-        (() => {
-          const initPicker = () => {
-            const desktopPicker = document.getElementById("theme-picker-select");
-            const mobilePicker = document.getElementById("theme-picker-select-mobile");
-            if (!desktopPicker && !mobilePicker) return;
-
-            const schemeRegistry = {};
-            document.querySelectorAll(".raw-scheme-data").forEach((el) => {
-              const name = el.getAttribute("data-scheme").trim();
-              const cssText = el.getAttribute("data-css") || "";
-              const variables = {};
-              const regex = /(--color-[a-zA-Z0-9-]+)\s*:\s*([^;}\n]+)/g;
-              let match;
-              while ((match = regex.exec(cssText)) !== null) {
-                variables[match[1].trim()] = match[2].trim();
-              }
-              schemeRegistry[name] = variables;
-            });
-
-            let styleTag = document.getElementById("runtime-theme-picker-override");
-            if (!styleTag) {
-              styleTag = document.createElement("style");
-              styleTag.id = "runtime-theme-picker-override";
-              document.head.appendChild(styleTag);
-            }
-
-            function apply(name) {
-              if (!name || name === "default" || !schemeRegistry[name]) {
-                styleTag.textContent = "";
-                localStorage.removeItem("custom-color-scheme");
-                return;
-              }
-              let cssString = "";
-              for (const [k, v] of Object.entries(schemeRegistry[name])) {
-                cssString += `${k}: ${v} !important;\n`;
-              }
-              styleTag.textContent = `:root, html, body, html.dark :root, html:not(.dark) :root { ${cssString} }`;
-              localStorage.setItem("custom-color-scheme", name);
-            }
-
-            const saved = localStorage.getItem("custom-color-scheme") || "default";
-            if (desktopPicker) desktopPicker.value = saved;
-            if (mobilePicker) mobilePicker.value = saved;
-            apply(saved);
-
-            const sync = (e) => {
-              const val = e.target.value;
-              if (desktopPicker) desktopPicker.value = val;
-              if (mobilePicker) mobilePicker.value = val;
-              apply(val);
-            };
-
-            if (desktopPicker) desktopPicker.addEventListener("change", sync);
-            if (mobilePicker) mobilePicker.addEventListener("change", sync);
-          };
-
-          if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", initPicker);
-          } else {
-            initPicker();
-          }
-        })();
-      </script>
+  {{ if .Site.Params.header.theme_picker }}
+    <div class="theme-picker-clean-container relative flex items-center ml-6 z-50">
+      {{ partial "header/components/theme-switcher.html" . }}
     </div>
-    {{ end }}
   {{ end }}
 </nav>
 

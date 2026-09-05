@@ -1,0 +1,57 @@
+.pub-toolbar-item {
+  display: inline-flex !important;
+  align-items: center !important;
+  vertical-align: middle !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  outline: none !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+  
+  /* Dynamic Theme Colors (Inherits from your text-neutral utilities) */
+  font-size: 0.875rem !important; 
+  color: inherit !important; 
+  opacity: 0.75; /* Blends nicely with existing theme text */
+}
+
+/* Global Hover Transitions linking directly to your theme primary variables */
+.pub-toolbar-item:hover, 
+.pub-toolbar-item:hover * {
+  opacity: 1;
+  color: rgb(var(--color-primary-500, 59, 130, 246)) !important;
+}
+.dark .pub-toolbar-item:hover, 
+.dark .pub-toolbar-item:hover * {
+  opacity: 1;
+  color: rgb(var(--color-primary-400, 96, 165, 250)) !important;
+}
+
+/* Fixes Icon Baseline issues by forcing inline-flex block mechanics */
+.pub-toolbar-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 14px !important;
+  height: 14px !important;
+  min-width: 14px !important;
+  min-height: 14px !important;
+  margin-right: 6px !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+.pub-toolbar-icon svg { 
+  width: 14px !important; 
+  height: 14px !important; 
+  display: block !important; 
+}
+.pub-toolbar-icon svg path, .pub-toolbar-icon svg circle { 
+  fill: currentColor !important; 
+}
