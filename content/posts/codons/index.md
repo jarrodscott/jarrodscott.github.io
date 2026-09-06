@@ -104,7 +104,7 @@ Below are a few examples of different tools to show the relationship between cod
 ## A Better Map? 
 
 
-{{< zoom-mermaid >}}
+{{< mermaid-zoom >}}
 {{< mermaid >}}
 flowchart LR
     A(Cytosine) --> B(Adenine)
@@ -173,7 +173,7 @@ flowchart LR
     linkStyle 7 font-size:24px,font-weight:bold,fill:none;
     linkStyle 8 font-size:24px,font-weight:bold,fill:none;
 {{< /mermaid >}}
-{{< /zoom-mermaid >}}
+{{< /mermaid-zoom >}}
 
 
 I tried forever to memorize codon assignments using the tools described above with little luck--it just wouldn't stick. If you are more of a visual learner like me, then tables are pretty useless. I tried the various wheel and chart representations but those didn't help either. 
