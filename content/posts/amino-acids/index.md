@@ -1,7 +1,7 @@
 ---
 title: "Amino Acid Reference Guide"
 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-layout: "mod-single"
+layout: single # changed from mod-single
 build:
   list: "never"
 ---

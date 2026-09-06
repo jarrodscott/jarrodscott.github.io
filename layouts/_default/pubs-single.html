@@ -121,25 +121,26 @@
   </div>
   {{ end }}
 
-  <!-- Abstract Section: Two-Column Layout with Working Script Placeholder Badges -->
-  <section class="mb-12 border-b border-neutral-200 dark:border-neutral-700 pb-12" 
-           style="display: flex !important; flex-direction: row !important; align-items: flex-start !important; gap: 32px !important; text-align: left !important;">
+<!-- Abstract Section Outer Container -->
+<section class="mb-12 border-b border-neutral-200 dark:border-neutral-700 pb-12 pub-abstract-grid">
+  
+  <!-- Left Column: Title & Badges Container -->
+  <div class="pub-left-col">
     
-    <!-- Left Column: Title & Vertical Badges -->
-    <div style="width: 20% !important; min-width: 130px !important; flex-shrink: 0 !important; margin: 0 !important; display: flex !important; flex-direction: column !important; gap: 16px !important;">
-      
-      <!-- Section Title -->
-      <h2 class="c font-bold text-neutral-800 dark:text-neutral-200 uppercase tracking-widest" style="margin: 0 !important;">
-        Abstract
-      </h2>
+    <!-- Section Title -->
+    <h2 class="font-bold text-neutral-800 dark:text-neutral-200 uppercase tracking-widest m-0">
+      Abstract
+    </h2>
 
-      <!-- Dynamic Identifier Parsing -->
-      {{ $doi := .Params.doi | default .Params.url_doi }}
-      {{ if $doi }}
-        {{ $clean_doi := replace $doi "https://doi.org/" "" }}
-        
-        <!-- Badge 1: Your Original Working Dimensions Placeholder -->
-        <div style="display: block !important; margin: 0 !important; padding: 0 !important; min-height: 40px;">
+    <!-- Dynamic Identifier Parsing -->
+    {{ $doi := .Params.doi | default .Params.url_doi }}
+    {{ if $doi }}
+      {{ $clean_doi := replace $doi "https://doi.org" "" }}
+      
+      <!-- Badges Flex Wrapper -->
+      <div class="pub-badge-flex">
+        <!-- Badge 1: Dimensions Placeholder -->
+        <div class="block m-0 p-0 min-h-[40px] flex-shrink-0" style="display: block !important;">
           <span class="__dimensions_badge_embed__" 
                 data-doi="{{ $clean_doi }}" 
                 data-style="medium_circle" 
@@ -147,26 +148,37 @@
           </span>
         </div>
 
-        <!-- Badge 2: Official Altmetric Script Placeholder -->
-        <div style="display: block !important; margin: 0 !important; padding: 0 !important; min-height: 54px;">
-          <div class="altmetric-embed" 
+        <!-- Badge 2: Official Altmetric Script Placeholders -->
+        <div class="block m-0 p-0 min-h-[54px] flex-shrink-0" style="display: block !important;">
+          
+          <!-- Mobile Instance: Injected with custom visibility class -->
+          <div class="altmetric-embed altmetric-mobile-badge" 
+               data-badge-type="medium-donut" 
+               data-badge-popover="bottom" 
+               data-hide-no-mentions="true" 
+               data-doi="{{ $clean_doi }}">
+          </div>
+
+          <!-- Desktop Instance: Injected with custom visibility class -->
+          <div class="altmetric-embed altmetric-desktop-badge" 
                data-badge-type="medium-donut" 
                data-badge-popover="right" 
                data-hide-no-mentions="true" 
                data-doi="{{ $clean_doi }}">
           </div>
+
         </div>
-      {{ end }}
+      </div>
+    {{ end }}
 
-    </div>
+  </div>
 
-    <!-- Right Column: Main Abstract Text Box -->
-    <div class="text-md prose dark:prose-invert max-w-none text-neutral-700 dark:text-neutral-300 leading-relaxed font-serif" 
-         style="width: 80% !important; flex-grow: 1 !important; margin: 0 !important; text-align: left !important;">
-      {{ .Params.abstract | markdownify }}
-    </div>
+  <!-- Right Column: Main Abstract Text Box -->
+  <div class="pub-right-col text-md prose dark:prose-invert max-w-none text-neutral-700 dark:text-neutral-300 leading-relaxed font-serif m-0">
+    {{ .Params.abstract | markdownify }}
+  </div>
 
-  </section>
+</section>
 
   <!-- Full Manuscript Large Layout Breakout Frame -->
   {{ $pdf := .Resources.GetMatch "*.pdf" }}
@@ -206,6 +218,11 @@
     </section>
   {{ end }}
 
+      <!-- Footer wrapper mirroring standard theme structure -->
+    <footer class="pt-8 w-full mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      {{ partial "sharing-links.html" . }}
+    </footer>
+
   <!-- Chronological Next/Previous Footer Navigation Panel -->
   <nav class="mt-16 pt-8 border-t border-neutral-200 dark:border-neutral-700 max-w-5xl mx-auto">
 
@@ -238,10 +255,6 @@
 
     </div>
   </nav>
-      <!-- Footer wrapper mirroring standard theme structure -->
-    <footer class="pt-8 w-full mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-      {{ partial "sharing-links.html" . }}
-    </footer>
 
 </article>
 

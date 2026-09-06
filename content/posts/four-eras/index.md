@@ -12,7 +12,7 @@ showTableOfContents: true
 showHero: true
 heroStyle: background # basic, big, background, thumbAndBackground. Effective only if article.showHero = true.
 layoutBackgroundBlur: true
-layout: mod-single
+layout: single # changed from mod-single
 weight: -30
 ---
 

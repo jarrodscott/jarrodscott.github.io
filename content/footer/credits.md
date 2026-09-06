@@ -1,7 +1,7 @@
 ---
 title: "Credits"
 menu: "footer"
-layout: mod-single
+layout: single # changed from mod-single
 weight: 20
 ---
 

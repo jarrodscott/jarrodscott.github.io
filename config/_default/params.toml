@@ -85,7 +85,7 @@ showZenMode = false
 showCategories = true
 showTags = true
 showCategoriesInSecondaryColor = false
-#sharingLinks = [ "linkedin", "twitter", "bluesky", "reddit", "whatsapp", "telegram", "pinterest", "facebook", "email", "line"]
+sharingLinks = [ "linkedin", "twitter", "bluesky", "reddit", "whatsapp", "telegram", "pinterest", "facebook", "email", "line"]
 
 [list]
 showHero = false

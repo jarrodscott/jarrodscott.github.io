@@ -1,0 +1,128 @@
+/* ==========================================================================
+   Control Mobile ZOOM for mermaid graph
+   ========================================================================== */
+/* Base container style: signals to user they can click it */
+.mobile-zoom-graph {
+    cursor: zoom-in;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    overflow-x: auto;
+    width: 100%;
+}
+
+/* Light / Dark Mode adaptive lightbox background overlay */
+/* Light / Dark Mode adaptive lightbox background overlay */
+.mobile-zoom-graph.expanded {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    
+    /* 
+      TRICK: This instructs the overlay to inherit whatever solid background color 
+      the parent body/html is currently displaying for light or dark mode.
+    */
+    background-color: inherit !important;
+    
+    /* Fallback if inherit yields transparent: use Blowfish system defaults */
+    background-image: linear-gradient(
+        var(--tw-bg-opacity, rgba(255, 255, 255, 0.98)), 
+        var(--tw-bg-opacity, rgba(255, 255, 255, 0.98))
+    );
+    
+    /* Force fallback variations explicitly targeting Blowfish light vs dark system triggers */
+    background-color: var(--color-neutral-0, rgb(255, 255, 255)) !important; 
+    
+    z-index: 99999; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    cursor: zoom-out;
+}
+
+/* Explicit rule targeting Blowfish's dark mode wrapper tag */
+html.dark .mobile-zoom-graph.expanded {
+    background-color: #0f172a !important; /* Forces solid dark slate background */
+    background-image: none !important;
+}
+
+/* Explicit rule targeting Blowfish's light mode configurations */
+html:not(.dark) .mobile-zoom-graph.expanded {
+    background-color: #FDFDFD !important; /* Forces solid clean white background */
+    background-image: none !important;
+}
+
+/* Blowfish template fixes: Forces container to fill screen when expanded */
+.mobile-zoom-graph.expanded .mermaid-container,
+.mobile-zoom-graph.expanded .mermaid {
+    width: 100% !important;
+    max-width: 90vw !important;
+    height: auto !important;
+    max-height: 90vh !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Make sure the internal rendered SVG scales up legibly */
+.mobile-zoom-graph.expanded svg {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 90vw !important;
+    max-height: 90vh !important;
+}
+
+/* Close button (hidden by default) */
+.mobile-zoom-graph .zoom-close-btn {
+    display: none;
+}
+
+/* Adaptive styling for the Close button ("✕") */
+/* Base appearance for the Close button ("✕") inside the expanded lightbox */
+.mobile-zoom-graph.expanded .zoom-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+    z-index: 100000;
+}
+
+.mobile-zoom-graph.expanded .zoom-close-btn:hover {
+    background: var(--color-neutral-200, rgba(0, 0, 0, 0.15));
+    transform: scale(1.08);
+}
+
+/* 🌙 DARK MODE Button Configuration */
+html.dark .mobile-zoom-graph.expanded .zoom-close-btn {
+    background: rgba(255, 255, 255, 0.12) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+html.dark .mobile-zoom-graph.expanded .zoom-close-btn:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+    transform: scale(1.08);
+}
+
+/* ☀️ LIGHT MODE Button Configuration */
+html:not(.dark) .mobile-zoom-graph.expanded .zoom-close-btn {
+    background: rgba(15, 23, 42, 0.08) !important; /* Semi-transparent slate gray background */
+    color: #0f172a !important;                     /* Dark slate text */
+    border: 1px solid rgba(15, 23, 42, 0.2) !important; /* Visible matching border outline */
+}
+
+html:not(.dark) .mobile-zoom-graph.expanded .zoom-close-btn:hover {
+    background: rgba(15, 23, 42, 0.15) !important;
+    transform: scale(1.08);
+}

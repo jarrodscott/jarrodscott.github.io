@@ -1,8 +1,27 @@
 ---
 title: "Reference Guide"
-layout: "mod-single"
+layout: single # changed from mod-single
 showPagination: false
 ---
+
+## Summary Reference Matrix
+
+| Asset Scenario                 | Best Location             | Why?                                                            |
+|--------------------------------|---------------------------|-----------------------------------------------------------------|
+| custom.css                     | extend-head.html          | Core styles apply globally.                                     |
+| Google Analytics               | extend-head.html          | Runs everywhere across the build.                               |
+| Altmetric/Dimensions JS Script | extend-head-uncached.html | Only downloads the script file if the shortcode is on the page. |
+| Creative Commons CSS (cc.css)  | extend-head-uncached.html | Keeps the site payload lean on pages without licenses.          |
+| Math formula engines (KaTeX)   | extend-head-uncached.html | Only loaded when the page front-matter requires it.             |
+
+## The Best Practice Decision Rule
+
+| Approach                                   | Where to Use                                  | Why?                                                                                                            |
+|--------------------------------------------|-----------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| Direct <link> in Template                  | Custom Page Layouts (about-block-layout.html) | Executes only once; 100% self-contained with zero overhead.                                                     |
+| extend-head-uncached.html + .HasShortcode  | Public/Shared Shortcodes                      | The gold-standard Hugo pattern. Guarantees all stylesheets reside in the document <head> and never duplicate.   |
+| .Page.Store Deduplicated <link>            | Portable Drop-in Shortcodes                   | Great if you want a shortcode that requires zero edits to any header template or theme partial.                 |
+
 
 https://www.visualcinnamon.com/
 

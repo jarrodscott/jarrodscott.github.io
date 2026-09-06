@@ -4,7 +4,7 @@ description: "A selection of publications that highlight my primary research int
 #date: 2026-06-15T16:35:49-07:00
 draft: false
 showHero: true
-layout: mod-single
+layout: single # changed from mod-single
 heroStyle: background # basic, big, background, thumbAndBackground. Effective only if article.showHero = true.
 layoutBackgroundBlur: true
 weight: 40
@@ -15,7 +15,6 @@ invertPagination: true
 COMING SOON
 {{< /lead >}}
 
-<!--
 
 ## Field Work
 
@@ -49,7 +48,9 @@ Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapi
 
 ## Visualization
 
+Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
 
+<!--
 
 
 {{< button pageRef="/research-portfolio/products" >}}

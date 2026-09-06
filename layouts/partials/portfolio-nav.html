@@ -1,5 +1,4 @@
 {{/* layouts/partials/portfolio-nav.html */}}
-{{/* FIXED: Switched to .Section so it reads your portfolio root folder accurately */}}
 {{ if eq .Section "research-portfolio" }}
   {{ $peers := .Parent.Pages.ByWeight }}
   {{ $current := . }}
@@ -18,18 +17,23 @@
   {{ end }}
 
   {{ if or (not (eq $prevPage "")) (not (eq $nextPage "")) }}
-    <div class="mt-10 flex justify-between border-t border-neutral-200 pt-8 dark:border-neutral-700 print:hidden">
-      <div>
+    <div class="mt-10 flex flex-col gap-4 border-t border-neutral-200 pt-8 dark:border-neutral-700 sm:flex-row sm:items-center sm:justify-between print:hidden">
+      <!-- Previous Link (Left) -->
+      <div class="flex sm:w-1/2 sm:justify-start">
         {{ if not (eq $prevPage "") }}
           <a class="flex items-center gap-2 hover:text-primary-600 dark:hover:text-primary-400" href="{{ $prevPage.RelPermalink }}">
-            <span>&larr;</span> {{ $prevPage.LinkTitle }}
+            <span>&larr;</span>
+            <span>{{ $prevPage.LinkTitle }}</span>
           </a>
         {{ end }}
       </div>
-      <div>
+
+      <!-- Next Link (Right) -->
+      <div class="flex sm:w-1/2 sm:justify-end text-right sm:ml-auto">
         {{ if not (eq $nextPage "") }}
-          <a class="flex items-center gap-2 hover:text-primary-600 dark:hover:text-primary-400" href="{{ $nextPage.RelPermalink }}">
-            {{ $nextPage.LinkTitle }} <span>&rarr;</span>
+          <a class="flex items-center justify-end gap-2 hover:text-primary-600 dark:hover:text-primary-400" href="{{ $nextPage.RelPermalink }}">
+            <span>{{ $nextPage.LinkTitle }}</span>
+            <span>&rarr;</span>
           </a>
         {{ end }}
       </div>

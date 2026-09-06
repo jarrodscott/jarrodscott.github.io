@@ -55,3 +55,66 @@
 .pub-toolbar-icon svg path, .pub-toolbar-icon svg circle { 
   fill: currentColor !important; 
 }
+
+/*----------------------*/
+
+ .pub-abstract-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 24px !important;
+  text-align: left !important;
+}
+.pub-left-col {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+.pub-badge-flex {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 20px !important;
+  flex-wrap: wrap !important;
+}
+.pub-right-col {
+  width: 100% !important;
+}
+
+/* Core Badge Visibility Controls */
+.altmetric-mobile-badge {
+  display: block !important;
+}
+.altmetric-desktop-badge {
+  display: none !important;
+}
+
+/* Desktop View Breakpoint (768px and up) */
+@media (min-width: 768px) {
+  .pub-abstract-grid {
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 40px !important;
+  }
+  .pub-left-col {
+    width: 140px !important;
+    flex-shrink: 0 !important;
+  }
+  .pub-badge-flex {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+  }
+  .pub-right-col {
+    flex-grow: 1 !important;
+    width: calc(100% - 180px) !important;
+  }
+
+  /* Swap badge visibility on desktop */
+  .altmetric-mobile-badge {
+    display: none !important;
+  }
+  .altmetric-desktop-badge {
+    display: block !important;
+  }
+}

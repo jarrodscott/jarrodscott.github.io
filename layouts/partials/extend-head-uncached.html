@@ -37,3 +37,11 @@
   {{ $paletteJS := resources.Get "js/palette-table.js" | resources.Minify | resources.Fingerprint }}
   <script src="{{ $paletteJS.RelPermalink }}" integrity="{{ $paletteJS.Data.Integrity }}" defer></script>
 {{ end }}
+
+<!-- 7. Mermaid graph zoom Shortcode Clipboard Script -->
+{{ if or (.HasShortcode "mermaid-zoom") (.HasShortcode "mermaid") }}
+  {{ with resources.Get "css/mermaid-zoom.css" }}
+    {{ $zoomCSS := . | resources.Minify | resources.Fingerprint }}
+    <link rel="stylesheet" href="{{ $zoomCSS.RelPermalink }}" integrity="{{ $zoomCSS.Data.Integrity }}">
+  {{ end }}
+{{ end }}
