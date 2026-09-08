@@ -175,7 +175,6 @@ flowchart LR
 {{< /mermaid >}}
 {{< /mermaid-zoom >}}
 
-
 I tried forever to memorize codon assignments using the tools described above with little luck--it just wouldn't stick. If you are more of a visual learner like me, then tables are pretty useless. I tried the various wheel and chart representations but those didn't help either. 
 
 

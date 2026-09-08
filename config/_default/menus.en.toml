@@ -17,7 +17,7 @@
 
 [[main]]
   name = "Posts"
-  pageRef = "posts"
+  pageRef = "posts/"
   weight = 10
 
 #[[main]]
@@ -62,3 +62,23 @@
 #   name = "Authors"
 #   pageRef = "authors"
 #   weight = 20
+
+
+##############################
+# For nested menus
+##############################
+#[[main]]
+#name = "Posts"
+#weight = 51
+
+#[[main]]
+#name = "Codons"
+#parent = "Posts"
+#pageRef = "posts/codons"
+#weight = 10
+
+#[[main]]
+#name = "Color"
+#parent = "Posts"
+#pageRef = "posts/color"
+#weight = 20

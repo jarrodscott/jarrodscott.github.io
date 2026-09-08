@@ -4,6 +4,8 @@ layout: single # changed from mod-single
 showPagination: false
 ---
 
+{{< cta url="/quarto_and_hugo" label="Quarto+Hugo" style="outline" >}}
+
 ## Summary Reference Matrix
 
 | Asset Scenario                 | Best Location             | Why?                                                            |

@@ -29,7 +29,7 @@ rssnext = { }
 advertisement = { }
 
 [header]
-layout = "custom-centered" #basic, fixed, fixed-fill, fixed-gradient, fixed-fill-blur, and floating
+layout = "custom-centered" #basic, fixed, fixed-fill, fixed-gradient, fixed-fill-blur, and floating, JJS added custom-centered
 mobileMenuStyle = "dropdown"
 theme_picker = true
 
