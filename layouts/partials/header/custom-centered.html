@@ -41,7 +41,8 @@
           <!-- STANDARD FLAT LINK -->
           <a href="{{ .URL }}" {{ if or (strings.HasPrefix .URL "http:" ) (strings.HasPrefix .URL "https:" ) }}target="_blank"{{ end }} class="flex items-center text-base font-medium bf-icon-color-hover truncate shrink-0" title="{{ .Title }}">
             {{ if .Pre }}<span class="mr-1">{{ partial "icon.html" .Pre }}</span>{{ end }}
-            <span class="text-base font-medium break-normal">{{ .Name | markdownify }}</span>
+            <!-- <span class="text-lg font-medium break-normal">{{ .Name | markdownify }}</span> -->
+            <span class="text-lg font-medium break-normal">{{ .Name | markdownify }}</span>
           </a>
         {{ end }}
       {{ end }}
@@ -56,7 +57,7 @@
           <div>
             <a href="{{ "" | relLangURL }}" class="flex items-center gap-x-2 nozoom pointer-events-auto cursor-pointer">
               <span class="sr-only">{{ .Site.Title | markdownify }}</span>
-              <div class="h-12 w-12 flex items-center justify-center overflow-visible">
+              <div class="h-10 w-12 flex items-center justify-center overflow-visible">
                 {{ if eq $logo.MediaType.SubType "svg" }}
                   <span class="logo nozoom max-h-full max-w-full object-contain pointer-events-none">
                     {{ $logo.Content | safeHTML }}
@@ -106,9 +107,11 @@
           </div>
         {{ else }}
           <!-- STANDARD FLAT LINK -->
-          <a href="{{ .URL }}" {{ if or (strings.HasPrefix .URL "http:" ) (strings.HasPrefix .URL "https:" ) }}target="_blank"{{ end }} class="flex items-center text-base font-medium bf-icon-color-hover truncate shrink-0" title="{{ .Title }}">
+          <!-- <a href="{{ .URL }}" {{ if or (strings.HasPrefix .URL "http:" ) (strings.HasPrefix .URL "https:" ) }}target="_blank"{{ end }} class="flex items-center text-base font-medium bf-icon-color-hover truncate shrink-0" title="{{ .Title }}"> -->
+          <a href="{{ .URL }}" {{ if or (strings.HasPrefix .URL "http:" ) (strings.HasPrefix .URL "https:" ) }}target="_blank"{{ end }} class="flex items-center text-lg font-medium bf-icon-color-hover truncate shrink-0" title="{{ .Title }}">
             {{ if .Pre }}<span class="mr-1">{{ partial "icon.html" .Pre }}</span>{{ end }}
-            <span class="text-base font-medium break-normal">{{ .Name | markdownify }}</span>
+            <!-- <span class="text-base font-medium break-normal">{{ .Name | markdownify }}</span> -->
+            <span class="text-lg font-medium break-normal">{{ .Name | markdownify }}</span>
           </a>
         {{ end }}
       {{ end }}
@@ -121,7 +124,8 @@
   {{ end }}
 
   {{ if .Site.Params.footer.showAppearanceSwitcher | default false }}
-    <button id="appearance-switcher" aria-label="{{ i18n "footer.dark_appearance" }}" type="button" class="text-base bf-icon-color-hover flex items-center justify-center">
+    <!-- <button id="appearance-switcher" aria-label="{{ i18n "footer.dark_appearance" }}" type="button" class="text-base bf-icon-color-hover flex items-center justify-center"> -->
+    <button id="appearance-switcher" aria-label="{{ i18n "footer.dark_appearance" }}" type="button" class="text-lg bf-icon-color-hover flex items-center justify-center">
       <div class="flex items-center justify-center dark:hidden">{{ partial "icon.html" "moon" }}</div>
       <div class="items-center justify-center hidden dark:flex">{{ partial "icon.html" "sun" }}</div>
     </button>

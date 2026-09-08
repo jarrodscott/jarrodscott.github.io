@@ -13,7 +13,7 @@
 [[main]]
   name = "Research"
   pageRef = "research-portfolio"
-  weight = 5
+  weight = 15
 
 [[main]]
   name = "Posts"
@@ -37,11 +37,11 @@
   url = "https://github.com/jarrodscott/jarrodscott.github.io"
   weight = 60
 
-[[main]]
-  identifier = "how-to"
-  pre = "question"
-  url = "/how-to"
-  weight = 70
+#[[main]]
+#  identifier = "how-to"
+#  pre = "question"
+#  url = "/how-to"
+#  weight = 70
 
 # [[main]]
 #   identifier = "twitter"

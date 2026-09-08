@@ -30,11 +30,11 @@ SciArt
 </br>
 --->
 
-**content/_index.md Welcome to my website! I'm really happy you stopped by.**
+**Welcome to my website! I'm really happy you stopped by.**
 
 {{< cta url="research-portfolio/" label="Research" style="outline" >}}
 
-{{< cta url="research-portfolio/" label="Services" style="outline" >}}
+{{< cta url="collaborate/" label="Collaboration & Services" style="outline" >}}
 
 
 
