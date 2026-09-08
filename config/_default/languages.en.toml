@@ -24,10 +24,11 @@ title = ""
   interests = [
   "Symbiosis",
   "Complexity",
-  "DNA",
   "Ethnobotany",
+  "DNA",
   "'Omics",
-  "Coevolution"
+  "Coevolution",
+  "Archaeology"
 ]
   skills = [ "Field", "Lab", "'Omics", "R", "Python", "Quarto", "Workflows", "Graphics"]
 

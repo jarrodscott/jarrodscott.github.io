@@ -9,7 +9,7 @@ showHero: true
 heroStyle: background # basic, big, background, thumbAndBackground. Effective only if article.showHero = true.
 layoutBackgroundBlur: true
 showDescription: true
-draft: false
+draft: true
 weight: -5
 ---
 
@@ -17,11 +17,15 @@ weight: -5
 
 Integrating Quarto and Hugo lets you use Quarto to run code and calculations while letting Hugo build and style your final static website. 
 
+**index.qmd**   *quarto* =>   **index.md**   *hugo* =>   **index.html**
+
+
+
 ### Integration 
 
 - **Source files**: Write your content in computational markdown (`.qmd`) or Jupyter notebooks (`.ipynb`).
 
-- **Conversion**: Quarto executes the code and translates your `.qmd` or `.ipynb` files into plain markdown (.md) compatible with Hugo.
+- **Conversion**: Quarto executes the code and translates your `.qmd` or `.ipynb` files into plain markdown (`.md`) compatible with Hugo.
 
 - **Rendering**: Hugo takes those plain markdown files and renders them into final HTML pages using your chosen Hugo theme. 
 
