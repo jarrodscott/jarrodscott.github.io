@@ -1,0 +1,85 @@
+name: "Jarrod J Scott"
+email: "jarrod.jukebox308@slmail.me"
+banner: "images/mind_map.jpg"
+image: "images/cover.png"
+headline: "Field biologist, systems ecologist, data scientist, interdisciplinary researcher."
+bio: "My approach to biological questions is interdisciplinary & systems oriented. I combine field ecology, molecular & computational methods, ecological statistics, & advanced visualization to investigate how organisms coalesce into communities & how complex community interactions shape the structure & function of systems."
+full_bio_url: "research-portfolio/bio/"
+links:
+  - google-scholar: "https://scholar.google.com/citations?hl=en&user=5qejxxIAAAAJ"
+  - github: "https://github.com/jarrodscott"
+  - orcid: "https://orcid.org/0000-0001-9863-1318"
+  - researchgate: "https://www.researchgate.net/profile/Jarrod-Scott-3"
+  - email: "mailto:jarrod.jukebox308@slmail.me"
+  - envelope: "/contact"
+
+interests:
+  - "Symbiosis"
+  - "Complexity"
+  - "Ethnobotany"
+  - "DNA"
+  - "'Omics"
+  - "Coevolution"
+  - "Archaeology"
+skills:
+  - "Field"
+  - "Lab"
+  - "'Omics"
+  - "R"
+  - "Python"
+  - "Quarto"
+  - "Workflows"
+  - "Graphics"
+
+education:
+  - course: "PhD Microbiology"
+    institution: "University of Wisconsin-Madison"
+    year: "2011"
+
+  - course: "BSc Biology"
+    institution: "University of Texas-Austin"
+    year: "2002"
+
+aboutButtons:
+  - title: "Appointments, Education, & Training"
+    description: "Detailed information about my **research** & **teaching** experience, **education**, additional **training & certifications**, & **fellowships**."
+    icon: "graduation-cap"
+    url: "/research-portfolio/experience/"
+    label: "Learn more"
+
+  - title: "Publications"
+    url: "/research-portfolio/featured-publications/"
+    icon: "pdf"
+    description: "A comprehensive list of my **peer reviewed publications**."
+    label: "Browse Publications"
+
+  - title: "Teaching"
+    url: "/research-portfolio/teaching/"
+    icon: "lightbulb"
+    description: "A selection of recent teaching experience that includes field courses & workshops."
+    label: "Learn More"
+
+  - title: "Data Visualization"
+    url: "/research-portfolio/visuals/"
+    icon: "palette"
+    description: "A potfolio of some **visualizations** I have created. Many are from published works while others are not. "
+    label: "Browse Portfolio"
+
+  - title: "Skills & Expertise"
+    url: "/research-portfolio/expertise/"
+    icon: "microscope"
+    description: "Information about my skills in **field & laboratory methods**, **bioinformatics**, & **molecular biology**."
+    label: "Learn more"
+
+  - title: "Data-Driven Web Products"
+    url: "/research-portfolio/products/"
+    icon: "chalkboard"
+    description: "A collection of **data-driven web products** I have created including **project websites**, **reproducible workflows**, **tutorials**, & **slides** from talks."
+    label: "Browse Web Products"
+
+  - title: "Media Features"
+    url: "/research-portfolio/media/"
+    icon: "newspaper"
+    description: "A collection of **media pieces** highlighting some of the projects I have been involved in recently."
+    label: "Browse Media Features"
+

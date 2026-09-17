@@ -1,0 +1,124 @@
+########### PNG TO SVG #################
+# https://pngtosvg.com/#google_vignette
+########################################
+#Techstack, Brand Icons, and Heroicons
+title: Tech Stack
+subtitle: Technologies I use to build things
+categories:
+
+  - name: Languages
+    items:
+      - name: R
+        icon: techstack/r
+        link: https://www.r-project.org/
+      - name: Python
+        icon: techstack/python
+        link: https://www.python.org/
+      - name: Bash
+        icon: techstack/bash
+        link: https://en.wikipedia.org/wiki/Bash_(Unix_shell)
+      - name: Go
+        icon: techstack/go
+        link: https://go.dev/
+
+  - name: Bioinformatics & Network Analysis
+    items:
+      - name: anvi'o
+        icon: techstack/anvio
+        link: https://anvio.org/
+      - name: Mothur
+        icon: techstack/mothur
+        link: https://mothur.org/
+      - name: dada2
+        icon: techstack/dada2
+        link: https://benjjneb.github.io/dada2/
+      - name: Phyloseq
+        icon: techstack/phyloseq
+        link: https://joey711.github.io/phyloseq/
+      - name: miaverse
+        icon: techstack/mia
+        link: https://microbiome.github.io/
+      - name: SPAdes
+        icon: techstack/spades
+      - name: Cytoscape
+        icon: techstack/cytoscape
+        link: https://cytoscape.org/
+      - name: Gephi
+        icon: techstack/gephi
+        link: https://gephi.org/
+
+  - name: Development Environments & Editors
+    items:
+      - name: RStudio
+        icon: techstack/rstudio
+        link: https://posit.co/products/open-source/rstudio
+      - name: VS Code
+        icon: techstack/vscode
+        link: https://code.visualstudio.com/
+      - name: Jupyter
+        icon: techstack/jupyter
+        link: https://jupyter.org/
+        
+  - name: Design & Graphics
+    items:
+      - name: Gimp
+        icon: techstack/gimp
+        link: https://www.gimp.org/
+      - name: Inkscape
+        icon: techstack/inkscape
+        link: https://inkscape.org/
+
+  - name: Document Publishing & Static Sites
+    items:
+      - name: Quarto
+        icon: techstack/quarto
+        link: https://quarto.org/
+      - name: Hugo
+        icon: techstack/hugo
+        link: https://gohugo.io/
+      - name: Markdown
+        icon: techstack/markdown
+        link: https://www.markdownguide.org/
+      - name: RMarkdown
+        icon: techstack/rmarkdown
+        link: https://rmarkdown.rstudio.com/
+
+  - name: Frontend & Styling
+    items:
+      - name: HTML5
+        icon: techstack/html5
+        link: https://developer.mozilla.org/en-US/docs/Glossary/HTML5
+      - name: CSS3
+        icon: techstack/css3
+        link: https://developer.mozilla.org/en-US/docs/Web/CSS
+      - name: Tailwind CSS
+        icon: techstack/tailwindcss
+        link: https://tailwindcss.com
+
+  - name: Git & DevOps
+    items:
+      - name: git
+        icon: techstack/git
+        link: https://git-scm.com/
+      - name: GitHub
+        icon: github
+        link: https://github.com/
+      - name: GitHub Actions
+        icon: techstack/githubactions
+        link: https://github.com/features/actions
+      - name: Snakemake
+        icon: techstack/snakemake
+        link: https://snakemake.github.io/
+
+  - name: Package & Environment Management
+    items:
+      - name: Conda
+        icon: techstack/conda
+        link: https://anaconda.org/anaconda/conda
+      - name: Mamba
+        icon: techstack/mamba
+        link: https://mamba.readthedocs.io/en/latest/
+      - name: Homebrew
+        icon: techstack/homebrew
+        link: https://brew.sh/
+

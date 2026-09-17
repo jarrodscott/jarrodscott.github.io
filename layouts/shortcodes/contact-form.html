@@ -1,42 +1,67 @@
-<form action="https://api.web3forms.com/submit" method="POST" class="space-y-6 max-w-xl mx-auto p-6 bg-neutral-100 dark:bg-neutral-800 rounded-xl shadow-sm">
-    <!-- Replace the value below with your actual Web3Forms Access Key -->
-    <input type="hidden" name="access_key" value="607b3c0a-1f34-4c09-b449-648d7f010c09">
+<!-- Container with full theme-compliant light/dark background switching -->
+<div class="max-w-2xl mx-auto p-4 bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-2xl shadow-xl">
     
-    <!-- Anti-Spam Honeypot (Hidden from humans, visible to spam bots) -->
-    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+    <!-- Title -->
+    <h3 class="text-2xl font-bold text-neutral-900 dark:text-neutral-100 mb-6 font-serif">Send me a Message</h3>
+    <!-- Optional Description text block (Rendered only if provided) -->
+    {{ with .Get "description" }}
+    <p class="text-md text-neutral-600 dark:text-neutral-300 mb-6 leading-relaxed">
+        {{ . | markdownify }}
+    </p>
+    {{ end }}
 
-    <!-- Name Field -->
-    <div>
-        <label for="name" class="block text-md font-semibold text-neutral-700 dark:text-neutral-300 mb-2">Your Name</label>
-        <input type="text" name="name" id="name" required 
-               class="w-full px-4 py-2 border border-neutral-300 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:outline-none">
-    </div>
+    <form action="https://web3forms.com" method="POST" class="space-y-5">
 
-    <!-- Email Field -->
-    <div>
-        <label for="email" class="block text-md font-semibold text-neutral-700 dark:text-neutral-300 mb-2">Email Address</label>
-        <input type="email" name="email" id="email" required 
-               class="w-full px-4 py-2 border border-neutral-300 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:outline-none">
-    </div>
+        <!-- Web3Forms Access Key -->
+        <input type="hidden" name="access_key" value="{{ .Get "key" }}">
+        
+        <!-- Anti-Spam Honeypot -->
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
-    <!-- Message Field -->
-    <div>
-        <label for="message" class="block text-md font-semibold text-neutral-700 dark:text-neutral-300 mb-2">Message</label>
-        <textarea name="message" id="message" rows="5" required 
-                  class="w-full px-4 py-2 border border-neutral-300 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:outline-none"></textarea>
-    </div>
+        <!-- Two-column row for Name and Email -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Name Field -->
+            <div>
+                <label for="name" class="block text-md font-medium text-neutral-700 dark:text-neutral-300 mb-2">Name</label>
+                <input type="text" name="name" id="name" required 
+                       class="w-full px-4 py-2.5 border border-neutral-300 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:outline-none transition-colors duration-200">
+            </div>
 
-    <!-- Custom Success Redirect (Optional) -->
-    <!-- Remove the comment tags below if you want to redirect to a 'thank you' page -->
-    <!-- <input type="hidden" name="redirect" value="https://yourwebsite.com"> -->
-    <!-- Custom Success Redirect -->
-    <input type="hidden" name="redirect" value="http://localhost:1313/thank-you/">
+            <!-- Email Field -->
+            <div>
+                <label for="email" class="block text-md font-medium text-neutral-700 dark:text-neutral-300 mb-2">Email</label>
+                <input type="email" name="email" id="email" required 
+                       class="w-full px-4 py-2.5 border border-neutral-300 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:outline-none transition-colors duration-200">
+            </div>
+        </div>
 
-    <!-- Submit Button -->
-    <div>
-        <button type="submit" 
-                class="w-full py-3 px-4 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-800">
-            Send Message
-        </button>
-    </div>
-</form>
+        <!-- Subject Field -->
+        <div>
+            <label for="subject" class="block text-md font-medium text-neutral-700 dark:text-neutral-300 mb-2">Subject</label>
+            <input type="text" name="subject" id="subject" required 
+                   class="w-full px-4 py-2.5 border border-neutral-300 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:outline-none transition-colors duration-200">
+        </div>
+
+        <!-- Message Field -->
+        <div>
+            <label for="message" class="block text-md font-medium text-neutral-700 dark:text-neutral-300 mb-2">Message</label>
+            <textarea name="message" id="message" rows="6" required 
+                      class="w-full px-4 py-2.5 border border-neutral-300 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:outline-none transition-colors duration-200"></textarea>
+        </div>
+
+        <!-- Dynamic Success Redirect -->
+        {{ with .Get "redirect" }}
+        <input type="hidden" name="redirect" value="{{ absURL . }}">
+        {{ else }}
+        <input type="hidden" name="redirect" value="{{ absURL "thank-you/" }}">
+        {{ end }}
+
+        <!-- Submit Button -->
+        <div class="pt-2">
+            <button type="submit" 
+                    class="w-full py-3 px-4 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors duration-200 shadow-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-800">
+                Send Message
+            </button>
+        </div>
+    </form>
+</div>

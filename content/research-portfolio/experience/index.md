@@ -1,6 +1,6 @@
 ---
-title: "Appointments, Education, Teaching, & Training"
-description: "Details about my research appointments, education, teaching experience, additional training, & fellowships."
+title: "Appointments, Education, & Training"
+description: "Details about my research appointments, education, additional training, & fellowships."
 #date: 2026-06-02T17:28:59-07:00
 draft: false
 showTableOfContents: true
@@ -59,14 +59,15 @@ Minor in Anthropology/Archaeology
 
 {{< /timeline >}}
 
+
+{{< ignore >}}
 ## Recent Teaching Experience
 
 I teach the way I learn. My goal is to create a venue where students can be curious, get their hands dirty, make mistakes, & explore. I'm here to help students see what's possible, not tell them what to do. 
 
-
 {{< timeline >}}
 
-{{< timelineItem icon="chalkboard" header="Lead Instructor" badge="2024" subheader="Entangled Social & Ecological Systems Field Course" location="PANAMA" md=true >}}
+{{< timelineItem icon="lightbulb" header="Lead Instructor" badge="2024" subheader="Entangled Social & Ecological Systems Field Course" location="PANAMA" md=true >}}
 
 5-week intensive field course for beginning graduate students that weaves together natural history, social science, tropical ecology, and cultural exchange. Students conduct both marine and terrestrial field work across Panama. This year's course had 12 students from 7 different countries. 
 
@@ -86,7 +87,7 @@ Field Sites:
 {{< link url="https://stri.si.edu/facility/coibita-island" text="Isla Coibita" >}}. 
 {{< /timelineItem >}}
 
-{{< timelineItem icon="chalkboard" header="Data Specialist & Project Coordinator" badge="2022" subheader="STRI-McGill NEO Tropical Biology Field Course" location="PANAMA" md=true >}}
+{{< timelineItem icon="lightbulb" header="Data Specialist & Project Coordinator" badge="2022" subheader="STRI-McGill NEO Tropical Biology Field Course" location="PANAMA" md=true >}}
 
 A 5-week experiential field course where undergraduate and graduate students learn research techniques in biology, ecology, conservation, environmental policies, and participatory evaluation techniques while exploring marine and terrestrial ecosystems on various excursions throughout Panama. 
 
@@ -109,7 +110,7 @@ Field Sites:
 See the  {{< link url="https://stri-mcgill-neo.github.io/2022/" text="Course tutorial website" >}} for more information.
 {{< /timelineItem >}}
 
-{{< timelineItem icon="chalkboard" header="Teaching Assistant" badge="2020" subheader="STRI-McGill NEO Tropical Biology Field Course" location="PANAMA" md=true >}}
+{{< timelineItem icon="lightbulb" header="Teaching Assistant" badge="2020" subheader="STRI-McGill NEO Tropical Biology Field Course" location="PANAMA" md=true >}}
 
 A 5-week experiential field course where undergraduate and graduate students learn research techniques in biology, ecology, conservation, environmental policies, and participatory evaluation techniques while exploring marine and terrestrial ecosystems on various excursions throughout Panama. 
 
@@ -133,7 +134,7 @@ You can chack out the {{< link url="https://strineoigert.wordpress.com/" text="C
 {{< /timelineItem >}}
 
 
-{{< timelineItem icon="chalkboard" header="Marine Biology Instructor" badge="2019" subheader="STRI-McGill NEO Tropical Biology Field Course" location="PANAMA" md="true" >}}
+{{< timelineItem icon="lightbulb" header="Marine Biology Instructor" badge="2019" subheader="STRI-McGill NEO Tropical Biology Field Course" location="PANAMA" md="true" >}}
 
 Part of the STRI-McGill NEO Tropical Biology Field Course, this one week module takes place in and around Isla Coiba off the Pacific coast of Panama. During this module students learn how to conduct fish surveys, assess coral reef health, and  conduct field experiments. 
 
@@ -149,7 +150,7 @@ Field Site:
 {{< /timelineItem >}}
 
 
-{{< timelineItem icon="chalkboard" header="Creator, Organizer, & Host" badge="2018" subheader="Marine Microbiome Workshop" location="Bocas del Toro, PANAMA" md="true" >}}
+{{< timelineItem icon="lightbulb" header="Creator, Organizer, & Host" badge="2018" subheader="Marine Microbiome Workshop" location="Bocas del Toro, PANAMA" md="true" >}}
 
 Workshop Title: ***From model organisms to ecosystems: scaling-up our understanding of host-microbe symbiosis in the sea.***
 
@@ -165,6 +166,7 @@ See the {{< link url="https://istmobiome.rbind.io/workshops/workshop-2018/" text
 {{< /timelineItem >}}
 
 {{< /timeline >}}
+{{< /ignore >}}
 
 
 ## Training & Certifications

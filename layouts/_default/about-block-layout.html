@@ -1,5 +1,5 @@
 {{ define "main" }}
-{{- $author := .Site.Params.author -}}
+{{- $author := .Site.Data.author -}}
 {{/* Load and bundle dedicated About layout styles */}}
 {{ $aboutCSS := resources.Get "css/about-block-layout.css" | resources.Minify | resources.Fingerprint }}
 <link rel="stylesheet" href="{{ $aboutCSS.RelPermalink }}" integrity="{{ $aboutCSS.Data.Integrity }}">
@@ -154,12 +154,15 @@
 </div>
 {{ end }}
 
+
+{{/*
 {{ if $author.aboutButtons }}
 <div class="bio-dashboard-menu border-t border-neutral-200 dark:border-neutral-700/60 pt-2" style="margin-top: 1rem;">
   
   <!-- Exact wrapper from feature-grid.html matching 3 columns (lg:grid-cols-3 grid-balance-3) -->
-  <div class="not-prose my-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 grid-balance grid-balance-3">
-    
+  <!--CHANGED this line to fix lone element stretching across screen removed `grid-balance grid-balance-3`-->
+  <!--<div class="not-prose my-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 grid-balance grid-balance-3"> -->
+  <div class="not-prose my-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">  
     {{ range $author.aboutButtons }}
       {{ $icon := .icon | default "wand-magic-sparkles" }}
       {{ $title := .title | default "Feature" }}
@@ -207,7 +210,7 @@
 
 </div>
 {{ end }}
-
+*/}}
 <!-- for Simple buttons  -->
 
 <!-- 
@@ -226,6 +229,84 @@
   </div>
   {{ end }}
  -->
+ {{/* Replaced the entire block above with this to center single elements */}}
+{{ if $author.aboutButtons }}
+<div class="bio-dashboard-menu border-t border-neutral-200 dark:border-neutral-700/60 pt-2" style="margin-top: 1rem;">
+  
+  <!-- Added an explicit identifying class "about-buttons-grid" here -->
+  <div class="not-prose my-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 about-buttons-grid">
+    
+    {{ $total := len $author.aboutButtons }}
+    {{ $remainder := mod $total 3 }}
+    {{ $counter := 0 }}
+    
+    {{ range $author.aboutButtons }}
+      {{ $counter = add $counter 1 }}
+      
+      {{ $icon := .icon | default "wand-magic-sparkles" }}
+      {{ $title := .title | default "Feature" }}
+      {{ $url := .url }}
+      {{ $label := .label | default "Learn more" }}
+      {{ $headingLevel := .headingLevel | default "h2" }}
+      
+      {{ if not (in (slice "h1" "h2" "h3" "h4" "h5" "h6") $headingLevel) }}
+        {{ $headingLevel = "h2" }}
+      {{ end }}
+
+      {{ $inlineStyle := "" }}
+      {{ $isLeftover := false }}
+
+      {{ if eq $remainder 1 }}
+        {{ if eq $counter $total }} {{ $isLeftover = true }} {{ end }}
+      {{ else if eq $remainder 2 }}
+        {{ if or (eq $counter $total) (eq $counter (sub $total 1)) }} {{ $isLeftover = true }} {{ end }}
+      {{ end }}
+
+      <!-- We apply pure class hooks for your CSS file to read -->
+      {{ $cardClass := "" }}
+      {{ if $isLeftover }}
+        {{ if eq $remainder 1 }}
+          {{ $cardClass = "is-lone-leftover" }}
+        {{ else if eq $remainder 2 }}
+          {{ $cardClass = "is-pair-leftover" }}
+        {{ end }}
+      {{ end }}
+
+      <article class="group about-card {{ $cardClass }} rounded-2xl border border-neutral-200/80 bg-white/60 p-6 shadow-sm backdrop-blur-xl transition duration-200 hover:-translate-y-1 hover:border-primary-300 hover:shadow-xl hover:shadow-primary-500/10 dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:border-primary-700">
+        
+        <!-- Icon rendering plate -->
+        <span class="mb-5 text-2xl inline-flex rounded-xl bg-primary-200 p-3 text-neutral-900 dark:bg-primary-950 dark:text-neutral-900">
+          {{ partial "icon.html" $icon }}
+        </span>
+        
+        <!-- Dynamic Heading Rendering Block matching original safeHTML architecture -->
+        {{ printf `<%s class="text-xl font-bold text-neutral-900 dark:text-white">` $headingLevel | safeHTML }}
+          {{ $title | markdownify }}
+        {{ printf `</%s>` $headingLevel | safeHTML }}
+        
+        <!-- Sub-description layer mimicking the converted markdown content container -->
+        {{ with .description }}
+          <div class="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+            {{ . | markdownify }}
+          </div>
+        {{ end }}
+        
+        <!-- Action target text link with inline "link" asset partial call -->
+        {{ with $url }}
+          <a class="mt-5 inline-flex items-center gap-2 text-md font-bold text-primary-600 hover:text-primary-500 dark:text-primary-400" href="{{ . | safeURL }}">
+            {{ $label | markdownify }}
+            {{ partial "icon.html" "link" }}
+          </a>
+        {{ end }}
+        
+      </article>
+
+    {{ end }}
+  </div>
+
+</div>
+{{ end }}
+
 
 </div>
 

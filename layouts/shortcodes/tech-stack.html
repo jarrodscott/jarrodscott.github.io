@@ -1,0 +1,77 @@
+{{ $data := .Site.Data.techstack }}
+
+<div class="w-full max-w-5xl mx-auto -py-6 text-center">
+  <!-- Main Header -->
+  <h2 class="text-3xl font-extrabold text-neutral-900 dark:text-neutral-100 font-serif mb-2">{{ $data.title }}</h2>
+  <p class="text-neutral-500 dark:text-neutral-400 mb-12 text-lg">{{ $data.subtitle }}</p>
+
+  {{ range $data.categories }}
+    <div class="mb-8">
+      
+      <!-- Category Divider Title -->
+      <div class="relative flex py-5 items-center justify-center mb-6">
+        <div class="flex-grow border-t border-neutral-300 dark:border-neutral-700 max-w-xs sm:max-w-md"></div>
+        <span class="flex-shrink mx-4 text-xk font-bold tracking-widest text-indigo-600 dark:text-indigo-400 uppercase font-sans">
+          {{ .name }}
+        </span>
+        <div class="flex-grow border-t border-neutral-300 dark:border-neutral-700 max-w-xs sm:max-w-md"></div>
+      </div>
+
+      <!-- Centered Flex Wrapper -->
+      <div class="flex flex-wrap justify-center gap-6 px-4" style="column-gap: 1rem; row-gap: 1rem;">
+        {{ range .items }}
+          
+          {{ $isLink := .link }}
+          
+          <!-- FIXED: Explicitly separated layout logic using clean, native Hugo blocks -->
+          <!-- Inline CSS Override to force the Blowfish theme to respect the radius on hover -->
+          <style type="text/css">
+            .custom-link-box, .custom-link-box:hover {
+              border-radius: 1rem !important;
+            }
+          </style>
+
+          {{ if $isLink }}
+            <a href="{{ .link }}" target="_blank" rel="noopener noreferrer" 
+               class="custom-link-box flex flex-col items-center justify-center w-48 h-48 p-6 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700/60 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-indigo-500/50 dark:hover:border-indigo-400/50 transition-all duration-200 flex-none group cursor-pointer overflow-hidden">
+          {{ else }}
+            <div class="custom-link-box flex flex-col items-center justify-center w-48 h-48 p-6 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700/60 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 flex-none group overflow-hidden">
+          {{ end }}
+
+
+            <!-- Inner Content (Remains identical and shared between both states) -->
+            {{ $iconPath := printf "icons/%s.svg" .icon }}
+            {{ $iconFile := resources.Get $iconPath }}
+            
+            <div class="w-16 h-16 flex items-center justify-center text-neutral-800 dark:text-white mb-4 flex-none group-hover:scale-110 transition-transform duration-200">
+              {{ if $iconFile }}
+                <span class="w-16 h-16 block [&>svg]:w-full [&>svg]:h-full [&>svg]:fill-current" >
+                  {{ $iconFile.Content | safeHTML }}
+                </span>
+              {{ else }}
+                <span class="text-xs text-neutral-400">Missing SVG</span>
+              {{ end }}
+            </div>
+
+            <!-- Programmatic word wrapper -->
+            <div class="w-full text-center flex flex-col items-center justify-center space-y-10.5 leading-tight">
+              {{ range split .name " " }}
+                <span class="text-base font-semibold tracking-tight text-neutral-800 dark:text-neutral-200 block {{ if $isLink }}group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-200{{ end }}">
+                  {{ . }}
+                </span>
+              {{ end }}
+            </div>
+
+          <!-- FIXED: Proper closing blocks matching your parent wrapper selections -->
+          {{ if $isLink }}
+            </a>
+          {{ else }}
+            </div>
+          {{ end }}
+
+        {{ end }}
+      </div>
+
+    </div>
+  {{ end }}
+</div>

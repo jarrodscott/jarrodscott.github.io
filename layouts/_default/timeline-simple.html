@@ -3,7 +3,6 @@
   {{ $timelineCSS := resources.Get "css/timeline-simple.css" | resources.Minify | resources.Fingerprint }}
 <link rel="stylesheet" href="{{ $timelineCSS.RelPermalink }}" integrity="{{ $timelineCSS.Data.Integrity }}">
 
-
   {{ $showReadingProgress := site.Params.article.showReadingProgress | default false }}
   {{ if isset .Params "showreadingprogress" }}
     {{ $showReadingProgress = .Params.showReadingProgress }}
@@ -14,57 +13,34 @@
 
   <!-- Outer utility class allows the content container to slide out fully -->
   <article class="w-full max-w-full overflow-x-hidden">
-      {{/* Hero */}}
+    
+    {{/* Hero */}}
+    {{ $heroStyle := .Params.heroStyle | default site.Params.article.heroStyle | default "basic" }}
     {{ if .Params.showHero | default (site.Params.article.showHero | default false) }}
-      {{ $heroStyle := .Params.heroStyle }}
-      {{ if not $heroStyle }}{{ $heroStyle = site.Params.article.heroStyle }}{{ end }}
-      {{ $heroStyle := print "hero/" $heroStyle ".html" }}
-      {{ if templates.Exists ( printf "partials/%s" $heroStyle ) }}
-        {{ partial $heroStyle . }}
+      {{ $heroPartial := print "hero/" $heroStyle ".html" }}
+      {{ if templates.Exists ( printf "partials/%s" $heroPartial ) }}
+        {{ partial $heroPartial . }}
       {{ else }}
         {{ partial "hero/basic.html" . }}
       {{ end }}
     {{ end }}
 
-    <!-- Back to Biography Link 
-    <div class="mb-8 px-4 sm:px-6 lg:px-8">
-      <a href="{{ "/about/" | relURL }}" class="text-md text-neutral-500 dark:text-neutral-400 hover:text-primary-500 transition-colors inline-flex items-center no-underline">
-        ← Back to Biography
-      </a>
-    </div>
--->
-    <!-- BEGIN banner -->
-<!--    {{ $image := resources.Get "images/feature.png" }}
-    {{ if $image }}
-      {{ $height := .Params.bannerHeight | default "400" }}
-      {{ $focus := .Params.bannerFocus | default "Center" }}
-      {{ $cropCommand := printf "1600x%s %s" $height $focus }}
-      {{ $croppedImage := $image.Fill $cropCommand }}
-      
-      <div class="w-full overflow-hidden my-6 px-4 sm:px-6 lg:px-8">
-        <img 
-          src="{{ $croppedImage.RelPermalink }}" 
-          width="{{ $croppedImage.Width }}" 
-          height="{{ $croppedImage.Height }}"
-          alt="Page Banner" 
-          class="w-full h-auto rounded-xl shadow-md object-cover"
-        >
-      </div>
-    {{ end }}-->
+    {{/* THE FIX: Inject the missing Blowfish layout spacer for background hero layouts */}}
+    {{ if and (.Params.showHero | default (site.Params.article.showHero | default false)) (eq $heroStyle "background") }}
+      <div class="h-[150px] md:h-[200px]"></div>
+    {{ end }}
     
-    <!-- END banner -->  
     <!-- Header wrapper mirroring standard spacing -->
-    <header class="w-full mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+    <header class="w-full mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl mt-5">
       {{ if .Params.showBreadcrumbs | default (.Site.Params.article.showBreadcrumbs | default false) }}
         {{ partial "breadcrumbs.html" . }}
       {{ end }}
-      <h1 class="mt-2 mb-2  text-4xl font-bold text-neutral-900 dark:text-neutral">
+      <h1 class="mt-2 mb-2 text-4xl font-bold text-neutral-900 dark:text-neutral">
         {{ .Title | emojify }}
       </h1>
       {{ with .Params.description }}
-      <p class="max-w-2xl text-neutral-500 dark:text-neutral-400 text-lg">{{ . }}</p>
+      <p class="max-w-2xl text-neutral-900 dark:text-neutral-100 text-xl">{{ . }}</p>
       {{ end }}
-
     </header>
 
     <!-- Side-by-Side Flex Layout -->
@@ -74,10 +50,27 @@
       <main class="prose dark:prose-invert custom-timeline-headings custom-body-column">
         {{ .Content }}
       </main>
-
+{{/* Replaced this block with the one below to enable/disable TOC
       <!-- Sidebar Area -->
       <aside class="custom-timeline-sidebar">
         {{ partial "toc.html" . }}
+      </aside>
+*/}}
+      <!-- Sidebar Area -->
+      <aside class="custom-timeline-sidebar">
+          <section class="flex flex-col max-w-7xl mt-0 prose dark:prose-invert lg:flex-row mx-auto w-full">
+      {{ $enableToc := site.Params.article.showTableOfContents | default false }}
+      {{ $enableToc = .Params.showTableOfContents | default $enableToc }}
+      {{ $showToc := and $enableToc (in .TableOfContents "<ul") }}
+      {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
+      {{ if $showToc }}
+        <!-- 2. Replaced lg:ms-auto with lg:order-last to keep TOC locked on the right without shifting -->
+        <div class="order-first lg:order-last px-0 lg:ps-8 lg:max-w-2xs lg:w-64 shrink-0">
+          <div class="toc ps-5 print:hidden lg:sticky {{ $topClass }}">
+            {{ partial "toc.html" . }}
+          </div>
+        </div>
+      {{ end }}
       </aside>
 
     </div>

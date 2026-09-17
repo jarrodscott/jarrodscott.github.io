@@ -277,3 +277,27 @@
   transform: translateY(-1px);
   border-color: var(--color-primary-500);
  }
+
+/* ==========================================================================
+   Added this to control the way cards render, specifically to center < 3 cards
+   ========================================================================== */
+
+ /* Multi-Row Grid Rules for Desktop Screens */
+@media (min-width: 1024px) {
+  /* If the row container contains a dual leftover pair, change the row layout structure */
+  .about-buttons-grid:has(.is-pair-leftover) {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+
+  /* Keep regular elements fixed at standard widths so they look like a grid */
+  .about-buttons-grid:has(.is-pair-leftover) .about-card {
+    width: calc(33.333% - 0.75rem);
+  }
+
+  /* Single trailing elements bypass grid alignment lines to stand centered */
+  .about-buttons-grid .is-lone-leftover {
+    grid-column-start: 2;
+  }
+}

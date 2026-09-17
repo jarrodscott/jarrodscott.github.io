@@ -11,9 +11,17 @@ weight: 40
 invertPagination: true
 ---
 
+{{< accordion mode="open" separated=true >}}
+  {{< accordionItem title="Expand to see Tech Stack" md=false >}}
+  {{< tech-stack >}}
+  
+  {{< /accordionItem >}}
+{{< /accordion >}}
+
 {{< lead >}}
 COMING SOON
 {{< /lead >}}
+
 
 
 ## Field Work

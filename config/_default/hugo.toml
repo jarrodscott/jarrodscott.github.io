@@ -76,6 +76,7 @@ enableEmoji = true
 
 [permalinks]
   publications = "/publications/:contentbasename/"
+  footer = "/:slug/"
 
 # Render only specific parts of the site for faster development. 
 # Note that there are more files are ignored in development/hugo.toml
