@@ -1,0 +1,163 @@
+{{/* Unpack variables from the incoming dictionary wrapper */}}
+{{- $page := .page }}
+{{- $showGrid := .show_grid }}
+
+{{ with (index site.Data (or $page.Params.map_target "coordinates")) }}
+  
+  <div class="w-full max-w-6xl mx-auto flex flex-col gap-6 my-8 not-prose items-stretch">
+    <!-- Top Section: Site Information Cards Grid (Equal Heights Enabled) -->
+    {{- if ne $showGrid "false" }}
+
+    <!-- Top Section: Site Information Cards Grid -->
+    {{/*
+    <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 border-b border-neutral-200 dark:border-neutral-700 pb-6">
+    */}}
+    <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 border-b border-neutral-200 dark:border-neutral-700 pb-6 items-stretch">
+      {{ range $index, $site := .sites }}
+        <div data-site-id="site-{{ $index }}" 
+             class="telemetry-card p-4 rounded-lg border border-neutral-300 dark:border-neutral-600 bg-background dark:bg-neutral-800 shadow-sm flex flex-col justify-between cursor-pointer hover:border-primary-500 dark:hover:border-primary-400 hover:shadow-md transition-all duration-200">
+          
+          <div>
+            <div class="flex items-start justify-between gap-2 mb-1">
+              <h3 class="text-base font-bold text-neutral-800 dark:text-neutral-100 m-0">
+                {{ $site.name }}
+              </h3>
+            </div>
+{{/*  CATEGORY LABEL
+            <p class="text-xs text-neutral-400 dark:text-neutral-500 font-mono mb-2">
+              📍 Lat: {{ $site.latitude }} , Lon: {{ $site.longitude }} · <span class="uppercase tracking-wider font-semibold text-[10px] text-primary-600 dark:text-primary-400">{{ $site.category }}</span>
+            </p>
+*/}}                        
+            <p class="text-sm text-neutral-600 dark:text-neutral-300 break-words mb-4 leading-relaxed">
+              {{ $site.description }}
+            </p>
+          </div>
+
+{{/*
+          <!-- Focus Live Telemetry Map button -->
+          <div class="pt-2 border-t border-neutral-100 dark:border-neutral-700">
+            <form action="https://openstreetmap.org" method="GET" target="_blank" class="m-0 p-0">
+
+              <input type="hidden" name="lat" value="{{ $site.latitude }}">
+              <input type="hidden" name="lon" value="{{ $site.longitude }}">
+              <input type="hidden" name="mlat" value="{{ $site.latitude }}">
+              <input type="hidden" name="mlon" value="{{ $site.longitude }}">
+              <button type="submit" class="w-full inline-flex items-center justify-center px-3 py-1.5 text-xs font-bold tracking-wide text-center uppercase rounded border border-neutral-300 dark:border-neutral-600 bg-neutral-50 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-600 transition-colors cursor-pointer">
+                Focus Live Telemetry Map
+              </button>
+            </form>
+          </div>
+          */}}
+        </div>
+      {{ end }}
+    </div>
+    {{- end }}
+
+    <!-- Bottom Section: Regional Map Presentation Asset Frame -->
+    <div class="w-full rounded-lg border border-neutral-300 dark:border-neutral-600 bg-neutral-100 dark:bg-neutral-900 flex flex-col justify-between h-[500px] min-h-[500px] relative">
+      
+      <!-- Content HUD Header Banner -->
+      <div class="p-4 bg-background/80 dark:bg-neutral-800/80 backdrop-blur border-b border-neutral-200 dark:border-neutral-700 relative z-10">
+        <h4 class="text-md font-extrabold text-neutral-800 dark:text-neutral-200 uppercase tracking-wide m-0">
+          {{ .map_settings.region_name | default "Research Site Registry" }}
+        </h4>
+        <p class="text-md text-neutral-500 dark:text-neutral-400 mt-1 mb-0">{{ .map_settings.caption | default "Field stations & sample collection sites" }}</p>
+      </div>
+
+      <!-- Center Placement Canvas Box -->
+      <div class="flex-1 w-full relative bg-neutral-200 dark:bg-neutral-900 p-4 flex items-center justify-center overflow-visible">
+        {{ $mapImg := resources.Get .map_settings.fallback_image_path }}
+        {{ if $mapImg }}
+          
+          <div style="position: relative; max-w-full max-h-full aspect-[2/1]; display: flex; align-items: center; justify-content: center; overflow: visible;">
+            
+            <!-- Map Image Base Layer -->
+            <img src="{{ $mapImg.RelPermalink }}" 
+                 alt="Regional Base Map Asset" 
+                 class="max-w-full max-h-full object-contain rounded shadow-sm m-0 p-0 not-prose opacity-95 dark:opacity-85 z-0 no-zoom"
+                 style="pointer-events: none;">
+            
+            <!-- Absolute Positioning Pin Overlay Box -->
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 30; pointer-events: none; overflow: visible;">
+
+              {{ range $index, $site := .sites }}
+                {{ if and $site.x_percent $site.y_percent }}
+               {{/*      POINTS     */}}         
+                
+                  <div data-pin-id="site-{{ $index }}" 
+                       class="research-map-hotspot-node transition-all duration-300" 
+                       style="position: absolute; left: {{ $site.x_percent }}%; top: {{ $site.y_percent }}%; transform: translate(-50%, -50%); width: 32px; height: 32px; pointer-events: auto; z-index: 40; cursor: help; display: flex; align-items: center; justify-content: center; overflow: visible;">
+                    <div style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; overflow: visible;">
+                      
+                      <!-- Responsive tracking pin circle using viewport width (vw) -->
+                      <div class="node-center-dot transition-transform duration-300 ease-out" style="width: 1.0vw; height: 1.0vw; min-width: 8px; min-height: 8px; max-width: 19px; max-height: 19px; border-radius: 50%; border: 1.5px solid #ffffff; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); background-color: {{ $site.color_hex | default "#9ca3af" }} !important;">
+                      </div>
+                      
+               {{/*      CARDS     */}}         
+                      <!-- Pure HTML Tooltip Container styled safely via external css rules -->
+                      <div class="custom-hover-tooltip-card shadow-2xl border border-neutral-200 dark:border-neutral-800 bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 rounded-lg p-3">
+
+                      <!-- Inline styles to bypass theme structural overrides -->
+                      <button type="button" 
+                              style="position: absolute !important; top: 8px !important; right: 8px !important; left: auto !important;"
+                              class="tooltip-close-btn flex items-center justify-center w-5 h-5 p-0 m-0 border-0 bg-transparent text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 cursor-pointer transition-colors duration-150" 
+                              aria-label="Close card">
+                        <span class="w-3.5 h-3.5 pointer-events-none fill-current text-current flex items-center justify-center">
+                          {{ partial "icon.html" "xmark" }}
+                        </span>
+                      </button>
+                      
+                        <span class="block text-[9px] font-mono tracking-wider uppercase opacity-60 mb-0.5" style="color: {{ $site.color_hex | default "#9ca3af" }}; font-weight: 700;">{{ $site.name }}</span>
+
+               {{/*      This is a different style header     
+                        
+                        <strong class="block text-xl font-bold leading-tight mb-1 text-neutral-900 dark:text-white">{{ $site.name }}</strong>
+
+               */}}                      
+                        <p class="text-xs text-neutral-400 dark:text-neutral-500 font-mono mb-2">
+                          📍 Lat: {{ $site.latitude }} , Lon: {{ $site.longitude }} · <span class="uppercase tracking-wider font-semibold text-[10px] text-primary-600 dark:text-primary-400" style="color: {{ $site.color_hex | default "#9ca3af" }};">{{ $site.category }}</span>
+                        </p>
+                          
+                        <p class="text-[10px] leading-relaxed text-neutral-600 dark:text-neutral-600 m-0 p-0 break-words">{{ $site.description  | markdownify }}</p>
+                        {{/* Add the conditional markdown link block */}}
+                        {{ if $site.link }}
+                          <div class="mt-2 pt-2 border-t border-neutral-100 dark:border-neutral-800 text-[10px] font-medium text-primary-600 dark:text-primary-400 hover:underline" style="color: {{ $site.color_hex | default "#9ca3af" }};">>
+                            {{ $site.link | markdownify }}
+                          </div>
+                        {{ end }}
+  
+                      </div>
+                    </div>
+                  </div>
+
+                {{ end }}
+              {{ end }}
+            </div>
+
+          </div>
+
+        {{ else }}
+          <div class="text-center p-6 border-2 border-dashed border-neutral-300 dark:border-neutral-700 rounded-lg max-w-sm mx-auto">
+            <span class="text-neutral-400 dark:text-neutral-600 text-3xl block mb-2">🗺️</span>
+            <p class="text-xs font-bold text-neutral-600 dark:text-neutral-400">Panama Map Canvas Ready</p>
+            <p class="text-[11px] text-neutral-400 dark:text-neutral-500 mt-1">
+              Save your custom map image into your assets directory path directly at:<br>
+              <code class="font-mono text-primary-600 dark:text-primary-400 bg-neutral-100 dark:bg-neutral-800 px-1 py-0.5 rounded break-all">assets/{{ .map_settings.fallback_image_path }}</code>
+            </p>
+          </div>
+        {{ end }}
+      </div>
+
+    </div>
+
+  </div>
+  <!-- Synchronization Layer Script (Class Toggled Hover) -->
+  <!-- Now in `assets/js/field-map.js`) -->
+
+  <!-- Inline Asset Pipeline Injection -->
+  {{ $js := resources.Get "js/field-map.js" | resources.Minify | resources.Fingerprint }}
+  <script src="{{ $js.RelPermalink }}" defer></script>
+
+{{ else }}
+  <p class="text-sm italic text-red-500">Error: Dataset configuration file not found.</p>
+{{ end }}

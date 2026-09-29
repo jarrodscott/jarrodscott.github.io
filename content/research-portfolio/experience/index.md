@@ -14,31 +14,56 @@ layoutBackgroundBlur: true
 weight: 10
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+{{< katex >}}
+
+Microorganisms are a major thread that weave through all biological systems and microbial ecology serves as an intellectual bridge that connects numerous, often, disparate disciplines. The main focus of my research is to understand microbial diversity—how a collection of comparatively simple elements—from nucleotides to genes, proteins, and individual cells—coalesce into remarkably complex and dynamic communities; how the structure of these communities affect host biology, biogeochemical cycles, and ecosystem-level processes; and what mechanisms drive the establishment, organization, and development of these communities. My approach leverages advanced sequencing technologies, bioinformatics, and complexity science to reveal microbial assemblages that are functionally unified and adapted to specific habitats.
 
 ## Appointments
 
 {{< timeline >}}
 
 {{< timelineItem icon="briefcase" header="Research Associate" badge="2022 - 2026" subheader="Smithsonian Tropical Research Institute" md=true >}}
+
+As a Research Associate at the Smithsonian Tropical Research Institute I worked on two main projects-one looking at the complex links between phages, their hosts, and the environment. We leveraged the unique ecological context of the Isthmus of Panamá, which narrowly disconnects the productive Tropical Eastern Pacific (EP) and nutrient-poor Tropical Western Atlantic (WA) provinces. We compared patterns of phage and microbial communities at both global scales (between oceans) and local-scales (between habitats within an ocean). Our results suggested phages are shaped more by dispersal processes than local conditions regardless of spatial scale, while microbial diversity tended to be shaped by local conditions at smaller spatial scales. We provided a framework for addressing the co-variability between phages and microbes in marine systems and identified factors that drive consistent versus disparate trends in community shifts. 
+
+In the other project we carried out a 2-year *in situ* soil warming experiment in a tropical forest in Panamá and found large changes in the soil microbial community and its growth sensitivity, which did not fully explain observed large increases in $CO_2$ emission. Microbial diversity declined markedly warming, demonstrating a breakdown in the positive temperature-diversity relationship observed elsewhere. The microbial community composition shifted with warming, with many taxa no longer detected and others enriched, including thermophilic taxa. This community shift resulted in community adaptation of growth to warmer temperatures, which we used to predict changes in soil $CO_2$ emissions. However, the in situ $CO_2$ emissions exceeded our model predictions threefold, potentially driven by abiotic acceleration of enzymatic activity. Our results suggested that warming of tropical forests will have rapid, detrimental consequences both for soil microbial biodiversity and future climate.
+
+
+
 {{< /timelineItem >}}
 
-{{< timelineItem icon="briefcase" header="STRI/Moore Foundation Postdoctoral Fellow" badge="2017 - 2022" subheader="Smithsonian Tropical Research Institute" location="Bocas del Toro Panama" md=true >}}
-Grant title: {{< link url="http://doi.org/10.37807/GBMF5603" text="Divergence of Marine Symbiosis After the Rise of the Isthmus of Panama" >}}
+{{< timelineItem icon="briefcase" header="STRI/Moore Foundation Postdoctoral Fellow" badge="2017 - 2022" subheader="Smithsonian Tropical Research Institute" location="Bocas del Toro Panamá" md=true >}}
+Grant title: {{< link url="http://doi.org/10.37807/GBMF5603" text="Divergence of Marine Symbiosis After the Rise of the Isthmus of Panamá" >}}
+
+In this multidisciplinary project, we made use of contrasting (**a**) geographic regions, (**b**) benthic habitats, (**c**) environmental gradients, and (**d**) host biology, to understand the evolutionary divergence of marine microbiomes in changing environments & their functional significance in different systems. How did the close of the Isthmus of Panamá affect the evolution of microbes, the structure of microbial communities, and the function of host-associated microbiomes? During this project I focused primarily on host-associated microbiome studies in Pacific and Caribbean marine ecosystems of Panamá. I managed field expeditions, designed and taught graduate-level field courses, hosted microbiome workshops, and mentored students. 
 
 I created a website for the project {{< link url="https://istmobiome.rbind.io" text="which you can view here" icon_after="chevron-right" md=true >}}
 {{< /timelineItem >}}
 
 {{< timelineItem icon="briefcase" header="Postdoctoral Research Associate" badge="2012 - 2017" subheader="Bigelow Laboratory for Ocean Sciences" location="East Boothbay ME, USA" md=true >}}
+
+The primary focus of my research at Bigelow was assessing the link between microbial diversity and biogeochemical cycling, specifically looking at fine-scale biogeographic patterns of iron-oxidizing microbial communities at the deep-sea thermal systems at the Mid-Atlantic Ridge, the Lo’ihi Seamount, and the Mariana Trough. Iron-oxidizing communities generate thick microbial mats as a byproduct of iron-oxide precipitation. These mats influence water flow and chemical composition; they also provide large surface areas that are colonized by other microbes. I explored the idea of iron-oxidizing communities as ecosystem engineers and their effects on surrounding biodiversity and biogeochemical cycling. During this appointment I participated in numerous international oceanographic cruises employing the deep-sea submersible assets *ROV Jason II* and *AUV Sentry*.
+
 {{< /timelineItem >}}
+
 
 {{< timelineItem icon="briefcase" header="Wisconsin Distinguished Graduate Fellow" badge="2010 - 2011" subheader="University of Wisconsin" location="Madison WI, USA" md=true >}}
+
+To assess factors that contribute to microbial community assembly, I used leaf-cutter ants as a model system. These ants are widespread and dominant Neotropical herbivores. Unlike other herbivores, leaf-cutter ants do not consume plants directly but rather use the material to cultivate a mutualistic fungus. Within the fungus garden, various plant compounds are metabolized and transformed into nutrients (carbohydrates and amino acids) suitable for ant consumption. These nutrients are stored in specialized hyphal swellings called *gongylidia*. Plant degradation appears to be mediated by a microbial consortia consisting of the fungal cultivar and numerous bacterial species. The ant colonies, which contain millions of workers, harvest a prodigious amount of fresh plant material (from a range of hosts) to grow their gardens in hundreds of subterranean chambers. The flow of plant biomass through these colonies is concentrated into both gardens and a refuse dump (repository for material not broken down in the garden). As a result, these colonies contain two hotspots where microbial communities can establish, each marked by distinct chemical and physical properties. In this project I looked at the effect of forage material on microbial communities in leaf-cutter ant colonies.
+
 {{< /timelineItem >}}
 
-{{< timelineItem icon="briefcase" header="Smithsonian Institution Predoctoral Fellow" badge="2009 - 2010" subheader="Smithsonian Tropical Research Institute" location="Gamboa Panama" md=true >}}
+{{< timelineItem icon="briefcase" header="Smithsonian Institution Predoctoral Fellow" badge="2009 - 2010" subheader="Smithsonian Tropical Research Institute" location="Gamboa Panamá" md=true >}}
+
+Leaf-cutter ants have a wide range of effects on local environments including soil modification, primary productivity, and nutrient cycling. Leaf-cutter ants use fresh leaf material to feed and grow a symbiotic fungal cultivar which they in turn use as their primary food source. The fungal cultivar, however, is unable to completely breakdown all components of the plant tissue. As a consequence the ants discard large amounts of waste material, primarily recalcitrant plant material and exhausted fungal biomass. One species of leaf-cutter, *Atta colombica*, deposits its waste in an aboveground refuse dump. Over time these dumps develop a conical shape and vertical stratification, with the freshest material on the top and the oldest at the bottom. These dumps enriched in many nutrients and are important resources for various plant and animal life. Soils in the forests where *A. colombica* occur are marked by high nutrient turnover and low microbial diversity. My work showed that refuse dumps of *A. colombica* are nutrient islands and important reservoirs of biodiversity. Initial assessments revealed that dumps are a host to complex and unique microbial communities. Different strata exhibited distinct community and chemical profiles. 
+
 {{< /timelineItem >}}
 
 {{< timelineItem icon="briefcase" header="Research Technician" badge="2002 - 2006" subheader="University of Texas-Austin" location="Austin TX, USA" md=true >}}
+
+As a research technician my main project involved the developedment 23 polymorphic microsatellite markers for the symbiotic fungi cultivated by leaf cutter ants. I  assessed allelic variation in North American leaf-cutter fungal populations (Mexico, Cuba, USA). Polyploidy was indicated by 21 of the 23 loci, consistent with the multinucleate nature of leafcutter fungi. Microsatellite fingerprinting was then used assess fungal genetic variation within leaf-cutter nests to test for monoculture of the cultivated fungi.
+
 {{< /timelineItem >}}
 
 {{< /timeline >}}
@@ -67,9 +92,9 @@ I teach the way I learn. My goal is to create a venue where students can be curi
 
 {{< timeline >}}
 
-{{< timelineItem icon="lightbulb" header="Lead Instructor" badge="2024" subheader="Entangled Social & Ecological Systems Field Course" location="PANAMA" md=true >}}
+{{< timelineItem icon="lightbulb" header="Lead Instructor" badge="2024" subheader="Entangled Social & Ecological Systems Field Course" location="Panamá" md=true >}}
 
-5-week intensive field course for beginning graduate students that weaves together natural history, social science, tropical ecology, and cultural exchange. Students conduct both marine and terrestrial field work across Panama. This year's course had 12 students from 7 different countries. 
+5-week intensive field course for beginning graduate students that weaves together natural history, social science, tropical ecology, and cultural exchange. Students conduct both marine and terrestrial field work across Panamá. This year's course had 12 students from 7 different countries. 
 
 Primary Duties included: 
 - Design course content.   
@@ -87,9 +112,9 @@ Field Sites:
 {{< link url="https://stri.si.edu/facility/coibita-island" text="Isla Coibita" >}}. 
 {{< /timelineItem >}}
 
-{{< timelineItem icon="lightbulb" header="Data Specialist & Project Coordinator" badge="2022" subheader="STRI-McGill NEO Tropical Biology Field Course" location="PANAMA" md=true >}}
+{{< timelineItem icon="lightbulb" header="Data Specialist & Project Coordinator" badge="2022" subheader="STRI-McGill NEO Tropical Biology Field Course" location="Panamá" md=true >}}
 
-A 5-week experiential field course where undergraduate and graduate students learn research techniques in biology, ecology, conservation, environmental policies, and participatory evaluation techniques while exploring marine and terrestrial ecosystems on various excursions throughout Panama. 
+A 5-week experiential field course where undergraduate and graduate students learn research techniques in biology, ecology, conservation, environmental policies, and participatory evaluation techniques while exploring marine and terrestrial ecosystems on various excursions throughout Panamá. 
 
 Primary Duties included: 
 
@@ -110,9 +135,9 @@ Field Sites:
 See the  {{< link url="https://stri-mcgill-neo.github.io/2022/" text="Course tutorial website" >}} for more information.
 {{< /timelineItem >}}
 
-{{< timelineItem icon="lightbulb" header="Teaching Assistant" badge="2020" subheader="STRI-McGill NEO Tropical Biology Field Course" location="PANAMA" md=true >}}
+{{< timelineItem icon="lightbulb" header="Teaching Assistant" badge="2020" subheader="STRI-McGill NEO Tropical Biology Field Course" location="Panamá" md=true >}}
 
-A 5-week experiential field course where undergraduate and graduate students learn research techniques in biology, ecology, conservation, environmental policies, and participatory evaluation techniques while exploring marine and terrestrial ecosystems on various excursions throughout Panama. 
+A 5-week experiential field course where undergraduate and graduate students learn research techniques in biology, ecology, conservation, environmental policies, and participatory evaluation techniques while exploring marine and terrestrial ecosystems on various excursions throughout Panamá. 
 
 Primary Duties included: 
 
@@ -134,9 +159,9 @@ You can chack out the {{< link url="https://strineoigert.wordpress.com/" text="C
 {{< /timelineItem >}}
 
 
-{{< timelineItem icon="lightbulb" header="Marine Biology Instructor" badge="2019" subheader="STRI-McGill NEO Tropical Biology Field Course" location="PANAMA" md="true" >}}
+{{< timelineItem icon="lightbulb" header="Marine Biology Instructor" badge="2019" subheader="STRI-McGill NEO Tropical Biology Field Course" location="Panamá" md="true" >}}
 
-Part of the STRI-McGill NEO Tropical Biology Field Course, this one week module takes place in and around Isla Coiba off the Pacific coast of Panama. During this module students learn how to conduct fish surveys, assess coral reef health, and  conduct field experiments. 
+Part of the STRI-McGill NEO Tropical Biology Field Course, this one week module takes place in and around Isla Coiba off the Pacific coast of Panamá. During this module students learn how to conduct fish surveys, assess coral reef health, and  conduct field experiments. 
 
 Primary Duties included: 
 
@@ -150,7 +175,7 @@ Field Site:
 {{< /timelineItem >}}
 
 
-{{< timelineItem icon="lightbulb" header="Creator, Organizer, & Host" badge="2018" subheader="Marine Microbiome Workshop" location="Bocas del Toro, PANAMA" md="true" >}}
+{{< timelineItem icon="lightbulb" header="Creator, Organizer, & Host" badge="2018" subheader="Marine Microbiome Workshop" location="Bocas del Toro, Panamá" md="true" >}}
 
 Workshop Title: ***From model organisms to ecosystems: scaling-up our understanding of host-microbe symbiosis in the sea.***
 
@@ -173,7 +198,7 @@ See the {{< link url="https://istmobiome.rbind.io/workshops/workshop-2018/" text
 
 {{< timeline >}}
 
-{{< timelineItem icon="award" header="PADI Diver Certification Courses" badge="2017 - 2018" subheader="Panama Dive School" location="Bocas del Toro PANAMA" md=true >}}
+{{< timelineItem icon="award" header="PADI Diver Certification Courses" badge="2017 - 2018" subheader="Panamá Dive School" location="Bocas del Toro Panamá" md=true >}}
 Open Water, Advanced Open Water, & Rescue Diver Certifications
 {{< /timelineItem >}}
 
@@ -227,7 +252,7 @@ See the {{< link url="https://liberalarts.utexas.edu/cats/pfbap/overview.php" te
 
 {{< timeline >}}
 
-{{< timelineItem icon="award" header="Smithsonian Institution Genomics Postdoctoral Fellowship" badge="2012 - 2014" subheader="Smithsonian Tropical Research Institute" location="PANAMA" md=true >}}
+{{< timelineItem icon="award" header="Smithsonian Institution Genomics Postdoctoral Fellowship" badge="2012 - 2014" subheader="Smithsonian Tropical Research Institute" location="Panamá" md=true >}}
 The role of intestinal microbiomes in the nutritional ecology of dominant Neotropical ant species. *Declined*
 {{< /timelineItem >}}
 
@@ -235,7 +260,7 @@ The role of intestinal microbiomes in the nutritional ecology of dominant Neotro
 The influence of forage material on microbial communities in leaf-cutter ant colonies.
 {{< /timelineItem >}}
 
-{{< timelineItem icon="award" header="Smithsonian Institution Predoctoral Fellowship" badge="2009 - 2010" subheader="Smithsonian Tropical Research Institute" location="PANAMA" md=true >}}
+{{< timelineItem icon="award" header="Smithsonian Institution Predoctoral Fellowship" badge="2009 - 2010" subheader="Smithsonian Tropical Research Institute" location="Panamá" md=true >}}
 Microbial community assembly in the refuse dumps of the leaf-cutter ant, *Atta colombica*.
 {{< /timelineItem >}}
 

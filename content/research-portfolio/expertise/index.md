@@ -1,22 +1,16 @@
 ---
 title: "Skills & Expertise"
-description: "A selection of publications that highlight my primary research interests."
+description: ""
 #date: 2026-06-15T16:35:49-07:00
 draft: false
 showHero: true
-layout: single # changed from mod-single
+layout:   mod-single # changed from mod-single
 heroStyle: background # basic, big, background, thumbAndBackground. Effective only if article.showHero = true.
 layoutBackgroundBlur: true
-weight: 40
 invertPagination: true
+weight: 40
+showTableOfContents: true
 ---
-
-{{< accordion mode="open" separated=true >}}
-  {{< accordionItem title="Expand to see Tech Stack" md=false >}}
-  {{< tech-stack >}}
-  
-  {{< /accordionItem >}}
-{{< /accordion >}}
 
 {{< lead >}}
 COMING SOON
@@ -26,22 +20,11 @@ COMING SOON
 
 ## Field Work
 
-Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-
-Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-
-Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-
-
-Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
-
 ### Marine
 
-Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
 
 ### Terrestrial
 
-Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
 
 
 ## Laboratory
@@ -52,11 +35,27 @@ Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapi
 
 ## Bioinformatic
 
+{{< accordion mode="collapse" separated=false  >}}
+  {{< accordionItem title="Expand to see Tech Stack" md=false icon="code" >}}
+    {{< tech-stack >}}
+  {{< /accordionItem >}}
+
+  {{< accordionItem title="Infrastructure & HPC" icon="code" open=false md=true >}}
+  This item demonstrates Markdown rendering:
+  - **Cluster Management:** Slurm, PBS, job array scheduling   
+  - **Containerization & Environments:** Singularity, Conda, Mamba   
+  - **Data Transfer & Automation:** Bash scripting, rsync, Globus   
+  - **Remote Systems:** Linux/Unix CLI, SSH, resource optimization   
+  {{< /accordionItem >}}
+
+
+{{< /accordion >}}
+
+
 ## Publishing
 
 ## Visualization
 
-Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
 
 <!--
 

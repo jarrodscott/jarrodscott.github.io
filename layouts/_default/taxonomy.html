@@ -1,0 +1,44 @@
+{{ define "main" }}
+<div class="max-w-prose mx-auto pt-8">
+  
+  <!-- Taxonomy Title Header (e.g., Posts tagged with "Accessibility") -->
+  <header class="mb-12">
+    <h1 class="text-3xl font-extrabold tracking-tight text-neutral-900 dark:text-neutral-100">
+      Topic: <span class="text-primary-600 dark:text-primary-400">{{ .Title }}</span>
+    </h1>
+    <p class="text-md text-neutral-500 mt-2">
+      Found {{ len .Pages }} articles matching this interest area.
+    </p>
+  </header>
+
+  <!-- Clean, Accessible Vertical Text Feed Layout -->
+  <div class="space-y-10">
+    {{ range .Pages }}
+    <article class="group relative flex flex-col items-start">
+      
+      <!-- Date Stamp Meta -->
+      <time class="text-sm text-neutral-400 dark:text-neutral-500 mb-1">
+        {{ .Date | time.Format ":date_medium" }}
+      </time>
+      
+      <!-- Article Title Anchor Link -->
+      <h2 class="text-xl font-bold text-neutral-900 dark:text-neutral-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+        <a href="{{ .RelPermalink }}">
+          <span class="absolute -inset-y-2.5 -inset-x-4 z-0 rounded-2xl sm:-inset-x-6"></span>
+          <span class="relative z-10">{{ .Title }}</span>
+        </a>
+      </h2>
+      
+      <!-- Short Safe Content Summary Section -->
+      {{ with .Description | default .Summary }}
+      <p class="relative z-10 mt-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+        {{ . | plainify | truncate 160 }}
+      </p>
+      {{ end }}
+      
+    </article>
+    {{ end }}
+  </div>
+
+</div>
+{{ end }}

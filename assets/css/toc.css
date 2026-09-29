@@ -1,0 +1,23 @@
+.custom-native-toc-styles a {
+  color: inherit !important;
+  transition: color 0.15s ease-in-out !important;
+  text-decoration: none !important;
+}
+.custom-native-toc-styles a:hover {
+  color: rgb(var(--color-primary-500)) !important;
+}
+.dark .custom-native-toc-styles a:hover {
+  color: rgb(var(--color-primary-400)) !important;
+}
+.custom-native-toc-styles a.active {
+  color: rgb(var(--color-primary-500)) !important;
+  font-weight: 600 !important;
+}
+.dark .custom-native-toc-styles a.active {
+  color: rgb(var(--color-primary-400)) !important;
+}
+
+/* Smooth visual cleanup for native details components */
+details.toc-inside[open] summary span:last-child {
+  transform: rotate(180deg);
+}

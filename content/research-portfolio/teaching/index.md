@@ -2,21 +2,24 @@
 title: "Teaching Experience"
 #date: 2026-06-02T17:28:59-07:00
 draft: false
-showTableOfContents: false
 layout: "timeline-simple"
 #bannerHeight: "250"      # The exact height  in pixels
 #bannerFocus: "Top" 
 showHero: true
 heroStyle: background 
 layoutBackgroundBlur: true
-
+weight: 30
+map_target: "panama-teaching"
+full_bleed: true
+showTableOfContents: true
+#full_bleed: true
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+I like to teach the way I like to learn. My goal is to create a venue where students can be curious, get their hands dirty, make mistakes, & explore. I'm here to help students see what's possible, not tell them what to do. 
 
-## Recent Teaching Experience
+## Field Courses
 
-I teach the way I learn. My goal is to create a venue where students can be curious, get their hands dirty, make mistakes, & explore. I'm here to help students see what's possible, not tell them what to do. 
+{{< field-map show_grid="false" >}}
 
 {{< timeline >}}
 
@@ -39,7 +42,6 @@ Field Sites:
 {{< link url="https://www.mounttotumas.com/" text="Mount Totumas Cloud Forest" >}}, and 
 {{< link url="https://stri.si.edu/facility/coibita-island" text="Isla Coibita" >}}. 
 {{< /timelineItem >}}
-
 
 {{< timelineItem icon="lightbulb" header="Data Specialist & Project Coordinator" badge="2022" subheader="STRI-McGill NEO Tropical Biology Field Course" location="PANAMA" md=true >}}
 
@@ -103,7 +105,28 @@ Field Site:
 {{< link url="https://stri.si.edu/facility/coibita-island" text="Isla Coibita" >}}. 
 
 {{< /timelineItem >}}
+{{< /timeline >}}
 
+## Workshops 
+
+{{< timeline >}}
+
+{{< timelineItem icon="lightbulb" header="Creator & Instructor" badge="2024" subheader="Open Scholarship Workshop" location="Gamboa, PANAMA" md="true" >}}
+
+1-day intensive coding workshop for students in the [NSF RaMP](https://www.nsf.gov/funding/opportunities/ramp-research-mentoring-postbaccalaureates-biological-sciences/505965/nsf23-514) program studying at STRI in Panama. My primary goals with this workshop were to **a**) define the concept and importance of open and reproducible sciences and **b**) provide students with a set of tools and procedures that permit the reader of a paper to see their entire processing trail from the raw data and code to figures and tables. We used [R](https://www.r-project.org/), [Markdown](https://www.markdownguide.org/), and [Quarto](https://quarto.org/) to both analyze raw data and build reproducible and transparent workflows. 
+
+- {{< icon "chalkboard" >}} {{< link url="https://jarrodscott.github.io/RaMP-UP-2024/#/open-scholarship" text="Slide Show" >}}
+- {{< icon "github" >}}{{< link url="https://github.com/jarrodscott/RaMP-UP-2024" text="GitHub Repo" >}}
+{{< /timelineItem >}}
+
+
+{{< timelineItem icon="lightbulb" header="Creator & Instructor" badge="2020" subheader="Data Curation Workshop" location="PANAMA" md="true" >}}
+
+An online course I created and taught during the pandemic lockdowns of 2020. The main goals with the course were to **a**) create interactive, data-driven web products in R Markdown, **b**) host those products on GitHub, and **c**) use tools like figshare for hosting data and data products. Along the way, we  learned about version control with git and GitHub. 
+
+- {{< icon "chalkboard" >}} {{< link url="https://jarrodscott.github.io/data-curation-lockdown/" text="Website" >}}
+- {{< icon "github" >}}{{< link url="https://github.com/jarrodscott/data-curation-lockdown" text="GitHub Repo" >}}
+{{< /timelineItem >}}
 
 {{< timelineItem icon="lightbulb" header="Creator, Organizer, & Host" badge="2018" subheader="Marine Microbiome Workshop" location="Bocas del Toro, PANAMA" md="true" >}}
 

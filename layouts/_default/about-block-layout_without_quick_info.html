@@ -1,5 +1,6 @@
 {{ define "main" }}
 {{- $author := .Site.Data.author -}}
+{{/* Load and bundle dedicated About layout styles */}}
 {{ $aboutCSS := resources.Get "css/about-block-layout.css" | resources.Minify | resources.Fingerprint }}
 <link rel="stylesheet" href="{{ $aboutCSS.RelPermalink }}" integrity="{{ $aboutCSS.Data.Integrity }}">
 
@@ -9,21 +10,23 @@
     <h1 class="text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-neutral-100 !m-0">
       {{ .Title }}
     </h1>
-    {{ with .Params.description | markdownify }}
-    <div class="prose dark:prose-invert prose-neutral max-w-none text-lg mt-6">
-      <p>{{ . }}</p>
-    </div>
-    {{ end }}
-    <div class="mt-1 mb-14 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      {{ with .Params.description | markdownify }}
+      <div class="prose dark:prose-invert prose-neutral max-w-none text-lg mt-6">
+        <p>{{ . }}</p>
+      </div>
+      {{ end }}
+      <div class="mt-1 mb-14 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       {{ partial "article-meta/list.html" (dict "context" . "scope" "single") }}
     </div>
+
   </header>
 
-  <!-- ==================== TIER 1: TOP BIOGRAPHY HERO ==================== -->
   <div class="biography-grid-container">
     
-    <!-- LEFT SIDEBAR: Visuals & Socials -->
+    <!-- ==================== LEFT COLUMN SIDEBAR ==================== -->
     <div class="left-bio-sidebar">
+      
+      <!-- Banner Component Frame Box -->
       {{ if $author.banner }}
         {{ $bannerImg := resources.Get $author.banner }}
         <div class="contained-banner-frame" style="background-image: url('{{ if $bannerImg }}{{ ($bannerImg.Fill "800x400 q100 Center").RelPermalink }}{{ else }}{{ $author.banner | relURL }}{{ end }}');"></div>
@@ -31,6 +34,7 @@
         <div class="contained-banner-frame bg-gradient-to-tr from-primary-600 to-secondary-900"></div>
       {{ end }}
       
+      <!-- Smooth Zoom Housing Cell Container -->
       <div class="avatar-layout-cell">
         {{ if $author.image }}
           {{ $avatarImg := resources.Get $author.image }}
@@ -48,6 +52,7 @@
         <p class="text-md font-semibold text-neutral-500 dark:text-neutral-400 mt-1 !mb-0">{{ $author.headline }}</p>
       </div>
 
+      <!-- Social Row Handles Icon Connections Grid -->
       {{ if $author.links }}
       <div class="bio-social-row">
         {{ range $author.links }}
@@ -61,10 +66,13 @@
         {{ end }}
       </div>
       {{ end }}
+
     </div>
 
-    <!-- RIGHT CONTENT: Research Summary & CV Button -->
+    <!-- ==================== RIGHT COLUMN CONTENT CARDS ==================== -->
     <div class="right-bio-content">
+      
+      <!-- Biography Summary Block Layout -->
       <div class="bio-summary-card border border-neutral-200 dark:border-neutral-700/50 p-6 rounded-lg">
         <h3 class="text-xl font-bold mb-3 text-neutral-900 dark:text-neutral-100 !m-0">Research Summary</h3>
         <div class="text-neutral-600 dark:text-neutral-300 text-md leading-relaxed max-w-none">
@@ -73,6 +81,7 @@
           {{ end }}
         </div>
         
+        <!-- Extensive Bio Link Button -->
         {{ if $author.full_bio_url }}
         <div class="mt-4 flex justify-end">
           <a href="{{ $author.full_bio_url | relURL }}" 
@@ -84,8 +93,9 @@
           </a>
         </div>
         {{ end }}
-      </div>
+      </div> <!-- Moving this closing div here safely isolates the Summary Card first -->
 
+      <!-- DOWNLOAD CV BUTTON (Now sitting completely free below the box) -->
       <div class="bio-cv-button-container hover:text-primary-500 dark:hover:text-primary-400 hover:border-primary-500 dark:hover:border-primary-400" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
         <a href="/uploads/cv.pdf" target="_blank" rel="noopener noreferrer" class="bio-cv-download-btn">
           <span class="bio-cv-icon-frame">
@@ -94,86 +104,132 @@
           Download CV
         </a>
       </div>
-            <!-- NEW: Dynamic Professional Key-Value Metadata Grid -->
-      {{ if $author.quick_info }}
-      <div class="mt-6 pt-6 border-t border-neutral-200 dark:border-neutral-700/50 grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6 text-sm">
-        {{ range $author.quick_info }}
-          <div>
-            <!-- Label (e.g., LOCATION, EMAIL) -->
-            <span class="mt-6 block font-bold uppercase tracking-wider text-xs text-neutral-400 dark:text-neutral-500 mb-0.5">
-              {{ .label }}
-            </span>
-            
-            <!-- Value (Handles standard text vs interactive email links safely) -->
-            <span class="text-neutral-700 dark:text-neutral-300">
-              {{ if .is_email }}
-                <a href="mailto:{{ .value }}" class="text-primary-600 dark:text-primary-400 hover:underline transition-colors">
-                  {{ .value }}
-                </a>
-              {{ else }}
-                {{ .value }}
-              {{ end }}
-            </span>
+
+      <!-- Secondary Data Splitter Meta Grid Fields Section -->
+      <div class="bio-meta-subgrid border-t border-neutral-200 dark:border-neutral-700/60">
+        <!-- Swapped  author.interests for author.interests-->
+        <!-- Interests Subsection Badges Cloud -->
+        {{ if $author.interests }}
+        <div>
+          <h4 class="text-sm font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-2 !mt-0">Interests</h4>
+          <div class="bio-tag-cloud">
+            {{ range $author.interests }}
+              <span class="bio-custom-tag text-neutral-700 dark:text-neutral-300 border border-neutral-700 dark:border-neutral-700/40">{{ . }}</span>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+
+        <!-- Educational Pathway Records History -->
+        {{ if $author.education }}
+        <div>
+          <h4 class="text-sm font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-2 !mt-0">Education</h4>
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            {{ range $author.education }}
+              <div style="display: flex; flex-direction: column; gap: 0.15rem;">
+                <h5 class="text-md font-bold text-neutral-900 dark:text-neutral-100 !m-0">{{ .course }}</h5>
+                <p class="text-sm text-neutral-500 dark:text-neutral-400 !m-0">
+                  <span class="text-neutral-500 dark:text-neutral-400 font-semibold">{{ .institution }}</span> — {{ .year }}
+                  
+                </p>
+              </div>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+
+      </div>
+
+    </div>
+
+  </div>
+  <!-- ==================== NEW FULL-WIDTH DASHBOARD MENU ==================== -->
+  <!-- Sits safely outside the grid so it stretches across both sidebars -->
+{{ if .Content }}
+<div class="max-w-none pt-6 w-full block" style="margin-top: 2.5rem; margin-bottom: 1.5rem;">
+  <!-- Added style="max-width: 100% !important;" to smash the theme's core constraint -->
+  <div class="prose text-lg dark:prose-invert" style="max-width: 100% !important;">
+    {{ .Content }}
+  </div>
+</div>
+{{ end }}
+
+
+{{/*
+{{ if $author.aboutButtons }}
+<div class="bio-dashboard-menu border-t border-neutral-200 dark:border-neutral-700/60 pt-2" style="margin-top: 1rem;">
+  
+  <!-- Exact wrapper from feature-grid.html matching 3 columns (lg:grid-cols-3 grid-balance-3) -->
+  <!--CHANGED this line to fix lone element stretching across screen removed `grid-balance grid-balance-3`-->
+  <!--<div class="not-prose my-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 grid-balance grid-balance-3"> -->
+  <div class="not-prose my-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">  
+    {{ range $author.aboutButtons }}
+      {{ $icon := .icon | default "wand-magic-sparkles" }}
+      {{ $title := .title | default "Feature" }}
+      {{ $url := .url }}
+      {{ $label := .label | default "Learn more" }}
+      {{ $headingLevel := .headingLevel | default "h2" }}
+      
+      <!-- Fallback sanity check matching shortcode validation rules -->
+      {{ if not (in (slice "h1" "h2" "h3" "h4" "h5" "h6") $headingLevel) }}
+        {{ $headingLevel = "h2" }}
+      {{ end }}
+
+      <!-- Exact card container element layout structure from feature.html -->
+      <article class="group rounded-2xl border border-neutral-200/80 bg-white/60 p-6 shadow-sm backdrop-blur-xl transition duration-200 hover:-translate-y-1 hover:border-primary-300 hover:shadow-xl hover:shadow-primary-500/10 dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:border-primary-700">
+        
+        <!-- Icon rendering plate -->
+        <span class="mb-5 text-2xl inline-flex rounded-xl bg-primary-200 p-3 text-neutral-900 dark:bg-primary-950 dark:text-neutral-900">
+          {{ partial "icon.html" $icon }}
+        </span>
+        
+        <!-- Dynamic Heading Rendering Block matching original safeHTML architecture -->
+        {{ printf `<%s class="text-xl font-bold text-neutral-900 dark:text-white">` $headingLevel | safeHTML }}
+          {{ $title | markdownify }}
+        {{ printf `</%s>` $headingLevel | safeHTML }}
+        
+        <!-- Sub-description layer mimicking the converted markdown content container -->
+        {{ with .description }}
+          <div class="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+            {{ . | markdownify }}
           </div>
         {{ end }}
-      </div>
-      {{ end }}
-    </div>
+        
+        <!-- Action target text link with inline "link" asset partial call -->
+        {{ with $url }}
+          <a class="mt-5 inline-flex items-center gap-2 text-md font-bold text-primary-600 hover:text-primary-500 dark:text-primary-400" href="{{ . | safeURL }}">
+            {{ $label | markdownify }}
+            {{ partial "icon.html" "link" }}
+          </a>
+        {{ end }}
+        
+      </article>
+
+    {{ end }}
   </div>
 
-  <!-- ==================== TIER 2: MIDDLE DATA SUBGRID ==================== -->
-  <!-- This bridges across the page underneath the main profile row -->
-  <div class="bio-meta-middle-row border-t border-b border-neutral-200 dark:border-neutral-700/60 my-8 py-8">
-    <div class="middle-data-grid">
-      
-      <!-- Interests Subsection -->
-      {{ if $author.interests }}
-      <div class="middle-grid-column">
-        <h4 class="text-sm font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-5 !mt-0">Interests</h4>
-        <div class="bio-tag-cloud">
-          {{ range $author.interests }}
-            <!-- Converts the badge into an active search layout anchor link -->
-            <a href="/tags/{{ . | urlize }}/" 
-               class="bio-custom-tag text-neutral-700 dark:text-neutral-300 border border-neutral-700 dark:border-neutral-700/40 hover:bg-primary-500/10 hover:border-primary-500 transition-colors"
-               aria-label="View all content related to {{ . }}">
-               {{ . }}
-            </a>
-          {{ end }}
-        </div>
+</div>
+{{ end }}
+*/}}
+<!-- for Simple buttons  -->
 
-      </div>
-      {{ end }}
-
-      <!-- Educational Pathway Subsection -->
-      {{ if $author.education }}
-      <div class="middle-grid-column">
-        <h4 class="text-sm font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-4 !mt-0">Education</h4>
-        <div style="display: flex; flex-direction: column; gap: 1.25rem;">
-          {{ range $author.education }}
-            <div style="display: flex; flex-direction: column; gap: 0.15rem;">
-              <h5 class="text-md font-bold text-neutral-900 dark:text-neutral-100 !m-0">{{ .course }}</h5>
-              <p class="text-sm text-neutral-500 dark:text-neutral-400 !m-0">
-                <span class="text-neutral-500 dark:text-neutral-400 font-semibold">{{ .institution }}</span> — {{ .year }}
-              </p>
-            </div>
-          {{ end }}
-        </div>
-      </div>
-      {{ end }}
-
-    </div>
-  </div>
-
-  <!-- ==================== TIER 3: BOTTOM CONTENT & DASHBOARD ==================== -->
-
-  {{ if .Content }}
-  <div class="max-w-none pt-2 w-full block" style="margin-bottom: 1.5rem;">
-    <div class="prose text-lg dark:prose-invert" style="max-width: 100% !important;">
-      {{ .Content }}
-    </div>
+<!-- 
+  {{ if $author.aboutButtons }}
+  <div class="bio-dashboard-menu border-t border-neutral-200 dark:border-neutral-700/60 pt-8" style="margin-top: 1rem;">
+    {{ range $author.aboutButtons }} -->
+      <!-- Base text colors are set natively via Tailwind tokens, paired with independent hover state shifts -->
+<!-- 
+      <a href="{{ .url | relURL }}" class="bio-dashboard-btn text-neutral-700 dark:text-neutral-300 hover:text-primary-500 dark:hover:text-primary-400 hover:border-primary-500 dark:hover:border-primary-400">
+        {{ if .icon }}
+          <span class="bio-dashboard-icon-frame">{{ partial "icon.html" .icon }}</span>
+        {{ end }}
+        {{ .text }}
+      </a>
+    {{ end }}
   </div>
   {{ end }}
-
+ -->
+ {{/* Replaced the entire block above with this to center single elements */}}
 {{ if $author.aboutButtons }}
 <div class="bio-dashboard-menu border-t border-neutral-200 dark:border-neutral-700/60 pt-2" style="margin-top: 1rem;">
   

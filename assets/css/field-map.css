@@ -1,0 +1,40 @@
+/* Base hidden state */
+.research-map-hotspot-node .custom-hover-tooltip-card {
+  position: absolute !important;
+  top: 32px !important;
+  left: 50% !important;
+  transform: translateX(-50%) scale(0.95) !important;
+  display: none !important;
+  pointer-events: auto !important; /* FIXED: Keeps links clickable */
+  z-index: 5000 !important;
+  min-width: 18rem !important;
+  max-width: 18rem !important;
+  width: 18rem !important;
+  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out !important;
+  opacity: 0 !important;
+}
+
+/* FIXED: Higher specificity selector to guarantee it overrides display: none */
+.research-map-hotspot-node.tooltip-active .custom-hover-tooltip-card {
+  display: block !important;
+  opacity: 1 !important;
+  transform: translateX(-50%) scale(1) !important;
+}
+
+/* Force the active pin container to stack over all other pins */
+.research-map-hotspot-node.tooltip-active {
+  z-index: 9999 !important;
+}
+
+/* Pin styles remain unchanged */
+.research-map-hotspot-node .node-center-dot {
+  transition: transform 100ms ease !important;
+}
+
+.research-map-hotspot-node:hover .node-center-dot {
+  transform: scale(1.25) !important;
+}
+
+.pin-highlight-active {
+  transform: scale(3.2) !important;
+}

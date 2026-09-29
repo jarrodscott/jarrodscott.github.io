@@ -39,7 +39,7 @@
         <div class="absolute inset-0 h-screen bg-neutral-100 mix-blend-normal dark:bg-neutral-800" style="opacity: 0.0;"></div>          
          -->        
         <div class="absolute inset-0 h-screen bg-gradient-to-t from-neutral to-transparent dark:from-neutral-800"></div>
-        <div class="absolute inset-0 h-screen bg-gradient-to-b from-neutral to-neutral-200 opacity-60 
+        <div class="absolute inset-0 h-screen bg-gradient-to-b from-neutral to-neutral-200 opacity-10 dark:opacity-60 
          dark:from-neutral-800 dark:to-neutral-800"></div>
       {{ end }}
     </div>
@@ -74,22 +74,40 @@
 
     <!-- FOREGROUND CONTENT LAYER -->
     <div class="relative flex flex-col items-center justify-start px-4 text-center" style="margin-top: 25vh; min-height: 40vh;">
-    <!-- AUTHOR NAME -->
-      <h1 class="mb-2 text-3xl font-semibold text-neutral-800 dark:text-neutral-200">
-        {{ .Site.Data.author.name | default .Site.Title }}
-      </h1>
-<!-- AUTHOR HEADLINE SET show_headline: true -->
-{{ if ne .Params.show_headline false }}
-      {{ with .Site.Data.author.headline }}
-        <h2 class="mt-0 mb-6 text-xl text-neutral-900 dark:text-neutral-300">
+
+{{ if ne .Params.show_headlineA false }}
+      {{ with .Site.Data.author.headlineA }}
+        <p class="mt-0 mb-6 text-xl text-neutral-900 dark:text-neutral-300">
           {{ . | markdownify }}
-        </h2>
+        </p>
+      {{ end }}
+{{ end }}
+
+    <!-- AUTHOR NAME -->
+    <h1 class="mb-2 text-4xl custom-tracking-widest text-neutral-800 dark:text-neutral-200" style="display: flex; align-items: center; text-align: center; width: 100%;">
+        <span style="flex-grow: 1; border-bottom: 3px solid currentColor; opacity: 0.6; margin-right: 1rem;"></span>
+        <span>{{ .Site.Data.author.name | default .Site.Title }}</span>
+        <span style="flex-grow: 1; border-bottom: 3px solid currentColor; opacity: 0.6; margin-left: 1rem;"></span>    
+    </h1>
+
+{{/*
+      <h1 class="mb-2 text-4xl custom-tracking-widest  text-neutral-800 dark:text-neutral-200 ">
+        -{{ .Site.Data.author.name | default .Site.Title }}-
+      </h1>
+*/}}
+
+<!-- AUTHOR HEADLINE SET show_headline: true -->
+{{ if ne .Params.show_headlineB false }}
+      {{ with .Site.Data.author.headlineB }}
+        <p class="mt-0 mb-6 text-xl text-neutral-900 dark:text-neutral-300">
+          {{ . | markdownify }}
+        </p>
       {{ end }}
 {{ end }}
       
       <!-- Note: Social links div block removed from here entirely -->
       <!-- STYLE CONTENT BLOCK -->
-      <section class="prose text-lg text-neutral-900 dark:text-neutral-300 w-full max-w-none custom-button-spacing mt-6">
+      <section class="prose text-lg text-neutral-900 dark:text-neutral-300 max-w-2xl max-w-none custom-button-spacing mt-6">
         {{ .Content }}
       </section>
       

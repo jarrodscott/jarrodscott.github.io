@@ -1,0 +1,44 @@
+cards:
+    
+  - title: "Entangled"
+    date: 2026-06-25
+    summary: "STRI-McGill field course weaves together natural history, social science, tropical ecology, and cultural exchange."
+    externalUrl: "https://stri.si.edu/story/entangled"
+    showSummary: true
+    featureImage: "images/research-portfolio/media/entangled.jpg"  
+    
+  - title: "Picture the Unseen"
+    date: 2025-06-25
+    summary: "A community of scientists put microbial ecosystems back together again using anvi’o."
+    externalUrl: "https://stri.si.edu/story/picture-unseen"
+    showSummary: true
+    featureImage: "images/research-portfolio/media/unseen.png"  
+    
+  - title: "Caribbean asphyxiation"
+    date: 2021-06-25
+    summary: "Desperate brittlestars, suffocating corals and resilient microbes: First multidisciplinary data from an acute marine hypoxic event and its historical context."
+    externalUrl: "https://stri.si.edu/story/caribbean-asphyxiation"
+    showSummary: true
+    featureImage: "images/research-portfolio/media/asphyxiation.png"  
+    
+  - title: "Eastern Tropical Pacific"
+    date: 2018-06-25
+    summary: "Marine expedition launched from new Coibita station."
+    externalUrl: "https://stri.si.edu/story/eastern-tropical-pacific"
+    showSummary: true
+    featureImage: "images/research-portfolio/media/coibita.png"  
+    
+  - title: "It’s complicated"
+    date: 2016-06-25
+    summary: "Why study symbiotic relationships in Panama?"
+    externalUrl: "https://stri.si.edu/story/its-complicated"
+    showSummary: true
+    featureImage: "images/research-portfolio/media/complicated.png"  
+    
+  - title: "Cover Photo for PLoS Genetics"
+    date: 2010-06-25
+    summary: "A leaf-cutter ant worker carries a leaf fragment back to her colony."
+    externalUrl: "https://journals.plos.org/plosgenetics/issue?id=10.1371/issue.pgen.v06.i09"
+    showSummary: true
+    #badge: "workflow"    
+    featureImage: "images/research-portfolio/media/plos.png"  

@@ -30,12 +30,14 @@
   pre = "link"
   url = "https://jarrodscott.github.io/"
   weight = 50
+  title = "Homepage"
 
 [[main]]
   identifier = "github"
   pre = "github"
   url = "https://github.com/jarrodscott/jarrodscott.github.io"
   weight = 60
+  title = "Site GitHub Repo"
 
 #[[main]]
 #  identifier = "how-to"

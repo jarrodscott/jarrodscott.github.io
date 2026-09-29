@@ -1,0 +1,116 @@
+map_settings:
+  region_name: "Republic of Panama"
+  fallback_image_path: "images/field-maps/panama-field-map.png"
+  caption: "Field sites for Entangled Social & Ecological Systems Field Courses"
+
+sites:
+
+  - id: "site-01"
+    name: "Mount Totumas"
+    latitude: 8.874
+    longitude: -82.690
+    category: "High Elevation"
+    color_hex: "#AA0DB4" 
+    description: "High-altitude, rugged mountain wilderness located in the Chiriquí Highlands, Mount Totumas serves as a critical private reserve for upper-montane ecology. Research here focuses on cloud forest biodiversity, volcanic soil dynamics, & the habitat corridors of rare species like the Resplendent Quetzal, three-wattled bellbird, & various highland orchids."
+    x_percent: 2.0
+    y_percent: 32.0
+    link: "[Learn more about Mt. Totumas](https://www.mounttotumas.com/)"
+
+  - id: "site-02"
+    name: "Bocas del Toro"
+    latitude: 9.352
+    longitude: -82.256
+    category: "Marine"
+    color_hex: "#0063E5" 
+    description: Located on the western Caribbean coast, the Bocas del Toro Station offers immediate access to seagrass beds, coral reefs, & mangrove forests."
+    x_percent: 14.0
+    y_percent: 22.0
+    link: "[Learn more about Bocas del Toro](https://stri.si.edu/facility/bocas-del-toro)"
+
+  - id: "site-03"
+    name: "Gamboa/Pipeline Road" 
+    latitude: 9.120
+    longitude: -79.705
+    category: "Lowland Forest"
+    color_hex: "#AA0DB4"
+    description: "A world-renowned green-belt of secondary & primary lowland rainforest. This site is legendary among evolutionary biologists, herpetologists, & birdwatchers. It provides a continuous gradient of forest ages, making it perfect for studying forest regeneration, animal movement corridors, & tropical disease ecology."
+    x_percent: 56.5
+    y_percent: 32.0
+    link: "[Learn more about Gamboa/Pipeline Road](https://stri.si.edu/facility/gamboa)"
+
+  - id: "site-04"
+    name: "Barro Colorado Island (BCI)" 
+    latitude: 9.152
+    longitude: -79.847
+    category: "Lowland Forest"
+    color_hex: "#AA0DB4"
+    description: "Formed when the Chagres River was dammed to create the Panama Canal. BCI 50-Hectare Forest Dynamics Plot has tracked over 400,000 individual trees for decades. It is the global benchmark for understanding tree demography, forest carbon storage, & mammal-plant interactions."
+    x_percent: 54.5
+    y_percent: 28.0
+    link: "[Learn more about BCI](https://stri.si.edu/facility/barro-colorado)"
+
+  - id: "site-05"
+    name: "San Lorenzo Canopy Crane" 
+    latitude: 9.280 
+    longitude: -79.975
+    category: "Rainforest"
+    color_hex: "#AA0DB4"
+    description: "Wet, evergreen Caribbean rainforest, this crane offers access to a much wetter, older, & taller forest than its Pacific counterpart. Research here focuses on high-humidity biodiversity, complex epiphyte communities (like orchids & bromeliads), & insect canopy dynamics."
+    x_percent: 52.0
+    y_percent: 23.5
+    link: "[Learn more about the Canopy Cranes](https://stri.si.edu/facility/canopy-access-cranes)"
+
+  - id: "site-06"
+    name: "Metropolitan Natural Park Canopy Crane" 
+    latitude: 8.994 
+    longitude: -79.543
+    category: "Dry Forest"
+    color_hex: "#AA0DB4"
+    description: "Dry forest canopy located in a semi-deciduous lowland forest that experiences a severe dry season. Ideal for studying how tropical plants cope with drought, high light intensity, & seasonal water stress."
+    x_percent: 59.0
+    y_percent: 33.5
+    link: "[Learn more about the Canopy Cranes](https://stri.si.edu/facility/canopy-access-cranes)"
+
+  - id: "site-07"
+    name: "Isla Coibita"
+    latitude: 7.65
+    longitude: -81.70
+    category: "Marine"
+    color_hex: "#0063E5"
+    description: "Located within the Pacific's Coiba National Park (a UNESCO World Heritage Site), the Isla Coibita  Field Station provides an isolated, highly biodiverse marine laboratory for studying pristine Pacific marine ecosystems."
+    x_percent: 22.0
+    y_percent: 82.0
+    link: "[Learn more about Isla Coiba](https://stri.si.edu/facility/coibita-island)"
+
+  - id: "site-08"
+    name: "Portobelo"
+    latitude: 9.495
+    longitude: -79.643
+    category: "Marine"
+    color_hex: "#0063E5" 
+    description: "Historically rich, mangrove-dense, & reef-lined Atlantic coast. Research here focuses on coastal marine conservation, the health of heavily fringed Caribbean mangrove systems, sea turtle nesting, & coral reef habitats."
+    x_percent: 58.0
+    y_percent: 15.5
+
+  - id: "site-09"
+    name: "Agua Salud"
+    latitude: 9.253
+    longitude: -79.701
+    category: "Forest Plots"
+    color_hex: "#AA0DB4" 
+    description: "A massive, landscape-scale experiment in a critical watershed. Agua Salud takes is a mosaic of cattle pastures, secondary forests, & native tree plantations. Researchers use it as a massive  experiment to figure out how to restore degraded land, maximize freshwater flow for the Panama Canal, & design smart reforestation projects that optimize carbon storage."
+    x_percent: 57.0
+    y_percent: 25.5
+    link: "[Learn more about Agua Salud](https://stri.si.edu/facility/agua-salud)"
+
+  - id: "site-10"
+    name: "Santa Catalina"
+    latitude: 7.627
+    longitude: -81.255
+    category: "Marine"
+    color_hex: "#0063E5" 
+    description: "Rugged, swell-battered fishing village located on the Veraguas coast. Research here focuses on Pacific coral reef resilience & artisanal fisheries management."
+    x_percent: 32.0
+    y_percent: 77.5
+    #link: "[Learn more about Agua Salud](https://stri.si.edu/facility/agua-salud)"
+

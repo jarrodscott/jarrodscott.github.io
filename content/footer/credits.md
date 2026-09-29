@@ -5,7 +5,7 @@ layout: single # changed from mod-single
 weight: 20
 ---
 
-> Unless otherwise noted, all content of this website, including text and images, are my own. 
+> Unless otherwise noted, all content on this website, including text and images, are my own. 
 
 ## Homepage
 

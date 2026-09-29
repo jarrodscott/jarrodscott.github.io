@@ -1,0 +1,98 @@
+{{ define "main" }}
+  {{ .Scratch.Set "scope" "timeline-simple" }}
+  
+  {{/* FORCE BUNDLE INJECTION: Ensures styles exist on BOTH bleed paths */}}
+  {{ $timelineCSS := resources.Get "css/timeline-simple.css" }}
+  {{ if $timelineCSS }}
+    {{ $compiledCSS := $timelineCSS | resources.Minify | resources.Fingerprint }}
+    <link rel="stylesheet" href="{{ $compiledCSS.RelPermalink }}" integrity="{{ $compiledCSS.Data.Integrity }}">
+  {{ else }}
+    <!-- Fallback link in case it was renamed to custom.css inside assets/css/ -->
+    {{ $customCSS := resources.Get "css/custom.css" | resources.Minify | resources.Fingerprint }}
+    <link rel="stylesheet" href="{{ $customCSS.RelPermalink }}" integrity="{{ $customCSS.Data.Integrity }}">
+  {{ end }}
+
+  {{ $showReadingProgress := site.Params.article.showReadingProgress | default false }}
+  {{ if isset .Params "showreadingprogress" }}
+    {{ $showReadingProgress = .Params.showReadingProgress }}
+  {{ end }}
+  {{ if $showReadingProgress }}
+    {{ partial "reading-progress.html" . }}
+  {{ end }}
+
+  <!-- Outer utility class allows the content container to slide out fully -->
+  <article class="w-full max-w-full overflow-x-hidden">
+    
+    {{/* Hero Layout Engine */}}
+    {{ $heroStyle := .Params.heroStyle | default site.Params.article.heroStyle | default "basic" }}
+    {{ if .Params.showHero | default (site.Params.article.showHero | default false) }}
+      {{ $heroPartial := print "hero/" $heroStyle ".html" }}
+      {{ if templates.Exists ( printf "partials/%s" $heroPartial ) }}
+        {{ partial $heroPartial . }}
+      {{ else }}
+        {{ partial "hero/basic.html" . }}
+      {{ end }}
+    {{ end }}
+
+    {{/* Layout spacer for background hero layouts */}}
+    {{ if and (.Params.showHero | default (site.Params.article.showHero | default false)) (eq $heroStyle "background") }}
+      <div class="h-[150px] md:h-[200px]"></div>
+    {{ end }}
+
+    {{/* DYNAMIC LAYOUT ENGINE SWITCH */}}
+    {{ if .Params.full_bleed }}
+      
+      <!-- VIEW A: Full Page Canvas Layout (Fits cleanly under the header) -->
+      <div class="w-full mt-4 px-4 sm:px-6 lg:px-8">
+        <main class="w-full custom-timeline-headings">
+          {{ .Content }}
+        </main>
+      </div>
+
+    {{ else }}
+      
+      <!-- VIEW B: Standard Timeline Side-by-Side Flex Layout -->
+      <!-- Header wrapper mirroring standard spacing -->
+      <header class="w-full mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl mt-5">
+        {{ if .Params.showBreadcrumbs | default (.Site.Params.article.showBreadcrumbs | default false) }}
+          {{ partial "breadcrumbs.html" . }}
+        {{ end }}
+        <h1 class="mt-2 mb-2 text-4xl font-bold text-neutral-900 dark:text-neutral">
+          {{ .Title | emojify }}
+        </h1>
+        {{ with .Params.description }}
+        <p class="max-w-2xl text-neutral-900 dark:text-neutral-100 text-xl">{{ . }}</p>
+        {{ end }}
+      </header>
+
+      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 custom-page-split-grid">
+        <!-- Main Content Area -->
+        <main class="prose dark:prose-invert custom-timeline-headings custom-body-column">
+          {{ .Content }}
+        </main>
+
+        <!-- Sidebar Area -->
+        <aside class="custom-timeline-sidebar">
+          {{ $enableToc := site.Params.article.showTableOfContents | default false }}
+          {{ $enableToc = .Params.showTableOfContents | default $enableToc }}
+          {{ $showToc := and $enableToc (in .TableOfContents "<ul") }}
+          {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
+          
+          {{ if $showToc }}
+            <div class="toc print:hidden lg:sticky {{ $topClass }}">
+              {{ partial "toc.html" . }}
+            </div>
+          {{ end }}
+        </aside>
+      </div>
+
+      <!-- Footer wrapper mirroring standard theme structure -->
+      <footer class="pt-8 w-full mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        {{ partial "sharing-links.html" . }}
+        {{ partial "portfolio-nav.html" . }}
+      </footer>
+
+    {{ end }}
+
+  </article>
+{{ end }}

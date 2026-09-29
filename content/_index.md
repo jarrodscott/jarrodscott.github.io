@@ -2,9 +2,12 @@
 title: "Jarrod"
 #layout: "custom" #page, profile, hero, card, background, landing, or custom
 show_sidebar: false
-show_headline: false
+show_headline: true
 ---
 
+Welcome to my website! I'm glad you stopped by. This site is an attempt to encapsulate the work I have done as a research scientist. I am available for **collaborations** and/or **freelance work**. Check out my research portfolio for more detailed information. 
+
+{{< cta url="research-portfolio/" label="Research Portfolio" style="outline" >}}
 
 <!---
 content/_index.md Welcome to my website! I'm really happy you stopped by.
@@ -28,13 +31,12 @@ SciArt
 
 </br>
 </br>
+{{< cta url="collaborate/" label="Collaboration & Services" style="outline" >}}
+
+<p style="text-align: center; font-family: Syncopate">Welcome to my website! I'm really happy you stopped by.</p>
 --->
 
-**Welcome to my website! I'm really happy you stopped by.**
 
-{{< cta url="research-portfolio/" label="Research" style="outline" >}}
-
-{{< cta url="collaborate/" label="Collaboration & Services" style="outline" >}}
 
 
 

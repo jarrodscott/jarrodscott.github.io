@@ -45,3 +45,11 @@
     <link rel="stylesheet" href="{{ $zoomCSS.RelPermalink }}" integrity="{{ $zoomCSS.Data.Integrity }}">
   {{ end }}
 {{ end }}
+
+<!-- 8. Custom TOC For field-map -->
+
+{{ if .HasShortcode "field-map" }}
+  {{ $css := resources.Get "css/field-map.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
+{{ end }}
+

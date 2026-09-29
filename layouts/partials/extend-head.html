@@ -1,6 +1,6 @@
 <!-- layouts/partials/extend-head.html -->
 
-<!-- Lightbox3  -->
+<!-- 1. Lightbox3  -->
 {{ $lightboxCss := resources.Get "css/lightbox3.css" }}
 {{ if $lightboxCss }}
   <link rel="stylesheet" href="{{ $lightboxCss.RelPermalink }}">
@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="{{ $customCss.RelPermalink }}">
 {{ end }}
 
-<!-- Dynamic Theme Palette Containers (Evaluated once via partialCached) -->
+<!-- 2. Dynamic Theme Palette Containers (Evaluated once via partialCached) -->
 {{ $schemes := slice "autumn" "avocado" "bloody" "blowfish" "burufugu" "congo" "fire" "forest" "github" "marvel" "neon" "noir" "ocean" "one-light" "princess" "slate" "terminal" }}
 {{ range $schemes }}
   {{ $scheme := . }}
@@ -19,3 +19,11 @@
     <div class="raw-scheme-data" data-scheme="{{ $scheme }}" data-css="{{ .Content }}"></div>
   {{ end }}
 {{ end }}
+
+<!-- 3. Custom TOC CSS -->
+
+{{- if .Params.showTableOfContents | default site.Params.article.showTableOfContents | default true -}}
+  {{- $style := resources.Get "css/toc.css" | resources.Minify | resources.Fingerprint -}}
+  <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous">
+{{- end -}}
+

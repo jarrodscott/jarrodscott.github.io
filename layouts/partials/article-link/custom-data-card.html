@@ -1,0 +1,141 @@
+{{ $disableImageOptimization := site.Store.Get "disableImageOptimization" }}
+{{ $featured := "" }}
+{{ $featuredURL := "" }}
+{{ $thumbnailAspectRatio := site.Params.thumbnailAspectRatio | default "1.5" }}
+{{ $thumbnailAspectRatio = replaceRE "[^0-9.]" "" $thumbnailAspectRatio }}
+{{ if eq $thumbnailAspectRatio "" }}{{ $thumbnailAspectRatio = "1.5" }}{{ end }}
+
+{{ if not .hideFeatureImage }}
+  {{ with .featureImage }}
+    {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+      {{ if site.Params.hotlinkFeatureImage }}
+        {{ $featuredURL = . }}
+      {{ else }}
+        {{ $featured = resources.GetRemote . }}
+      {{ end }}
+    {{ else }}
+      {{ $featured = resources.Get . }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Generate image URL if not hotlink */}}
+  {{ if not $featuredURL }}
+    {{ with $featured }}
+      {{ $featuredURL = .RelPermalink }}
+      {{ if not (or $disableImageOptimization (eq .MediaType.SubType "svg")) }}
+        {{ $featuredURL = (.Resize "600x").RelPermalink }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+<!-- REMOVED: article-link--card class to prevent theme logic overrides from hijacking clicks -->
+<!-- REMOVED: "group" class from the article tag so prose hovering no longer triggers the image effects -->
+<article
+  class="relative min-h-full min-w-full overflow-hidden rounded-lg border border-neutral-300 dark:border-neutral-600 transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl hover:scale-[1.01]">
+  
+  {{ with $featuredURL }}
+    <!-- ADDED: "group" class here so the hover effects only look at this link container -->
+    <a href="{{ $.externalUrl | safeURL }}" target="_blank" rel="external" class="group block no-underline">
+      <div class="flex-none relative overflow-hidden thumbnail_card" style="--thumbnail-aspect-ratio: {{ $thumbnailAspectRatio }}">
+        
+        <!-- Main Background Card Image -->
+        <img
+          src="{{ . }}"
+          role="presentation"
+          loading="lazy"
+          decoding="async"
+          class="not-prose nozoom absolute inset-0 w-full h-full object-cover m-0 p-0 transition-opacity duration-200">
+          
+        <!-- FIXED OVERLAY: Now triggers ONLY when the cursor is over the image link container -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none transition-all duration-300 opacity-0 group-hover:opacity-100"
+             style="background-color: rgba(23, 23, 23, 0.45) !important;">
+             
+          {{- with resources.Get "icons/link.svg" -}}
+            <span class="w-16 h-16 text-neutral-200/90 transform -rotate-45 block">
+              {{ .Content | safeHTML }}
+            </span>
+          {{- else -}}
+            <span class="text-xs text-white uppercase tracking-widest font-semibold">View Link</span>
+          {{- end -}}
+          
+        </div>
+        
+      </div>
+    </a>
+  {{ end }}
+
+  <!-- The rest of your card code (p-4 wrapper, header, summary, etc.) remains exactly the same -->
+
+
+  <div class="p-4">
+    <header>
+      <!-- CHANGED: Removed before:absolute before:inset-0 so the click stays bound to the text -->
+      <a
+        href="{{ .externalUrl | safeURL }}" 
+        target="_blank" 
+        rel="external"
+        class="not-prose decoration-primary-500 dark:text-neutral text-xl font-semibold text-neutral-800 hover:underline hover:underline-offset-2">
+        <h2>
+          {{ .title | emojify }}
+        </h2>
+      </a>
+    </header>
+    
+    <!-- Empty metadata context safety wrapper mirroring page layout alignment -->
+    <div class="text-sm text-neutral-500 dark:text-neutral-400"></div>
+
+    <!-- MATCHED BADGES: Evaluates YAML attributes against your taxonomy logic & icons -->
+    {{ if .badge }}
+      <div class="mt-2 mb-1 flex flex-wrap gap-1 relative z-10">
+        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-sm font-semibold uppercase tracking-wider
+          {{ if eq .badge "workflow" }} bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300
+          {{ else if eq .badge "slides" }} bg-purple-100 text-purple-800 dark:bg-purple-900/40 dark:text-purple-300
+          {{ else if eq .badge "project" }} bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300
+          {{ else if eq .badge "tutorial" }} bg-purple-100 text-purple-800 dark:bg-purple-900/40 dark:text-purple-300
+          {{ else }} bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-400 {{ end }}">
+          
+          <!-- Dynamic Theme Icon Loader matching parent parameters -->
+          {{ $iconName := "" }}
+          {{ if eq .badge "workflow" }}{{ $iconName = "gear" }}
+          {{ else if eq .badge "slides" }}{{ $iconName = "projector" }}
+          {{ else if eq .badge "project" }}{{ $iconName = "code" }}
+          {{ else if eq .badge "tutorial" }}{{ $iconName = "circle-info" }}
+          {{ end }}
+          {{ if $iconName }}
+            <span class="inline-block fill-current text-current mr-2 [&>svg]:w-4.5 [&>svg]:h-4.5 align-middle">
+              {{ partial "icon.html" $iconName }}
+            </span>
+          {{ end }}
+          {{ .badge }}
+        </span>
+      </div>
+    {{ end }}
+    
+    <!-- Render text summary if toggle flag evaluates true -->
+    {{ if .showSummary }}
+      <div class="article-link__summary prose dark:prose-invert mt-1 line-clamp-5">
+        {{ .summary | markdownify }}
+      </div>
+    {{ end }}
+
+    {{ if .toolLink }}
+      <div class="article-link__tool prose dark:prose-invert mt-1 line-clamp-5 text-sm flex items-center gap-2">
+        {{ partial "icon.html" "code" }}
+        <span>{{ .toolLink | markdownify }}</span>
+      </div>
+    {{ end }}
+
+    {{ if .githubRepo }}
+      <div class="article-link__tool prose dark:prose-invert mt-1 line-clamp-5 text-sm flex items-center gap-2">
+        {{ partial "icon.html" "github" }}
+        <span>{{ .githubRepo | markdownify }}</span>
+      </div>
+    {{ end }}
+
+
+    
+    
+  </div>
+  <div class="px-6 pt-4 pb-2"></div>
+</article>

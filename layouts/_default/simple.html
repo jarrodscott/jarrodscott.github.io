@@ -11,7 +11,11 @@
       {{ with .Params.description }}
       <p class="max-w-2xl text-neutral-500 dark:text-neutral-400 text-lg">{{ . }}</p>
       {{ end }}
-
+{{ if .Params.showTableOfContents | default (.Param "article.showTableOfContents") }}
+<div class="toc-wrapper">
+    {{ partial "toc.html" . }}
+</div>
+{{ end }}
     <section class="max-w-full mt-6 prose dark:prose-invert">
       {{ .Content }}
     </section>

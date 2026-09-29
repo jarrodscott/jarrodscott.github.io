@@ -1,0 +1,10 @@
+{{/* Capture toggle setting from shortcode parameter or fallback to Markdown front matter */}}
+{{- $showGrid := true }}
+{{- if .IsNamedParams }}
+  {{- $showGrid = .Get "show_grid" | default .Page.Params.show_grid | default true }}
+{{- else }}
+  {{- $showGrid = .Get 0 | default .Page.Params.show_grid | default true }}
+{{- end }}
+
+{{/* Pass the original page context along with our toggle value */}}
+{{- partial "field-map.html" (dict "page" .Page "show_grid" $showGrid) }}
