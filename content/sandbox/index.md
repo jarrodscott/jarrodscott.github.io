@@ -1,6 +1,7 @@
 ---
 title: "Sandbox"
 description: "A place to play."
+layout: single
 showHero: true
 heroStyle: background # basic, big, background, thumbAndBackground. Effective only if article.showHero = true.
 layoutBackgroundBlur: true
@@ -239,7 +240,6 @@ Public Domain DedicationAllows: Waives all worldwide copyright protections compl
 Complete list of my publications
 {{< /button >}}
 
-<!--
 Please see →  {{< link url="/research-portfolio/publications" text="this link for a complete list of my publications" >}}.
 
 {{< alert "link" >}}
@@ -250,8 +250,6 @@ Code like so {{< link url="http://doi.org/10.37807/GBMF5603" text="SOME TEXT" >}
 
 > [!note]
 > Use this → link so see all of [my publications](/research-portfolio/publications).
-
--->
 
 ## auto bibliography from BibBase
 

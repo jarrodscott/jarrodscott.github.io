@@ -166,7 +166,7 @@
               {{ with .Params.doi }}{{ $doi_url = print "https://doi.org/" . }}{{ else }}{{ with .Params.url_doi }}{{ $doi_url = . }}{{ end }}{{ end }}
               {{ if $doi_url }}
                 <a href="{{ $doi_url }}" target="_blank" class="inline-flex items-center no-underline text-neutral-500 hover:text-primary-500 dark:text-neutral-400 dark:hover:text-primary-400 gap-1.5">
-                  {{- with resources.Get "icons/doi.svg" -}}
+                  {{- with resources.Get "icons/link.svg" -}}
                     <span class="inline-block align-middle opacity-70" style="width: 14px; height: 14px; display: inline-flex; align-items: center;">{{ .Content | safeHTML }}</span>
                   {{- end -}}
                   DOI

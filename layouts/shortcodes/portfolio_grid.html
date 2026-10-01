@@ -1,0 +1,151 @@
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 writeups-container">
+  {{ range .Site.Data.portfolio.projects }}
+  <div class="border border-neutral-200 dark:border-neutral-700 rounded-xl p-6 bg-background dark:bg-neutral-800 shadow-sm flex flex-col justify-between">
+    <div>
+      <h3 class="text-xl font-bold mb-2 mt-2">{{ .title }}</h3>
+      
+      <p class="text-lg italic text-neutral-600 dark:text-neutral-400 mb-4">
+        {{ .hook }}
+      </p>
+
+      <!-- TWO-COLUMN METADATA STACK -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5 mt-2 border-t border-b border-neutral-100 dark:border-neutral-700/50 py-4">
+        <!-- MODALITIES -->
+        <div>
+          <strong class="text-sm uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block mb-2">Data Modalities:</strong>
+          <div class="flex flex-wrap gap-1.5">
+            {{ range .modalities }}
+              <span class="inline-flex items-center rounded-md bg-neutral-100 px-2 py-0.5 text-sm font-medium text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 border border-neutral-200/50 dark:border-neutral-600/30">
+                {{ . }}
+              </span>
+            {{ end }}
+          </div>
+        </div>
+
+        <!-- APPROACHES -->
+        <div>
+          <strong class="text-sm uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block mb-2">Analytical Approaches:</strong>
+          <div class="flex flex-wrap gap-1.5">
+            {{ range .approaches }}
+              <span class="inline-flex items-center rounded-md bg-neutral-100 px-2 py-0.5 text-sm font-medium text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 border border-neutral-200/50 dark:border-neutral-600/30">
+                {{ . }}
+              </span>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+
+
+      <!-- DATA & STACK -->
+      {{/*
+      <div class="mb-4 mt-4">
+        <strong class="text-sm uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block">The Data & Stack:</strong>
+        <ul class="list-disc list-inside text-sm mt-1 text-neutral-700 dark:text-neutral-300 font-medium">
+          {{ range .stack }}
+            <li>{{ . }}</li>
+          {{ end }}
+        </ul>
+      </div>
+      */}}
+
+
+      <!-- 1. AUTOMATIC WEBP COMPRESSION VISUAL BLOCK -->
+      <div class="mb-4 overflow-hidden rounded-lg border border-neutral-100 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900">
+        {{ $imagePath := printf "images/%s" .hero_image }}
+        {{ $globalImage := resources.GetMatch $imagePath }}
+        
+        {{ if $globalImage }}
+          {{/* Resize to a reasonable max width and convert cleanly to webp format */}}
+          {{ $optimizedImage := $globalImage.Resize "800x webp" }}
+          <img src="{{ $optimizedImage.RelPermalink }}" alt="{{ .hero_alt }}" class="w-full h-48 object-contain mx-auto max-w-full" loading="lazy">
+        {{ else }}
+          <div class="w-full h-48 flex items-center justify-center text-xs text-neutral-400 italic">
+            Visual Asset Missing ({{ $imagePath }})
+          </div>
+        {{ end }}
+      </div>
+      <!-- DATA & STACK -->
+      {{/*
+      <div class="mb-4 mt-4">
+        <strong class="text-sm uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block">The Data & Stack:</strong>
+        <ul class="list-disc list-inside text-sm mt-1 text-neutral-700 dark:text-neutral-300 font-medium">
+          {{ range .stack }}
+            <li>{{ . }}</li>
+          {{ end }}
+        </ul>
+      </div>
+      */}}
+      <!-- DATA & STACK -->
+      <div class="mb-5 mt-4">
+        <strong class="text-sm uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block mb-2">Software Toolkit:</strong>
+        <div class="flex flex-wrap gap-1.5">
+          {{ range .stack }}
+            <span class="inline-flex items-center rounded-md bg-neutral-50 px-2 py-0.5 text-sm font-semibold text-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700/60 shadow-2xs">
+              {{ . }}
+            </span>
+          {{ end }}
+        </div>
+      </div>
+
+      <!-- METHODOLOGY -->
+      <div class="mb-4">
+        <strong class="text-sm uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block">Methodology:</strong>
+        <p class="text-sm mt-1 text-neutral-700 dark:text-neutral-300 font-medium">{{ .methodology }}</p>
+      </div>
+
+      <!-- ACTION BUTTONS SECTION -->
+      <div class="flex flex-wrap justify-center gap-2 mb-5">
+        <!-- 2. DYNAMIC GITHUB ICON LOADING -->
+        {{ if .github_url }}
+        <a href="{{ .github_url }}" target="_blank" rel="noopener noreferrer" 
+           class="not-prose inline-flex items-center gap-2 rounded-xl px-5 py-3 text-xs font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-2 border border-neutral-300 bg-white text-neutral-800 hover:border-primary-400 hover:text-primary-600 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:hover:text-primary-400">
+          {{ $githubIcon := resources.GetMatch "icons/github.svg" }}
+          {{ if $githubIcon }}
+            <span class="mr-2 w-4 h-4 fill-current inline-flex items-center justify-center [&>svg]:w-4 [&>svg]:h-4">
+              {{ $githubIcon.Content | safeHTML }}
+            </span>
+          {{ end }}
+          View Code on GitHub
+        </a>
+        {{ end }}
+
+        <!-- 3. OPTIONAL PUBLICATION LINK BUTTON -->
+        {{ if .publication_url }}
+        <a href="{{ .publication_url }}" target="_blank" rel="noopener noreferrer" 
+           class="not-prose inline-flex items-center gap-2 rounded-xl px-5 py-3 text-xs font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-2 border border-neutral-300 bg-white text-neutral-800 hover:border-primary-400 hover:text-primary-600 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:hover:text-primary-400">
+          {{ $pubIcon := resources.GetMatch "icons/doi.svg" }}
+          {{ if $pubIcon }}
+            <span class="mr-2 w-4 h-4 fill-current inline-flex items-center justify-center [&>svg]:w-4 [&>svg]:h-4">
+              {{ $pubIcon.Content | safeHTML }}
+            </span>
+          {{ end }}
+          Read Publication
+        </a>
+        {{ end }}
+
+        <!-- 4. OPTIONAL WORKFLOW LINK BUTTON -->
+        {{ if .workflow_url }}
+        <a href="{{ .workflow_url }}" target="_blank" rel="noopener noreferrer" 
+           class="not-prose inline-flex items-center gap-2 rounded-xl px-5 py-3 text-xs font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-2 border border-neutral-300 bg-white text-neutral-800 hover:border-primary-400 hover:text-primary-600 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:hover:text-primary-400">
+          {{ $workflowIcon := resources.GetMatch "icons/code.svg" }}
+          {{ if $workflowIcon }}
+            <span class="mr-2 w-4 h-4 fill-current inline-flex items-center justify-center [&>svg]:w-4 [&>svg]:h-4">
+              {{ $workflowIcon.Content | safeHTML }}
+            </span>
+          {{ end }}
+          Reproducible Workflows
+        </a>
+        {{ end }}
+
+      </div>
+    </div>
+
+    <div class="mt-auto pt-4 border-t border-neutral-100 dark:border-neutral-700/50">
+      <strong class="text-sm uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block">Impact & Insight:</strong>
+      <p class="text-sm mt-1 text-neutral-700 dark:text-neutral-300 font-medium">
+        {{ .impact }}
+      </p>
+    </div>
+  </div>
+  {{ end }}
+</div>

@@ -47,8 +47,6 @@ COMING SOON
   - **Data Transfer & Automation:** Bash scripting, rsync, Globus   
   - **Remote Systems:** Linux/Unix CLI, SSH, resource optimization   
   {{< /accordionItem >}}
-
-
 {{< /accordion >}}
 
 

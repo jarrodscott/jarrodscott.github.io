@@ -190,7 +190,7 @@
           
           {{ if $doi_url }}
             <a href="{{ $doi_url }}" target="_blank" class="inline-flex items-center no-underline hover:text-primary-500">
-              {{- with resources.Get "icons/doi.svg" -}}
+              {{- with resources.Get "icons/link.svg" -}}
                 <span class="inline-block align-middle dynamic-icon-wrapper">{{ .Content | safeHTML }}</span>
               {{- end -}}
               DOI

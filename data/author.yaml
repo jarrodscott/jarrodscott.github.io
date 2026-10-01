@@ -44,7 +44,7 @@ education:
 
 aboutButtons:
   - title: "Appointments, Education, & Training"
-    description: "Detailed information about my **research** & **teaching** experience, **education**, additional **training & certifications**, & **fellowships**."
+    description: "Detailed information about my **research experience**, **education**, additional **training & certifications**, & **fellowships**."
     icon: "graduation-cap"
     url: "/research-portfolio/experience/"
     label: "Learn more"
