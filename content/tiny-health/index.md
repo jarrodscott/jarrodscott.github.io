@@ -47,7 +47,7 @@ Technologies I use to analyze data & build reproducible workflows.
 
 ## Learn More
 
-If you are interested in learning more about my work here are a few links to get you started. 
+If you are interested in learning more about my work, here are a few links to get you started. 
 
 {{< feature-grid columns="3" >}}
 

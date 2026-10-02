@@ -18,7 +18,6 @@ projects:
       - "Phylogenomics"
       - "Functional analysis"
       - "Metabolic profiling"
-
     stack:
       - "R/Python"
       - "Cutadapt"
@@ -40,7 +39,6 @@ projects:
       - "Pfam"
       - "COG"
       - "KEGG/KOfam"
-
     methodology: "I processed raw 16S rRNA amplicon sequencing data using DADA2, assessed taxonomic diversity, computed alpha & beta diversity, and assessed differential abundance analysis. I also processed raw shotgun metagenomic sequences, reconstructed MAGs, performed functional annotation of assembled contigs, and phylogenomic analysis."
     github_url: "https://github.com/hypocolypse/web"
     publication_url: "https://doi.org/10.1038/s41467-021-24777-3" 
@@ -66,7 +64,6 @@ projects:
       - "Phyloseq"
       - "ARB-Silva"
       - "LEfSe"
-
     methodology: "I processed raw 16S rRNA amplicon sequencing data using DADA2, assessed taxonomic diversity, computed alpha & beta diversity, and assessed differential abundance analysis. "
     github_url: "https://github.com/projectdigest/web/"
     publication_url: "https://doi.org/10.1098/rspb.2019.2367" 
