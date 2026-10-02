@@ -27,7 +27,7 @@ I put together a list of three projects that I hope highlight the scope of my wo
 {{< stat value="200+" label="Co-authors" >}}{{< /stat >}}
 {{< /stats >}}
 
-{{< cta url="/research-portfolio/publications" label="See all publications" >}}
+{{< cta url="/research/publications" label="See all publications" >}}
 
 ## Bioinformatic Tools
 
@@ -51,15 +51,15 @@ If you are interested in learning more about my work here are a few links to get
 
 {{< feature-grid columns="3" >}}
 
-{{< feature icon="graduation-cap" title="Experience" url="/research-portfolio/experience/" >}}
+{{< feature icon="graduation-cap" title="Experience" url="/research/experience/" >}}
 Details about my research experience, education, training, & certifications.
 {{< /feature >}}
 
-{{< feature icon="palette" title="Data Visualization" url="/research-portfolio/visuals/" label="Learn more" >}}
+{{< feature icon="palette" title="Data Visualization" url="/research/visuals/" label="Learn more" >}}
 A potfolio of some visualizations I have created.
 {{< /feature >}}
 
-{{< feature icon="chalkboard" title="Data-Driven Web Products" url="/research-portfolio/products/"  >}}
+{{< feature icon="chalkboard" title="Data-Driven Web Products" url="/research/products/"  >}}
 Collection of reproducible workflows and other data-driven web products.
 {{< /feature >}}
 

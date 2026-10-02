@@ -6,7 +6,7 @@ cards:
     externalUrl: "https://istmobiome.rbind.io/"
     showSummary: true
     badge: "project"    
-    featureImage: "images/research-portfolio/products/istmobiome.png"
+    featureImage: "images/research/products/istmobiome.png"
     toolLink: Coded in [blogdown](https://bookdown.org/yihui/blogdown/) & [Hugo](https://gohugo.io/)
     githubRepo: Link to [GitHub Repo](https://github.com/istmobiome/istmobiome-web)
 
@@ -16,17 +16,17 @@ cards:
     externalUrl: "https://jarrodscott.github.io/RaMP-UP-2024"
     showSummary: true
     badge: "slides"    
-    featureImage: "images/research-portfolio/products/ramp-up.jpg"
+    featureImage: "images/research/products/ramp-up.jpg"
     toolLink: Coded in [Quarto](https://quarto.org/)
     githubRepo: Link to [GitHub Repo](https://github.com/jarrodscott/RaMP-UP-2024)
 
   - title: "BocasBiome"
     date: 2022-06-25
-    summary: "Reproducible bioinformatic workflows for the study [***The gut microbiome stability of a butterflyfish is disrupted on severely degraded Caribbean reef habitats***](/research-portfolio/publications/clever-gut-2022/)."
+    summary: "Reproducible bioinformatic workflows for the study [***The gut microbiome stability of a butterflyfish is disrupted on severely degraded Caribbean reef habitats***](/research/publications/clever-gut-2022/)."
     externalUrl: "https://bocasbiome.github.io/"
     showSummary: true
     badge: "workflow"
-    featureImage: "images/research-portfolio/products/bocasbiome.png"
+    featureImage: "images/research/products/bocasbiome.png"
     toolLink: Coded in  [Distill for R Markdown](https://rstudio.github.io/distill/)
     githubRepo: Link to [GitHub Repo](https://github.com/bocasbiome)
 
@@ -36,27 +36,27 @@ cards:
     externalUrl: "https://jarrodscott.github.io/stri-mcgill-2022/"
     showSummary: true
     badge: "tutorial"    
-    featureImage: "images/research-portfolio/products/neo-2022.png"  
+    featureImage: "images/research/products/neo-2022.png"  
     toolLink: Coded in  [Distill for R Markdown](https://rstudio.github.io/distill/)
     githubRepo: Link to [GitHub Repo](https://github.com/jarrodscott/stri-mcgill-2022)
 
   - title: "SWELTR"
     date: 2022-06-25
-    summary: "Reproducible bioinformatic workflows for the study [***Microbial diversity declines in warmed tropical soil and respiration rise exceed predictions as communities adapt***](/research-portfolio/publications/nottingham-microbial-2022/)."
+    summary: "Reproducible bioinformatic workflows for the study [***Microbial diversity declines in warmed tropical soil and respiration rise exceed predictions as communities adapt***](/research/publications/nottingham-microbial-2022/)."
     externalUrl: "https://sweltr.github.io/high-temp/"
     showSummary: true
     badge: "workflow"    
-    featureImage: "images/research-portfolio/products/sweltr.png"  
+    featureImage: "images/research/products/sweltr.png"  
     toolLink: Coded in [Quarto](https://quarto.org/)
     githubRepo: Link to [GitHub Repo](https://github.com/sweltr/high-temp)
 
   - title: "Hypocolypse"
     date: 2021-06-25
-    summary: "Reproducible bioinformatic workflows for the study [***Rapid ecosystem-scale consequences of acute deoxygenation on a Caribbean reef***](/research-portfolio/publications/johnson-rapid-2021/)."
+    summary: "Reproducible bioinformatic workflows for the study [***Rapid ecosystem-scale consequences of acute deoxygenation on a Caribbean reef***](/research/publications/johnson-rapid-2021/)."
     externalUrl: "https://hypocolypse.github.io"
     showSummary: true
     badge: "workflow"    
-    featureImage: "images/research-portfolio/products/hypocolypse.png"  
+    featureImage: "images/research/products/hypocolypse.png"  
     toolLink: Coded in  [Distill for R Markdown](https://rstudio.github.io/distill/)
     githubRepo: Link to [GitHub Repo](https://github.com/hypocolypse/web)
 
@@ -66,17 +66,17 @@ cards:
     externalUrl: "https://jarrodscott.github.io/cacao-fermentation/"
     showSummary: true
     badge: "slides"
-    featureImage: "images/research-portfolio/products/cacao.png"
+    featureImage: "images/research/products/cacao.png"
     toolLink:  Coded in [reveal.js](https://github.com/hakimel/reveal.js)
     githubRepo: Link to [GitHub Repo](https://github.com/jarrodscott/cacao-fermentation)
 
   - title: "Project DIGEST"
     date: 2020-06-25
-    summary: "Reproducible bioinformatic workflows for the study [***Intestinal microbes: an axis of functional diversity among large marine consumers***](/research-portfolio/publications/scott-intestinal-2020/)."
+    summary: "Reproducible bioinformatic workflows for the study [***Intestinal microbes: an axis of functional diversity among large marine consumers***](/research/publications/scott-intestinal-2020/)."
     externalUrl: "https://projectdigest.github.io/"
     showSummary: true
     badge: "workflow"    
-    featureImage: "images/research-portfolio/products/digest.png"  
+    featureImage: "images/research/products/digest.png"  
     toolLink:  Coded in [RMarkdown](http://rmarkdown.rstudio.com/)
     githubRepo: Link to [GitHub Repo](https://github.com/projectdigest/web/tree/master/build)
 
@@ -86,7 +86,7 @@ cards:
     externalUrl: "https://jarrodscott.github.io/data-curation-lockdown/"
     showSummary: true
     badge: "tutorial"
-    featureImage: "images/research-portfolio/products/data-curation.png"
+    featureImage: "images/research/products/data-curation.png"
     toolLink:  Coded in [blogdown](https://bookdown.org/yihui/blogdown/) & [Hugo](https://gohugo.io/)
     githubRepo: Link to [GitHub Repo](https://github.com/jarrodscott/data-curation-lockdown)
 
@@ -96,7 +96,7 @@ cards:
     externalUrl: "https://jarrodscott.github.io/isthmus-rising/"
     showSummary: true
     badge: "slides"    
-    featureImage: "images/research-portfolio/products/isthmus.png"  
+    featureImage: "images/research/products/isthmus.png"  
     toolLink:  Coded in [xaringan](https://github.com/yihui/xaringan).
     githubRepo: Link to [GitHub Repo](https://github.com/jarrodscott/isthmus-rising)
 
@@ -106,7 +106,7 @@ cards:
     externalUrl: "https://jarrodscott.github.io/rethink-diversity/"
     showSummary: true
     badge: "slides"    
-    featureImage: "images/research-portfolio/products/rethink.jpg"  
+    featureImage: "images/research/products/rethink.jpg"  
     toolLink:  Coded in [xaringan](https://github.com/yihui/xaringan).    
     githubRepo: Link to [GitHub Repo](https://github.com/jarrodscott/rethink-diversity)
     

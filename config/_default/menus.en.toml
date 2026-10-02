@@ -12,7 +12,7 @@
 
 [[main]]
   name = "Research"
-  pageRef = "research-portfolio"
+  pageRef = "research"
   weight = 15
 
 [[main]]
