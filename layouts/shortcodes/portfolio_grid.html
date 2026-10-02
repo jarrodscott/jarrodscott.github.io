@@ -12,7 +12,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5 mt-2 border-t border-b border-neutral-100 dark:border-neutral-700/50 py-4">
         <!-- MODALITIES -->
         <div>
-          <strong class="text-sm uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block mb-2">Data Modalities:</strong>
+          <strong class="text-md uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block mb-2">Data Modalities:</strong>
           <div class="flex flex-wrap gap-1.5">
             {{ range .modalities }}
               <span class="inline-flex items-center rounded-md bg-neutral-100 px-2 py-0.5 text-sm font-medium text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 border border-neutral-200/50 dark:border-neutral-600/30">
@@ -24,7 +24,7 @@
 
         <!-- APPROACHES -->
         <div>
-          <strong class="text-sm uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block mb-2">Analytical Approaches:</strong>
+          <strong class="text-md uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block mb-2">Analytical Approaches:</strong>
           <div class="flex flex-wrap gap-1.5">
             {{ range .approaches }}
               <span class="inline-flex items-center rounded-md bg-neutral-100 px-2 py-0.5 text-sm font-medium text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 border border-neutral-200/50 dark:border-neutral-600/30">
@@ -77,7 +77,7 @@
       */}}
       <!-- DATA & STACK -->
       <div class="mb-5 mt-4">
-        <strong class="text-sm uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block mb-2">Software Toolkit:</strong>
+        <strong class="text-md uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block mb-2">Software Toolkit:</strong>
         <div class="flex flex-wrap gap-1.5">
           {{ range .stack }}
             <span class="inline-flex items-center rounded-md bg-neutral-50 px-2 py-0.5 text-sm font-semibold text-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700/60 shadow-2xs">
@@ -89,8 +89,8 @@
 
       <!-- METHODOLOGY -->
       <div class="mb-4">
-        <strong class="text-sm uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block">Methodology:</strong>
-        <p class="text-sm mt-1 text-neutral-700 dark:text-neutral-300 font-medium">{{ .methodology }}</p>
+        <strong class="text-md uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block">Methodology:</strong>
+        <p class="text-md mt-1 text-neutral-700 dark:text-neutral-300 font-medium">{{ .methodology }}</p>
       </div>
 
       <!-- ACTION BUTTONS SECTION -->
@@ -141,8 +141,8 @@
     </div>
 
     <div class="mt-auto pt-4 border-t border-neutral-100 dark:border-neutral-700/50">
-      <strong class="text-sm uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block">Impact & Insight:</strong>
-      <p class="text-sm mt-1 text-neutral-700 dark:text-neutral-300 font-medium">
+      <strong class="text-md uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-bold block">Impact & Insight:</strong>
+      <p class="text-md mt-1 text-neutral-700 dark:text-neutral-300 font-medium">
         {{ .impact }}
       </p>
     </div>
