@@ -112,6 +112,9 @@ categories:
 
   - name: Package & Environment Management
     items:
+      - name: Targets
+        icon: techstack/targets
+        link: https://docs.ropensci.org/targets/
       - name: Conda
         icon: techstack/conda
         link: https://anaconda.org/anaconda/conda

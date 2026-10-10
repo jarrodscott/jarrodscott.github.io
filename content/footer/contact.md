@@ -6,7 +6,6 @@ weight: 10
 showTableOfContents: false
 ---
 
-
 <!-- Parent layout -->
 <div class="flex flex-col lg:flex-row gap-4 w-full items-start">
 
@@ -18,7 +17,7 @@ showTableOfContents: false
 
   <!-- 2/3 Right Column -->
   <div class="w-full" style="flex: 2;">
-    {{< contact-form key="607b3c0a-1f34-4c09-b449-648d7f010c09" redirect="thank-you/" description="Have a question or want to work together? I would love to hear from you! Drop me a note and I'll get back to you within a day or two. If you prefer [check out my research page](research/) for more contact options. " >}}
+    {{< contact-form key="607b3c0a-1f34-4c09-b449-648d7f010c09" redirect="thank-you/" description="Have a question or want to work together? I would love to hear from you! Drop me a note and I'll get back to you within a day or two. If you prefer other contact options [check out my research page](research/). " >}}
 
   </div>
 

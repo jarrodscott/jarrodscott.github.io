@@ -11,7 +11,7 @@ Your privacy is important to me. This Privacy Policy explains how **Jarrod J. Sc
 
 1. Information Gathered Through Contact Forms
 
-If you choose to contact me using the [Contact Form](/contact) on this website, you will be asked to provide your name, email address, and the content of your message.
+If you choose to contact me using the [Contact Form](/footer/contact) on this website, you will be asked to provide your name, email address, and the content of your message.
 
 - Purpose: This information is used strictly to reply to your inquiry, collaborate on academic research, or answer questions about my work.
 

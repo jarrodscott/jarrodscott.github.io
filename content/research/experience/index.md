@@ -17,7 +17,9 @@ weight: 10
 
 {{< katex >}}
 
-Microorganisms are a major thread that weave through all biological systems and microbial ecology serves as an intellectual bridge that connects numerous, often, disparate disciplines. The main focus of my research is to understand microbial diversity—how a collection of comparatively simple elements—from nucleotides to genes, proteins, and individual cells—coalesce into remarkably complex and dynamic communities; how the structure of these communities affect host biology, biogeochemical cycles, and ecosystem-level processes; and what mechanisms drive the establishment, organization, and development of these communities. My approach leverages advanced sequencing technologies, bioinformatics, and complexity science to reveal microbial assemblages that are functionally unified and adapted to specific habitats.
+{{< ignore >}}
+The main focus of my research is to understand microbial diversity—how a collection of comparatively simple elements—from nucleotides to genes, proteins, and individual cells—coalesce into remarkably complex and dynamic communities; how the structure of these communities affect host biology, biogeochemical cycles, and ecosystem-level processes; and what mechanisms drive the establishment, organization, and development of these communities. My approach leverages advanced sequencing technologies, bioinformatics, and complexity science to reveal microbial assemblages that are functionally unified and adapted to specific habitats.
+{{< /ignore >}}
 
 ## Appointments
 
@@ -28,8 +30,6 @@ Microorganisms are a major thread that weave through all biological systems and 
 As a Research Associate at the Smithsonian Tropical Research Institute I worked on two main projects-one looking at the complex links between phages, their hosts, and the environment. We leveraged the unique ecological context of the Isthmus of Panamá, which narrowly disconnects the productive Tropical Eastern Pacific (EP) and nutrient-poor Tropical Western Atlantic (WA) provinces. We compared patterns of phage and microbial communities at both global scales (between oceans) and local-scales (between habitats within an ocean). Our results suggested phages are shaped more by dispersal processes than local conditions regardless of spatial scale, while microbial diversity tended to be shaped by local conditions at smaller spatial scales. We provided a framework for addressing the co-variability between phages and microbes in marine systems and identified factors that drive consistent versus disparate trends in community shifts. 
 
 In the other project we carried out a 2-year *in situ* soil warming experiment in a tropical forest in Panamá and found large changes in the soil microbial community and its growth sensitivity, which did not fully explain observed large increases in $CO_2$ emission. Microbial diversity declined markedly warming, demonstrating a breakdown in the positive temperature-diversity relationship observed elsewhere. The microbial community composition shifted with warming, with many taxa no longer detected and others enriched, including thermophilic taxa. This community shift resulted in community adaptation of growth to warmer temperatures, which we used to predict changes in soil $CO_2$ emissions. However, the in situ $CO_2$ emissions exceeded our model predictions threefold, potentially driven by abiotic acceleration of enzymatic activity. Our results suggested that warming of tropical forests will have rapid, detrimental consequences both for soil microbial biodiversity and future climate.
-
-
 
 {{< /timelineItem >}}
 
