@@ -1,10 +1,126 @@
 {{- $title := .Get "title" -}}
+{{- $dataKey := .Get "data" -}}
 
 <div class="my-4">
   {{- if $title -}}
     <h3 class="text-xl font-bold text-gray-800 mb-2 mt-0">{{ $title }}</h3>
   {{- end -}}
   <div class="flex flex-wrap justify-start items-center" style="gap: 6px !important;">
-    {{ .Inner }}
+    {{- if $dataKey -}}
+      <!-- Look up the data file safely -->
+      {{- $items := "" -}}
+      {{- if index site.Data $dataKey -}}
+        {{- $items = index site.Data $dataKey -}}
+      {{- else -}}
+        {{- $parts := split $dataKey "." -}}
+        {{- $current := site.Data -}}
+        {{- range $parts -}}
+          {{- if $current -}}
+            {{- $current = index $current . -}}
+          {{- end -}}
+        {{- end -}}
+        {{- $items = $current -}}
+      {{- end -}}
+
+      <!-- Loop through YAML data and output lightbox items -->
+      {{- if $items -}}
+        {{- range $items -}}
+          {{- $src := "" -}}
+          {{- if .src -}}{{- $src = string .src -}}{{- end -}}
+
+          {{- $caption := "" -}}
+          {{- if .caption -}}{{- $caption = string .caption -}}{{- end -}}
+
+          {{- $gallery := .gallery | default $dataKey -}}
+
+          {{- $ratio := "" -}}
+          {{- if .ratio -}}{{- $ratio = string .ratio -}}{{- end -}}
+
+          {{- $showCaptionBelow := "" -}}
+          {{- if .showCaptionBelow -}}{{- $showCaptionBelow = string .showCaptionBelow -}}{{- end -}}
+
+          {{- $size := 130 -}}
+          {{- if .size -}}{{- $size = int .size -}}{{- end -}}
+
+          <!-- Find image resource from page or parent bundle -->
+          {{- $matchedResource := "" -}}
+          {{- if and $.Page $src -}}
+            {{- if $.Page.Resources -}}
+              {{- $matchedResource = $.Page.Resources.GetMatch $src -}}
+            {{- end -}}
+            {{- if and (not $matchedResource) $.Page.Parent $.Page.Parent.Resources -}}
+              {{- $matchedResource = $.Page.Parent.Resources.GetMatch $src -}}
+            {{- end -}}
+          {{- end -}}
+
+          {{- $image := "" -}}
+          {{- if and $matchedResource (eq $matchedResource.ResourceType "image") -}}
+            {{- $image = $matchedResource -}}
+          {{- end -}}
+
+          {{- $link := "" -}}
+          {{- if $image -}}
+            {{- $link = $image.RelPermalink -}}
+          {{- else -}}
+            {{- $link = $src | relURL -}}
+          {{- end -}}
+
+          {{- $thumbSrc := $link -}}
+          {{- $thumbHeight := $size -}}
+
+          <!-- Handle cropping safely with strict bounds checking -->
+          {{- if and $image (ne $ratio "") -}}
+            {{- $partsRatio := split $ratio "/" -}}
+            {{- if eq (len $partsRatio) 2 -}}
+              {{- $w := float (index $partsRatio 0) -}}
+              {{- $h := float (index $partsRatio 1) -}}
+              {{- if and (gt $w 0.0) (gt $h 0.0) -}}
+                {{- $thumbWidth := int (math.Round (mul (div $w $h) (float $thumbHeight))) -}}
+                <!-- Safety check: ensure width is reasonable (e.g., between 1 and 4000px) -->
+                {{- if and (gt $thumbWidth 0) (lt $thumbWidth 4000) -}}
+                  {{- $cropSpec := printf "%dx%d Fill" $thumbWidth $thumbHeight -}}
+                  {{- $thumbSrc = ($image.Resize $cropSpec).RelPermalink -}}
+                {{- end -}}
+              {{- end -}}
+            {{- end -}}
+          {{- end -}}
+
+          <!-- Process markdown captions safely -->
+          {{- $captionAttr := "" -}}
+          {{- $cleanHTML := "" -}}
+          {{- if (ne $caption "") -}}
+            {{- $cleanHTML = $caption | markdownify -}}
+            {{- $cleanHTML = replace $cleanHTML "'" "&#39;" -}}
+            {{- $captionAttr = printf "data-caption='%s'" $cleanHTML | safeHTMLAttr -}}
+          {{- end -}}
+
+          <!-- Lightbox Item Markup -->
+          <div class="inline-block text-center" style="margin: 3px !important; vertical-align: top;">
+            <a href="{{ $link }}" 
+               data-lightbox="{{ $gallery }}" 
+               {{ $captionAttr }}
+               {{ if strings.HasPrefix $src "http" }}target="_blank" rel="noopener"{{ end }}
+               class="block clear-both">
+              <img src="{{ $thumbSrc }}" 
+                   {{ if (ne $caption "") }}alt="{{ $caption | plainify }}"{{ end }} 
+                   class="rounded shadow-md cursor-pointer transition transform hover:scale-[1.02] mx-auto block max-w-full"
+                   style="{{ if (ne $ratio "") }}aspect-ratio: {{ $ratio }} !important; object-fit: cover !important; height: {{ $thumbHeight }}px;{{ else }}height: auto; max-height: {{ $thumbHeight }}px; width: auto; object-fit: scale-down;{{ end }} margin: 0 auto !important;">
+            </a>
+            
+            <!-- Conditional Text Caption Below -->
+            {{- if and (ne $caption "") (eq $showCaptionBelow "true") -}}
+              <div class="text-sm text-gray-600 mt-1 max-w-[300px] mx-auto leading-tight break-words">
+                {{ $cleanHTML | safeHTML }}
+              </div>
+            {{- end -}}
+          </div>
+        {{- end -}}
+      {{- else -}}
+        <p class="text-red-500">No items found in data file: {{ $dataKey }}</p>
+      {{- end -}}
+    {{- else -}}
+      <!-- Fallback to original manual inner content if no data param is given -->
+      {{ .Inner }}
+    {{- end -}}
   </div>
 </div>
